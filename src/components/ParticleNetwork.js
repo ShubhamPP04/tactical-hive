@@ -6,53 +6,45 @@ const ParticleNetwork = () => {
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
-    let animationFrameId;
     
-    // Set canvas dimensions
-    const setCanvasDimensions = () => {
+    // Set canvas size
+    const handleResize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     };
     
-    setCanvasDimensions();
-    window.addEventListener('resize', setCanvasDimensions);
+    window.addEventListener('resize', handleResize);
+    handleResize();
     
     // Particle settings
-    const particleCount = 100;
-    const particleColor = '#00B4D8';
-    const lineColor = 'rgba(0, 180, 216, 0.15)';
-    const particleRadius = 1.5;
-    const lineWidth = 1;
-    const maxDistance = 150;
+    const particleCount = 80;
+    const particleRadius = 1;
+    const particleColor = '#444444';
+    const lineWidth = 0.5;
+    const maxLineDistance = 200;
     
     // Create particles
-    let particles = [];
+    const particles = [];
+    for (let i = 0; i < particleCount; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.2,
+        vy: (Math.random() - 0.5) * 0.2,
+        radius: Math.random() * particleRadius + 0.5
+      });
+    }
     
-    const createParticles = () => {
-      particles = [];
-      for (let i = 0; i < particleCount; i++) {
-        particles.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          vx: Math.random() * 0.5 - 0.25,
-          vy: Math.random() * 0.5 - 0.25,
-          size: Math.random() * particleRadius + 0.5
-        });
-      }
-    };
-    
-    createParticles();
-    
-    // Animation function
+    // Animation loop
     const animate = () => {
-      // Clear canvas
+      requestAnimationFrame(animate);
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
-      // Update and draw particles
+      // Draw and update particles
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i];
         
-        // Move particles
+        // Update position
         p.x += p.vx;
         p.y += p.vy;
         
@@ -62,75 +54,41 @@ const ParticleNetwork = () => {
         
         // Draw particle
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
         ctx.fillStyle = particleColor;
         ctx.fill();
         
-        // Draw connections
+        // Draw lines between particles
         for (let j = i + 1; j < particles.length; j++) {
           const p2 = particles[j];
           const dx = p.x - p2.x;
           const dy = p.y - p2.y;
           const distance = Math.sqrt(dx * dx + dy * dy);
           
-          if (distance < maxDistance) {
+          if (distance < maxLineDistance) {
             ctx.beginPath();
-            ctx.strokeStyle = lineColor;
-            ctx.globalAlpha = 1 - (distance / maxDistance);
-            ctx.lineWidth = lineWidth;
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(p2.x, p2.y);
+            const lineOpacity = 1 - (distance / maxLineDistance);
+            ctx.strokeStyle = `rgba(255, 255, 255, ${lineOpacity * 0.05})`;
+            ctx.lineWidth = lineWidth;
             ctx.stroke();
-            ctx.globalAlpha = 1;
           }
         }
       }
-      
-      // Data flow effect
-      if (Math.random() < 0.03) {
-        const sourceIdx = Math.floor(Math.random() * particles.length);
-        const targetIdx = Math.floor(Math.random() * particles.length);
-        
-        if (sourceIdx !== targetIdx) {
-          const source = particles[sourceIdx];
-          const target = particles[targetIdx];
-          
-          // Draw data packet
-          const steps = 20;
-          for (let i = 0; i < steps; i++) {
-            setTimeout(() => {
-              if (!canvasRef.current) return;
-              const ctx = canvasRef.current.getContext('2d');
-              
-              const progress = i / steps;
-              const x = source.x + (target.x - source.x) * progress;
-              const y = source.y + (target.y - source.y) * progress;
-              
-              ctx.beginPath();
-              ctx.arc(x, y, 2, 0, Math.PI * 2);
-              ctx.fillStyle = 'rgba(72, 214, 255, ' + (1 - progress) + ')';
-              ctx.fill();
-            }, i * 50);
-          }
-        }
-      }
-      
-      animationFrameId = requestAnimationFrame(animate);
     };
     
     animate();
     
-    // Cleanup
     return () => {
-      window.removeEventListener('resize', setCanvasDimensions);
-      cancelAnimationFrame(animationFrameId);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
   
   return (
     <canvas 
-      ref={canvasRef}
-      className="hero-background"
+      ref={canvasRef} 
+      className="particle-canvas"
       style={{
         position: 'absolute',
         top: 0,

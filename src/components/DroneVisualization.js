@@ -1,11 +1,11 @@
 import React, { useRef, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Environment, Edges } from '@react-three/drei';
-import { Vector3, AdditiveBlending } from 'three';
+import { OrbitControls, Environment } from '@react-three/drei';
+import { Vector3 } from 'three';
 import * as THREE from 'three';
 
-// Holographic material
-const HolographicMaterial = ({ color = '#0DF6E3', opacity = 0.5, wireframe = false }) => {
+// Professional material
+const ProfessionalMaterial = ({ color = '#AAAAAA', opacity = 0.8, wireframe = false }) => {
   return (
     <meshPhysicalMaterial
       color={color}
@@ -13,8 +13,8 @@ const HolographicMaterial = ({ color = '#0DF6E3', opacity = 0.5, wireframe = fal
       opacity={opacity}
       wireframe={wireframe}
       emissive={color}
-      emissiveIntensity={0.5}
-      roughness={0.1}
+      emissiveIntensity={0.2}
+      roughness={0.3}
       metalness={0.8}
       clearcoat={1}
       clearcoatRoughness={0}
@@ -32,7 +32,6 @@ const DroneModel = ({ setHoveredPart }) => {
   const rotorBL = useRef();
   const rotorBR = useRef();
   const cameraRef = useRef();
-  const sensorRef = useRef();
   
   // Animation for rotors
   useFrame((state) => {
@@ -47,17 +46,11 @@ const DroneModel = ({ setHoveredPart }) => {
     
     if (groupRef.current) {
       // Gentle floating motion
-      groupRef.current.rotation.y = Math.sin(time * 0.1) * 0.05;
-      groupRef.current.position.y = Math.sin(time * 0.5) * 0.1;
+      groupRef.current.position.y = Math.sin(time * 0.5) * 0.05;
       
       // Slight tilt based on floating
-      groupRef.current.rotation.x = Math.sin(time * 0.3) * 0.015;
-      groupRef.current.rotation.z = Math.cos(time * 0.4) * 0.015;
-    }
-    
-    // Camera scan effect
-    if (cameraRef.current) {
-      cameraRef.current.children[0].material.opacity = (Math.sin(time * 2) + 1) / 2 * 0.5 + 0.2;
+      groupRef.current.rotation.x = Math.sin(time * 0.3) * 0.01;
+      groupRef.current.rotation.z = Math.cos(time * 0.4) * 0.01;
     }
   });
   
@@ -70,15 +63,14 @@ const DroneModel = ({ setHoveredPart }) => {
         onPointerOut={() => setHoveredPart(null)}
       >
         <boxGeometry args={[1.5, 0.2, 1.5]} />
-        <HolographicMaterial color="#0DF6E3" opacity={0.8} wireframe={false} />
-        <Edges color="#0DF6E3" threshold={30} scale={1.02} />
+        <ProfessionalMaterial color="#AAAAAA" opacity={0.9} wireframe={false} />
       </mesh>
       
       {/* Body details */}
       <mesh position={[0, 0.13, 0]}>
         <boxGeometry args={[0.8, 0.1, 0.8]} />
         <meshStandardMaterial 
-          color="#0E1428" 
+          color="#222222" 
           metalness={0.9} 
           roughness={0.3} 
         />
@@ -95,17 +87,10 @@ const DroneModel = ({ setHoveredPart }) => {
           <mesh key={idx} position={position}>
             <boxGeometry args={[0.15, 0.1, 0.8]} />
             <meshStandardMaterial 
-              color="#1C2A4A" 
+              color="#444444" 
               metalness={0.7} 
               roughness={0.3}
-              emissive="#0DF6E3"
-              emissiveIntensity={0.1}
             />
-            {/* LED strip on arms */}
-            <mesh position={[0, 0.06, 0]} scale={[0.8, 1, 0.8]}>
-              <boxGeometry args={[0.05, 0.02, 0.7]} />
-              <meshBasicMaterial color="#0DF6E3" />
-            </mesh>
           </mesh>
         ))}
       </group>
@@ -121,11 +106,11 @@ const DroneModel = ({ setHoveredPart }) => {
         >
           <mesh>
             <cylinderGeometry args={[0.03, 0.03, 0.05, 16]} />
-            <meshStandardMaterial color="#0E1428" metalness={0.9} roughness={0.1} />
+            <meshStandardMaterial color="#111111" metalness={0.9} roughness={0.1} />
           </mesh>
           <mesh position={[0, 0.02, 0]}>
-            <cylinderGeometry args={[0.4, 0.4, 0.02, 16]} />
-            <HolographicMaterial color="#0DF6E3" opacity={0.5} wireframe={true} />
+            <cylinderGeometry args={[0.4, 0.4, 0.01, 16]} />
+            <ProfessionalMaterial color="#666666" opacity={0.5} wireframe={true} />
           </mesh>
         </group>
         
@@ -138,11 +123,11 @@ const DroneModel = ({ setHoveredPart }) => {
         >
           <mesh>
             <cylinderGeometry args={[0.03, 0.03, 0.05, 16]} />
-            <meshStandardMaterial color="#0E1428" metalness={0.9} roughness={0.1} />
+            <meshStandardMaterial color="#111111" metalness={0.9} roughness={0.1} />
           </mesh>
           <mesh position={[0, 0.02, 0]}>
-            <cylinderGeometry args={[0.4, 0.4, 0.02, 16]} />
-            <HolographicMaterial color="#0DF6E3" opacity={0.5} wireframe={true} />
+            <cylinderGeometry args={[0.4, 0.4, 0.01, 16]} />
+            <ProfessionalMaterial color="#666666" opacity={0.5} wireframe={true} />
           </mesh>
         </group>
         
@@ -155,11 +140,11 @@ const DroneModel = ({ setHoveredPart }) => {
         >
           <mesh>
             <cylinderGeometry args={[0.03, 0.03, 0.05, 16]} />
-            <meshStandardMaterial color="#0E1428" metalness={0.9} roughness={0.1} />
+            <meshStandardMaterial color="#111111" metalness={0.9} roughness={0.1} />
           </mesh>
           <mesh position={[0, 0.02, 0]}>
-            <cylinderGeometry args={[0.4, 0.4, 0.02, 16]} />
-            <HolographicMaterial color="#0DF6E3" opacity={0.5} wireframe={true} />
+            <cylinderGeometry args={[0.4, 0.4, 0.01, 16]} />
+            <ProfessionalMaterial color="#666666" opacity={0.5} wireframe={true} />
           </mesh>
         </group>
         
@@ -172,382 +157,207 @@ const DroneModel = ({ setHoveredPart }) => {
         >
           <mesh>
             <cylinderGeometry args={[0.03, 0.03, 0.05, 16]} />
-            <meshStandardMaterial color="#0E1428" metalness={0.9} roughness={0.1} />
+            <meshStandardMaterial color="#111111" metalness={0.9} roughness={0.1} />
           </mesh>
           <mesh position={[0, 0.02, 0]}>
-            <cylinderGeometry args={[0.4, 0.4, 0.02, 16]} />
-            <HolographicMaterial color="#0DF6E3" opacity={0.5} wireframe={true} />
+            <cylinderGeometry args={[0.4, 0.4, 0.01, 16]} />
+            <ProfessionalMaterial color="#666666" opacity={0.5} wireframe={true} />
           </mesh>
         </group>
       </group>
       
-      {/* Camera & Sensors */}
-      <group>
-        {/* Front Camera */}
-        <group 
-          ref={cameraRef}
-          position={[0, -0.1, -0.8]}
-          onPointerOver={() => setHoveredPart('camera')}
-          onPointerOut={() => setHoveredPart(null)}
-        >
-          <mesh>
-            <sphereGeometry args={[0.15, 16, 16, 0, Math.PI * 2, 0, Math.PI / 2]} />
-            <meshStandardMaterial 
-              color="#48D6FF" 
-              transparent={true} 
-              opacity={0.8} 
-              emissive="#48D6FF"
-              emissiveIntensity={0.5}
-            />
-          </mesh>
-          <mesh position={[0, 0, -0.1]} rotation={[0, 0, 0]}>
-            <cylinderGeometry args={[0.08, 0.1, 0.1, 16]} />
-            <meshStandardMaterial color="#0E1428" metalness={0.8} roughness={0.2} />
-          </mesh>
-        </group>
-        
-        {/* Sensors */}
-        <group 
-          ref={sensorRef}
-          position={[0, 0.15, 0]}
-          onPointerOver={() => setHoveredPart('sensors')}
-          onPointerOut={() => setHoveredPart(null)}
-        >
-          <mesh>
-            <boxGeometry args={[0.5, 0.1, 0.5]} />
-            <meshStandardMaterial 
-              color="#0B132B" 
-              metalness={0.7} 
-              roughness={0.3}
-            />
-          </mesh>
-          {/* Sensor details */}
-          <mesh position={[0, 0.06, 0]}>
-            <boxGeometry args={[0.3, 0.05, 0.3]} />
-            <meshStandardMaterial 
-              color="#0E1A2B" 
-              metalness={0.9} 
-              roughness={0.1}
-              emissive="#FF2A6D"
-              emissiveIntensity={0.2}
-            />
-          </mesh>
-          {/* Sensor light */}
-          <mesh position={[0, 0.1, 0]}>
-            <sphereGeometry args={[0.05, 8, 8]} />
-            <meshBasicMaterial color="#FF2A6D" />
-          </mesh>
-        </group>
-      </group>
-      
-      {/* Data connection lines */}
-      <DataConnectionLines />
-      
-      {/* Signal visualization */}
-      <SignalVisualizer />
-    </group>
-  );
-};
-
-// Data connection lines between components
-const DataConnectionLines = () => {
-  const points = [
-    // Center to rotors
-    { start: [0, 0.1, 0], end: [-0.75, 0.1, -1.1] },
-    { start: [0, 0.1, 0], end: [0.75, 0.1, -1.1] },
-    { start: [0, 0.1, 0], end: [-0.75, 0.1, 1.1] },
-    { start: [0, 0.1, 0], end: [0.75, 0.1, 1.1] },
-    // Center to camera
-    { start: [0, 0.1, 0], end: [0, -0.1, -0.8] },
-    // Center to sensors
-    { start: [0, 0.1, 0], end: [0, 0.15, 0] }
-  ];
-  
-  const lineRef = useRef();
-  
-  useFrame(({ clock }) => {
-    if (lineRef.current && lineRef.current.children) {
-      lineRef.current.children.forEach((line, i) => {
-        // Pulse effect on lines
-        const t = clock.getElapsedTime() * 2 + i;
-        const pulse = (Math.sin(t) + 1) / 2;
-        
-        // Update opacity based on pulse
-        if (line.material) {
-          line.material.opacity = pulse * 0.6 + 0.2;
-          line.material.dashOffset = -t * 0.5; // Animated dash effect
-        }
-      });
-    }
-  });
-  
-  return (
-    <group ref={lineRef}>
-      {points.map((point, idx) => (
-        <line key={idx}>
-          <bufferGeometry attach="geometry">
-            <bufferAttribute
-              attachObject={['attributes', 'position']}
-              count={2}
-              array={new Float32Array([...point.start, ...point.end])}
-              itemSize={3}
-            />
-          </bufferGeometry>
-          <lineDashedMaterial
-            color="#0DF6E3"
-            transparent
-            opacity={0.5}
-            dashSize={0.05}
-            gapSize={0.05}
-            blending={AdditiveBlending}
+      {/* Camera */}
+      <group 
+        ref={cameraRef}
+        position={[0, -0.1, -0.8]}
+        onPointerOver={() => setHoveredPart('camera')}
+        onPointerOut={() => setHoveredPart(null)}
+      >
+        <mesh>
+          <sphereGeometry args={[0.15, 16, 16, 0, Math.PI * 2, 0, Math.PI / 2]} />
+          <meshStandardMaterial 
+            color="#555555" 
+            transparent={true} 
+            opacity={0.9} 
           />
-        </line>
-      ))}
-    </group>
-  );
-};
-
-// Enhanced data signal visualization
-const SignalVisualizer = () => {
-  const numPoints = 120;
-  const radius = 2.5;
-  const height = 2.5;
-  
-  // Create helix points
-  const points = [];
-  for (let i = 0; i < numPoints; i++) {
-    const angle = (i / numPoints) * Math.PI * 4; // 2 full turns
-    const yPos = (i / numPoints) * height - height / 2;
-    points.push(new Vector3(
-      Math.cos(angle) * radius,
-      yPos,
-      Math.sin(angle) * radius
-    ));
-  }
-  
-  const lineRef = useRef();
-  const particlesRef = useRef();
-  
-  useFrame(({ clock }) => {
-    const t = clock.getElapsedTime();
-    
-    if (lineRef.current) {
-      // Rotate the entire visualization
-      lineRef.current.rotation.y = t * 0.1;
-      
-      // Pulse effect
-      const geometry = lineRef.current.geometry;
-      const positions = geometry.attributes.position.array;
-      
-      for (let i = 0; i < positions.length; i += 3) {
-        const i3 = i / 3;
-        const angle = (i3 / numPoints) * Math.PI * 4 + t * 0.5;
-        const pulseRadius = radius + Math.sin(i3 * 0.2 + t * 2) * 0.15;
-        
-        positions[i] = Math.cos(angle) * pulseRadius;
-        positions[i + 2] = Math.sin(angle) * pulseRadius;
-      }
-      
-      geometry.attributes.position.needsUpdate = true;
-    }
-    
-    if (particlesRef.current) {
-      // Update data packet particles
-      const particles = particlesRef.current.children;
-      particles.forEach((particle, i) => {
-        // Move particles along the helix
-        const speed = 0.2 + (i % 3) * 0.1;
-        particle.userData.offset = (particle.userData.offset + speed * 0.01) % 1;
-        
-        const idx = Math.floor(particle.userData.offset * numPoints);
-        const nextIdx = (idx + 1) % numPoints;
-        const ratio = (particle.userData.offset * numPoints) % 1;
-        
-        const currentPos = points[idx];
-        const nextPos = points[nextIdx];
-        
-        particle.position.lerpVectors(currentPos, nextPos, ratio);
-        
-        // Pulse scale and opacity
-        const pulse = (Math.sin(t * 3 + i) + 1) / 2;
-        particle.scale.setScalar(0.04 + pulse * 0.02);
-        if (particle.material) {
-          particle.material.opacity = 0.6 + pulse * 0.4;
-        }
-      });
-    }
-  });
-  
-  return (
-    <group>
-      {/* Main helix line */}
-      <line ref={lineRef}>
-        <bufferGeometry>
-          <bufferAttribute
-            attach="attributes-position"
-            count={points.length}
-            array={new Float32Array(points.length * 3)}
-            itemSize={3}
-            usage={THREE.DynamicDrawUsage}
-          />
-        </bufferGeometry>
-        <lineDashedMaterial 
-          color="#0DF6E3" 
-          transparent 
-          opacity={0.4}
-          dashSize={0.2}
-          gapSize={0.1}
-          blending={AdditiveBlending}
-        />
-      </line>
-      
-      {/* Data packets (particles) moving along the helix */}
-      <group ref={particlesRef}>
-        {Array.from({ length: 15 }).map((_, i) => (
-          <mesh key={i} userData={{ offset: i / 15 }}>
-            <sphereGeometry args={[0.05, 8, 8]} />
-            <meshBasicMaterial 
-              color={i % 5 === 0 ? "#FF2A6D" : "#0DF6E3"}
-              transparent
-              opacity={0.8}
-              blending={AdditiveBlending}
-            />
-          </mesh>
-        ))}
+        </mesh>
+        <mesh position={[0, 0, -0.05]}>
+          <cylinderGeometry args={[0.05, 0.05, 0.1, 16]} />
+          <meshStandardMaterial color="#222222" />
+        </mesh>
       </group>
     </group>
   );
 };
 
-// Main Drone Visualization Component
 const DroneVisualization = () => {
   const [hoveredPart, setHoveredPart] = useState(null);
+  const sectionRef = useRef(null);
   
-  // Information for each drone part
-  const partInfo = {
+  // Information for different drone parts
+  const droneInfo = {
     core: {
-      title: "Hive Core AI System",
-      description: "Central processing unit with distributed intelligence algorithms for autonomous decision-making and swarm coordination."
+      title: 'Central Processing Unit',
+      description: 'Advanced computing core with multi-threaded processing capabilities, secure communication modules, and redundant systems for mission-critical operations.'
     },
     propulsion: {
-      title: "Adaptive Propulsion System",
-      description: "Self-regulating rotors with noise-reduction technology and high-efficiency motors for extended deployment time."
+      title: 'Propulsion System',
+      description: 'High-efficiency motors with dynamic thrust capabilities, providing precision handling and extended operational range with minimal acoustic signature.'
     },
     camera: {
-      title: "Enhanced Vision System",
-      description: "AI-powered multi-spectrum camera with real-time object recognition, thermal imaging, and target tracking capabilities."
-    },
-    sensors: {
-      title: "Advanced Sensor Array",
-      description: "Integrated LIDAR, proximity sensors, and environmental monitoring for obstacle avoidance and situational awareness."
+      title: 'Imaging System',
+      description: 'Multi-spectrum camera array with advanced image processing, including thermal imaging, object recognition, and real-time target tracking capabilities.'
     }
   };
-
+  
   return (
-    <section id="drone-viz" className="drone-viz section">
+    <section id="drone-viz" className="drone-visualization section" ref={sectionRef}>
       <div className="container">
-        <h2 className="section-title">Intelligent <span className="text-accent">Drone</span> Technology</h2>
-        <p className="section-subtitle" style={{ marginBottom: '2rem', textAlign: 'center' }}>
-          Explore our cutting-edge drone system with AI-powered capabilities
-        </p>
+        <h2 className="section-title">Technology</h2>
         
-        <div className="drone-canvas">
-          <Canvas camera={{ position: [0, 1, 5], fov: 45 }}>
-            <ambientLight intensity={0.4} />
-            <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} castShadow />
-            <pointLight position={[-10, -10, -10]} intensity={0.5} />
-            <pointLight position={[0, -3, 0]} intensity={0.3} color="#0DF6E3" />
-            
-            <DroneModel setHoveredPart={setHoveredPart} />
-            
-            <Environment preset="night" />
-            <OrbitControls 
-              enablePan={false}
-              minDistance={3}
-              maxDistance={8}
-              minPolarAngle={Math.PI / 6}
-              maxPolarAngle={Math.PI / 2}
-            />
-            
-            {/* Grid for reference */}
-            <gridHelper args={[10, 20, '#304357', '#1A2A3A']} position={[0, -2, 0]} />
-          </Canvas>
+        <div className="drone-container">
+          <div className="canvas-container">
+            <Canvas camera={{ position: [0, 2, 5], fov: 50 }}>
+              <ambientLight intensity={0.5} />
+              <spotLight 
+                position={[10, 10, 10]} 
+                angle={0.3} 
+                penumbra={1} 
+                intensity={1} 
+                castShadow 
+              />
+              <pointLight position={[-10, -10, -10]} intensity={0.5} />
+              <DroneModel setHoveredPart={setHoveredPart} />
+              <OrbitControls 
+                enablePan={false} 
+                enableZoom={true} 
+                minPolarAngle={Math.PI / 4} 
+                maxPolarAngle={Math.PI / 1.8}
+                minDistance={3}
+                maxDistance={8}
+              />
+              <Environment preset="city" />
+            </Canvas>
+          </div>
           
-          {hoveredPart && (
-            <div className="drone-info">
-              <h3>{partInfo[hoveredPart].title}</h3>
-              <p>{partInfo[hoveredPart].description}</p>
+          <div className="drone-info">
+            <div className="info-container">
+              {hoveredPart ? (
+                <>
+                  <h3 className="info-title">{droneInfo[hoveredPart].title}</h3>
+                  <div className="info-divider"></div>
+                  <p className="info-description">{droneInfo[hoveredPart].description}</p>
+                </>
+              ) : (
+                <>
+                  <h3 className="info-title">Tactical Surveillance Drone</h3>
+                  <div className="info-divider"></div>
+                  <p className="info-description">
+                    Our advanced drone platform integrates cutting-edge surveillance technology with autonomous operation capabilities.
+                    Hover over drone components to learn more about their functions and specifications.
+                  </p>
+                </>
+              )}
             </div>
-          )}
-        </div>
-        
-        <div className="drone-instructions">
-          <p><strong>Interact with the model:</strong> Click and drag to rotate. Scroll to zoom.</p>
-          <p>Hover over components to learn about their capabilities.</p>
+          </div>
         </div>
       </div>
       
       <style jsx>{`
+        .drone-visualization {
+          background-color: #070707;
+          padding: 6rem 0;
+          position: relative;
+          overflow: hidden;
+        }
+        
+        .section-title {
+          text-align: center;
+          margin-bottom: 3rem;
+          padding-bottom: 1rem;
+          font-size: 2.2rem;
+          position: relative;
+          text-transform: uppercase;
+          letter-spacing: 2px;
+        }
+        
+        .section-title::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 60px;
+          height: 2px;
+          background-color: var(--highlight-color);
+        }
+        
+        .drone-container {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 2rem;
+          align-items: center;
+        }
+        
+        .canvas-container {
+          position: relative;
+          height: 400px;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          background-color: #111111;
+        }
+        
+        .drone-info {
+          padding: 1rem;
+        }
+        
+        .info-container {
+          background-color: rgba(17, 17, 17, 0.7);
+          padding: 2rem;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          height: 100%;
+        }
+        
+        .info-title {
+          font-size: 1.5rem;
+          margin-bottom: 1rem;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+        }
+        
+        .info-divider {
+          width: 40px;
+          height: 2px;
+          background-color: var(--highlight-color);
+          margin-bottom: 1.5rem;
+        }
+        
+        .info-description {
+          color: var(--text-muted);
+          line-height: 1.8;
+        }
+        
         @media (max-width: 992px) {
-          .drone-canvas {
-            height: 450px;
+          .drone-container {
+            grid-template-columns: 1fr;
           }
           
-          .drone-controls {
-            flex-direction: column;
-            align-items: center;
-          }
-          
-          .drone-controls button {
-            margin: 0.5rem;
-          }
-          
-          .drone-info {
-            padding: 1.5rem;
+          .canvas-container {
+            order: -1;
+            margin-bottom: 2rem;
           }
         }
         
         @media (max-width: 768px) {
-          .drone-canvas {
-            height: 400px;
+          .drone-visualization {
+            padding: 4rem 0;
           }
           
-          .drone-info {
-            max-width: 90%;
-            margin-left: auto;
-            margin-right: auto;
+          .section-title {
+            font-size: 1.8rem;
           }
           
-          .drone-stats {
-            flex-direction: column;
-            gap: 1rem;
-          }
-          
-          .drone-stat {
-            width: 100%;
-          }
-        }
-        
-        @media (max-width: 576px) {
-          .drone-canvas {
+          .canvas-container {
             height: 300px;
-          }
-          
-          .drone-title {
-            font-size: 1.5rem;
-          }
-          
-          .drone-instructions {
-            padding: 1rem;
-            font-size: 0.8rem;
-          }
-          
-          .drone-specs {
-            font-size: 0.9rem;
-          }
-          
-          .drone-features {
-            grid-template-columns: 1fr;
           }
         }
       `}</style>

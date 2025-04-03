@@ -1,161 +1,111 @@
-import React, { useState, useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
-
-// Register ScrollToPlugin with GSAP
-gsap.registerPlugin(ScrollToPlugin);
+import React, { useState, useEffect } from 'react';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const menuRef = useRef(null);
+  const [activeSection, setActiveSection] = useState('hero');
   
-  // Handle scroll event
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
+      setIsScrolled(window.scrollY > 50);
+      
+      // Determine active section based on scroll position
+      const sections = ['hero', 'about', 'capabilities', 'contact'];
+      const scrollPosition = window.scrollY + 100;
+      
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = document.getElementById(sections[i]);
+        if (section && section.offsetTop <= scrollPosition) {
+          setActiveSection(sections[i]);
+          break;
+        }
       }
     };
     
     window.addEventListener('scroll', handleScroll);
-    
-    // Animate navbar links on load
-    const navLinks = document.querySelectorAll('.navbar-item');
-    gsap.fromTo(
-      navLinks,
-      { y: -20, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.7, stagger: 0.1, delay: 0.3 }
-    );
-    
-    // Animate logo
-    gsap.fromTo(
-      '.navbar-logo',
-      { x: -20, opacity: 0 },
-      { x: 0, opacity: 1, duration: 0.8 }
-    );
-    
-    // Animate CTA button
-    gsap.fromTo(
-      '.navbar-cta .btn',
-      { y: -20, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.7, delay: 0.6 }
-    );
-    
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
   
-  // Handle click outside to close menu
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target) && 
-          !event.target.classList.contains('toggle-bar') && 
-          !event.target.classList.contains('navbar-toggle')) {
-        setIsMenuOpen(false);
-      }
-    };
-    
-    document.addEventListener('mousedown', handleClickOutside);
-    
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [menuRef]);
-  
-  // Handle scroll to section
   const scrollToSection = (sectionId) => {
     const section = document.getElementById(sectionId);
     if (section) {
-      try {
-        // Try using GSAP ScrollToPlugin
-        gsap.to(window, { 
-          duration: 1, 
-          scrollTo: { y: section, offsetY: 80 },
-          ease: "power3.inOut"
-        });
-      } catch (error) {
-        // Fallback to native scrollIntoView if GSAP fails
-        section.scrollIntoView({ 
-          behavior: 'smooth',
-          block: 'start'
-        });
-      }
+      section.scrollIntoView({ behavior: 'smooth' });
       setIsMenuOpen(false);
+      setActiveSection(sectionId);
     }
   };
   
-  // Prevent body scroll when menu is open
-  useEffect(() => {
-    if (isMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'visible';
-    }
-    
-    return () => {
-      document.body.style.overflow = 'visible';
-    };
-  }, [isMenuOpen]);
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
   
   return (
     <nav className={`navbar ${isScrolled ? 'navbar-scrolled' : ''}`}>
       <div className="navbar-container">
         <div className="navbar-logo">
           <button className="logo-button" onClick={() => scrollToSection('hero')}>
-            <span className="logo-text">Tactical<span className="text-accent">Hive</span></span>
-            <span className="logo-highlight"></span>
+            <span className="logo-text">TACTICAL<span className="logo-accent">HIVE</span></span>
           </button>
         </div>
         
-        <div ref={menuRef} className={`navbar-menu ${isMenuOpen ? 'navbar-menu-active' : ''}`}>
+        <div className={`navbar-menu ${isMenuOpen ? 'navbar-menu-active' : ''}`}>
           <ul className="navbar-links">
             <li className="navbar-item">
-              <a href="#about" onClick={(e) => { e.preventDefault(); scrollToSection('about'); }}>
+              <a 
+                href="#hero" 
+                className={activeSection === 'hero' ? 'active' : ''} 
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection('hero');
+                }}
+              >
+                Home
+                <span className="hover-indicator"></span>
+              </a>
+            </li>
+            <li className="navbar-item">
+              <a 
+                href="#about" 
+                className={activeSection === 'about' ? 'active' : ''} 
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection('about');
+                }}
+              >
                 About
-                <span className="nav-highlight"></span>
+                <span className="hover-indicator"></span>
               </a>
             </li>
             <li className="navbar-item">
-              <a href="#capabilities" onClick={(e) => { e.preventDefault(); scrollToSection('capabilities'); }}>
+              <a 
+                href="#capabilities" 
+                className={activeSection === 'capabilities' ? 'active' : ''} 
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection('capabilities');
+                }}
+              >
                 Capabilities
-                <span className="nav-highlight"></span>
+                <span className="hover-indicator"></span>
               </a>
             </li>
             <li className="navbar-item">
-              <a href="#drone-viz" onClick={(e) => { e.preventDefault(); scrollToSection('drone-viz'); }}>
-                Technology
-                <span className="nav-highlight"></span>
-              </a>
-            </li>
-            <li className="navbar-item">
-              <a href="#contact" onClick={(e) => { e.preventDefault(); scrollToSection('contact'); }}>
+              <a 
+                href="#contact" 
+                className={activeSection === 'contact' ? 'active' : ''} 
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection('contact');
+                }}
+              >
                 Contact
-                <span className="nav-highlight"></span>
+                <span className="hover-indicator"></span>
               </a>
             </li>
           </ul>
-          
-          {/* Mobile-only CTA button */}
-          <div className="mobile-cta">
-            <button className="btn" onClick={() => scrollToSection('contact')}>
-              <span className="btn-text">Work With Us</span>
-              <span className="btn-icon">→</span>
-            </button>
-          </div>
         </div>
         
-        <div className="navbar-cta">
-          <button className="btn" onClick={() => scrollToSection('contact')}>
-            <span className="btn-text">Work With Us</span>
-            <span className="btn-icon">→</span>
-          </button>
-        </div>
-        
-        <button className="navbar-toggle" onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label="Toggle navigation menu">
+        <button className="navbar-toggle" onClick={toggleMenu}>
           <div className={`toggle-bar ${isMenuOpen ? 'toggle-active' : ''}`}></div>
         </button>
       </div>
@@ -169,13 +119,19 @@ const Navbar = () => {
           padding: 1.5rem 0;
           z-index: 1000;
           transition: all 0.3s ease;
+          background-color: rgba(0, 0, 0, 0.35);
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
         
         .navbar-scrolled {
-          background-color: rgba(5, 10, 20, 0.9);
+          background-color: rgba(0, 0, 0, 0.65);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
           padding: 0.8rem 0;
-          backdrop-filter: blur(10px);
-          box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
         
         .navbar-container {
@@ -197,7 +153,6 @@ const Navbar = () => {
           padding: 0;
           cursor: pointer;
           position: relative;
-          overflow: hidden;
         }
         
         .logo-text {
@@ -205,134 +160,116 @@ const Navbar = () => {
           font-size: 1.5rem;
           font-weight: 700;
           color: var(--text-color);
-          letter-spacing: 1px;
-          position: relative;
-          z-index: 1;
+          letter-spacing: 2px;
+          text-transform: uppercase;
         }
         
-        .logo-highlight {
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          width: 0;
-          height: 2px;
-          background: linear-gradient(90deg, var(--highlight-color), transparent);
-          transition: width 0.3s ease;
-        }
-        
-        .logo-button:hover .logo-highlight {
-          width: 100%;
+        .logo-accent {
+          font-weight: 300;
         }
         
         .navbar-links {
           display: flex;
           list-style: none;
+          margin: 0;
+          padding: 0;
         }
         
         .navbar-item {
-          margin: 0 1.5rem;
+          margin: 0 0 0 2.5rem;
         }
         
         .navbar-item a {
           color: var(--text-color);
-          font-weight: 500;
-          position: relative;
-          padding: 0.5rem 0;
-          display: inline-block;
+          font-weight: 400;
+          font-size: 1rem;
+          letter-spacing: 0.5px;
           text-decoration: none;
+          transition: all 0.3s ease;
+          padding: 0.5rem 0;
+          position: relative;
+          display: inline-block;
         }
         
-        .nav-highlight {
+        .navbar-item a:hover,
+        .navbar-item a.active {
+          color: #FFFFFF;
+        }
+        
+        .hover-indicator {
           position: absolute;
-          bottom: 0;
+          bottom: -2px;
           left: 0;
           width: 0;
-          height: 2px;
-          background: var(--highlight-color);
+          height: 1px;
+          background-color: #FFFFFF;
           transition: width 0.3s ease;
-        }
-        
-        .navbar-item a:hover .nav-highlight {
-          width: 100%;
-        }
-        
-        .btn {
-          background: linear-gradient(135deg, rgba(13, 246, 227, 0.1), rgba(13, 246, 227, 0.2));
-          color: var(--text-color);
-          border: 1px solid rgba(13, 246, 227, 0.3);
-          padding: 0.7rem 1.5rem;
-          border-radius: 4px;
-          font-weight: 500;
-          font-size: 0.9rem;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          position: relative;
-          overflow: hidden;
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-        }
-        
-        .btn::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(135deg, var(--highlight-color), var(--highlight-secondary));
           opacity: 0;
-          transition: opacity 0.3s ease;
-          z-index: 0;
         }
         
-        .btn:hover {
-          transform: translateY(-2px);
-          box-shadow: var(--glow-effect);
+        .navbar-item a:hover .hover-indicator {
+          width: 100%;
+          opacity: 0.7;
         }
         
-        .btn:hover::before {
-          opacity: 0.1;
-        }
-        
-        .btn-text, .btn-icon {
-          position: relative;
-          z-index: 1;
-        }
-        
-        .btn-icon {
-          transition: transform 0.3s ease;
-        }
-        
-        .btn:hover .btn-icon {
-          transform: translateX(3px);
+        .navbar-item a.active .hover-indicator {
+          width: 100%;
+          opacity: 1;
+          height: 2px;
         }
         
         .navbar-toggle {
-          cursor: pointer;
-          width: 30px;
-          height: 24px;
-          position: relative;
-          background: transparent;
+          display: none;
+          background: none;
           border: none;
-          display: none;
-          z-index: 1001;
+          width: 30px;
+          height: 30px;
+          position: relative;
+          cursor: pointer;
+          z-index: 3;
         }
         
-        /* Mobile CTA button styles */
-        .mobile-cta {
-          display: none;
-          margin-top: 2rem;
+        .toggle-bar {
           width: 100%;
-          text-align: center;
+          height: 1px;
+          background-color: var(--text-color);
+          position: relative;
+          transition: all 0.3s ease;
         }
         
-        .mobile-cta .btn {
+        .toggle-bar:before,
+        .toggle-bar:after {
+          content: '';
+          position: absolute;
           width: 100%;
-          justify-content: center;
+          height: 1px;
+          background-color: var(--text-color);
+          transition: all 0.3s ease;
         }
         
-        @media (max-width: 992px) {
+        .toggle-bar:before {
+          top: -8px;
+        }
+        
+        .toggle-bar:after {
+          bottom: -8px;
+        }
+        
+        .toggle-active {
+          background-color: transparent;
+        }
+        
+        .toggle-active:before {
+          top: 0;
+          transform: rotate(45deg);
+        }
+        
+        .toggle-active:after {
+          bottom: 0;
+          transform: rotate(-45deg);
+        }
+        
+        @media (max-width: 1024px) {
           .navbar-toggle {
             display: block;
           }
@@ -342,25 +279,23 @@ const Navbar = () => {
             top: 0;
             right: -100%;
             width: 80%;
-            max-width: 300px;
+            max-width: 400px;
             height: 100vh;
-            background-color: rgba(5, 10, 20, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            transition: right 0.3s ease;
+            background-color: #050505;
             display: flex;
             flex-direction: column;
             justify-content: center;
             padding: 2rem;
-            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+            transition: right 0.3s ease;
+            z-index: 2;
           }
           
           .navbar-menu-active {
             right: 0;
+            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.3);
           }
           
           .navbar-links {
-            display: flex;
             flex-direction: column;
             align-items: center;
           }
@@ -369,26 +304,18 @@ const Navbar = () => {
             margin: 1rem 0;
           }
           
-          .mobile-cta {
-            display: block;
-          }
-        }
-        
-        @media (max-width: 576px) {
-          .navbar-cta {
-            display: none;
-          }
-          
-          .logo-text {
+          .navbar-item a {
             font-size: 1.2rem;
+            padding: 0.5rem;
           }
           
-          .navbar {
-            padding: 1rem 0;
+          .hover-indicator {
+            height: 2px;
+            bottom: 0;
           }
           
-          .navbar-scrolled {
-            padding: 0.5rem 0;
+          .navbar-item a.active .hover-indicator {
+            height: 2px;
           }
         }
       `}</style>

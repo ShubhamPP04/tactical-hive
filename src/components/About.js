@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import gsap from 'gsap';
+import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -8,350 +8,152 @@ const About = () => {
   const sectionRef = useRef(null);
   const titleRef = useRef(null);
   const textRef = useRef(null);
-  const imageRef = useRef(null);
-  
+
   useEffect(() => {
-    // GSAP animations
+    const section = sectionRef.current;
     const title = titleRef.current;
     const text = textRef.current;
-    const image = imageRef.current;
-    
+
     gsap.fromTo(
       title,
-      { y: 50, opacity: 0 },
+      { opacity: 0, y: 30 },
       {
-        y: 0,
         opacity: 1,
+        y: 0,
         duration: 0.8,
         scrollTrigger: {
-          trigger: sectionRef.current,
+          trigger: section,
           start: 'top 80%',
           toggleActions: 'play none none none'
         }
       }
     );
-    
+
     gsap.fromTo(
-      text.querySelectorAll('p'),
-      { y: 50, opacity: 0 },
+      text,
+      { opacity: 0, y: 30 },
       {
+        opacity: 1,
         y: 0,
-        opacity: 1,
         duration: 0.8,
-        stagger: 0.2,
+        delay: 0.2,
         scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 70%',
+          trigger: section,
+          start: 'top 80%',
           toggleActions: 'play none none none'
         }
       }
     );
-    
-    gsap.fromTo(
-      image,
-      { x: 50, opacity: 0 },
-      {
-        x: 0,
-        opacity: 1,
-        duration: 1,
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 70%',
-          toggleActions: 'play none none none'
-        }
-      }
-    );
+
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
   }, []);
-  
+
   return (
     <section id="about" className="about section" ref={sectionRef}>
       <div className="container">
-        <div className="about-content">
-          <div className="about-text">
-            <h2 ref={titleRef}>
-              <span className="text-accent">Our Story</span> & Mission
-            </h2>
-            
-            <div ref={textRef}>
-              <p>
-                Tactical Hive was founded with a vision to revolutionize defense technology in South Asia. 
-                We recognize the rapidly evolving landscape of modern warfare and intelligence, 
-                where information superiority and coordinated autonomous systems have become the decisive edge.
-              </p>
-              
-              <p>
-                Our mission is to bring cutting-edge, AI-driven defense technology innovation to South Asia. 
-                Through our advanced hive-mind architecture, we enable unprecedented levels of 
-                coordination between diverse intelligence assets, creating a unified operational picture 
-                that enhances decision-making capabilities.
-              </p>
-              
-              <p>
-                We're driven by a passion for technological advancement in defense systems that provide 
-                our partners with superior situational awareness, enhanced operational capabilities, 
-                and integrated intelligence solutions across all domains.
-              </p>
-            </div>
+        <div className="about-grid">
+          <div className="about-header">
+            <h2 className="section-title" ref={titleRef}>OUR STORY</h2>
+            <div className="title-underline"></div>
           </div>
-          
-          <div className="about-image" ref={imageRef}>
-            <div className="image-container">
-              <div className="tech-circle"></div>
-              <div className="tech-grid">
-                <div className="grid-line horizontal"></div>
-                <div className="grid-line horizontal"></div>
-                <div className="grid-line horizontal"></div>
-                <div className="grid-line vertical"></div>
-                <div className="grid-line vertical"></div>
-                <div className="grid-line vertical"></div>
-              </div>
-              <div className="tech-rings">
-                <div className="ring ring-1"></div>
-                <div className="ring ring-2"></div>
-                <div className="ring ring-3"></div>
-              </div>
-              <div className="data-points">
-                <div className="data-point" style={{ top: '20%', left: '30%' }}></div>
-                <div className="data-point" style={{ top: '40%', left: '70%' }}></div>
-                <div className="data-point" style={{ top: '70%', left: '50%' }}></div>
-                <div className="data-point" style={{ top: '25%', left: '80%' }}></div>
-                <div className="data-point" style={{ top: '60%', left: '20%' }}></div>
-              </div>
-            </div>
+          <div className="about-content" ref={textRef}>
+            <p>
+              Tactical Hive is the next generation of defense innovation, bringing cutting-edge technology to the South Asian region and beyond. Born from a deep understanding of modern combat dynamics, our mission is to empower armed forces with tools that make intelligence gathering faster and decision-making smarter.
+            </p>
+            <p>
+              At the heart of Tactical Hive lies an AI-infused consciousness that integrates seamlessly into existing systems.
+            </p>
           </div>
         </div>
       </div>
       
       <style jsx>{`
-        .about-image {
+        .about {
           position: relative;
+          padding: 8rem 0;
+          background-color: #000000;
         }
         
-        .image-container {
-          position: relative;
+        .about-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 4rem;
+          align-items: flex-start;
+        }
+        
+        .about-header {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        
+        .section-title {
+          font-size: 3.5rem;
+          font-weight: 700;
+          margin-bottom: 1rem;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          line-height: 1.1;
+        }
+        
+        .title-underline {
+          width: 6rem;
+          height: 2px;
+          background-color: var(--text-color);
+          margin-bottom: 2rem;
+        }
+        
+        .about-content {
           width: 100%;
-          height: 400px;
-          background-color: rgba(11, 19, 43, 0.5);
-          border-radius: 8px;
-          overflow: hidden;
-          border: 1px solid rgba(0, 180, 216, 0.3);
         }
         
-        .tech-circle {
-          position: absolute;
-          width: 200px;
-          height: 200px;
-          border: 2px solid var(--highlight-color);
-          border-radius: 50%;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          opacity: 0.5;
-          animation: pulse 3s infinite ease-in-out;
+        .about-content p {
+          font-size: 1.1rem;
+          line-height: 1.7;
+          margin-bottom: 2rem;
+          color: var(--text-muted);
+          font-weight: 300;
         }
         
-        .tech-grid {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
+        .about-content p:last-child {
+          margin-bottom: 0;
         }
         
-        .grid-line {
-          position: absolute;
-          background-color: rgba(0, 180, 216, 0.2);
-        }
-        
-        .horizontal {
-          width: 100%;
-          height: 1px;
-        }
-        
-        .horizontal:nth-child(1) {
-          top: 25%;
-        }
-        
-        .horizontal:nth-child(2) {
-          top: 50%;
-        }
-        
-        .horizontal:nth-child(3) {
-          top: 75%;
-        }
-        
-        .vertical {
-          width: 1px;
-          height: 100%;
-        }
-        
-        .vertical:nth-child(4) {
-          left: 33.33%;
-        }
-        
-        .vertical:nth-child(5) {
-          left: 66.66%;
-        }
-        
-        .vertical:nth-child(6) {
-          left: 100%;
-        }
-        
-        .tech-rings {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-        }
-        
-        .ring {
-          position: absolute;
-          border: 1px solid var(--highlight-color);
-          border-radius: 50%;
-          opacity: 0.3;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-        }
-        
-        .ring-1 {
-          width: 300px;
-          height: 300px;
-          animation: rotate 20s linear infinite;
-        }
-        
-        .ring-2 {
-          width: 200px;
-          height: 200px;
-          animation: rotate 15s linear infinite reverse;
-        }
-        
-        .ring-3 {
-          width: 100px;
-          height: 100px;
-          animation: rotate 10s linear infinite;
-        }
-        
-        @keyframes rotate {
-          from {
-            transform: translate(-50%, -50%) rotate(0deg);
-          }
-          to {
-            transform: translate(-50%, -50%) rotate(360deg);
-          }
-        }
-        
-        .data-points {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-        }
-        
-        .data-point {
-          position: absolute;
-          width: 6px;
-          height: 6px;
-          background-color: var(--highlight-color);
-          border-radius: 50%;
-          animation: blink 2s infinite ease-in-out;
-        }
-        
-        .data-point:nth-child(2) {
-          animation-delay: 0.4s;
-        }
-        
-        .data-point:nth-child(3) {
-          animation-delay: 0.8s;
-        }
-        
-        .data-point:nth-child(4) {
-          animation-delay: 1.2s;
-        }
-        
-        .data-point:nth-child(5) {
-          animation-delay: 1.6s;
-        }
-        
-        @keyframes blink {
-          0%, 100% {
-            opacity: 0.3;
-            box-shadow: 0 0 5px var(--highlight-color);
-          }
-          50% {
-            opacity: 1;
-            box-shadow: 0 0 15px var(--highlight-color);
+        @media (max-width: 1200px) {
+          .section-title {
+            font-size: 3rem;
           }
         }
         
         @media (max-width: 992px) {
-          .about-content {
+          .about-grid {
             grid-template-columns: 1fr;
             gap: 2rem;
           }
           
-          .about-text {
-            padding-right: 0;
-          }
-          
-          .about-image {
-            order: -1;
-            max-width: 500px;
-            margin: 0 auto;
-          }
-          
-          .timeline {
-            margin-top: 3rem;
+          .section-title {
+            font-size: 2.5rem;
           }
         }
         
         @media (max-width: 768px) {
-          .timeline {
-            grid-template-columns: 1fr;
+          .about {
+            padding: 5rem 0;
           }
           
-          .timeline::before {
-            left: 0;
+          .section-title {
+            font-size: 2rem;
           }
           
-          .timeline-item {
-            grid-column: 1;
-            padding-left: 2rem;
+          .about-content p {
+            font-size: 1rem;
           }
           
-          .timeline-item::before {
-            left: -9px;
-          }
-          
-          .timeline-item:nth-child(even) {
-            grid-column: 1;
-          }
-          
-          .about-heading {
-            font-size: 1.5rem;
-          }
-        }
-        
-        @media (max-width: 576px) {
-          .about-heading {
-            font-size: 1.4rem;
-          }
-          
-          .about-image::before {
-            opacity: 0.4;
-          }
-          
-          .timeline-item {
-            padding-left: 1.5rem;
-          }
-          
-          .timeline-date {
-            font-size: 0.9rem;
-          }
-          
-          .timeline-title {
-            font-size: 1.1rem;
+          .title-underline {
+            width: 4rem;
+            margin-bottom: 1.5rem;
           }
         }
       `}</style>
