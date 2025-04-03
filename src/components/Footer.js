@@ -46,7 +46,7 @@ const Footer = () => {
   
   return (
     <footer className="footer">
-      <div className="footer-grid">
+      <div className="footer-content">
         <div className="footer-logo" ref={logoRef}>
           <h2>Tactical<span>Hive</span></h2>
           <p className="tagline">ADVANCED DEFENSE TECHNOLOGY</p>
@@ -56,35 +56,55 @@ const Footer = () => {
           </p>
         </div>
         
-        <div className="footer-links" ref={linksRef}>
-          <h3>Quick Links</h3>
-          <ul>
-            <li className="footer-link"><a href="/#about">About Us</a></li>
-            <li className="footer-link"><a href="/#capabilities">Capabilities</a></li>
-            <li className="footer-link"><a href="/#drone-viz">Technology</a></li>
-            <li className="footer-link"><a href="/#contact">Contact</a></li>
-            <li className="footer-link"><a href="/careers">Careers</a></li>
-          </ul>
-        </div>
-        
-        <div className="footer-legal">
-          <h3>Legal</h3>
-          <ul>
-            <li className="footer-link"><a href="/privacy">Privacy Policy</a></li>
-            <li className="footer-link"><a href="/terms">Terms of Use</a></li>
-            <li className="footer-link"><a href="/export-compliance">Export Compliance</a></li>
-            <li className="footer-link"><a href="/security">Security Policy</a></li>
-          </ul>
+        <div className="footer-links-wrapper">
+          <div className="footer-links" ref={linksRef}>
+            <h3>Quick Links</h3>
+            <ul>
+              <li className="footer-link"><a href="/#about">About Us</a></li>
+              <li className="footer-link"><a href="/#capabilities">Capabilities</a></li>
+              <li className="footer-link"><a href="/#drone-viz">Technology</a></li>
+              <li className="footer-link"><a href="/#contact">Contact</a></li>
+              <li className="footer-link"><a href="/careers">Careers</a></li>
+            </ul>
+          </div>
+          
+          <div className="footer-legal">
+            <h3>Legal</h3>
+            <ul>
+              <li className="footer-link"><a href="/privacy">Privacy Policy</a></li>
+              <li className="footer-link"><a href="/terms">Terms of Use</a></li>
+              <li className="footer-link"><a href="/export-compliance">Export Compliance</a></li>
+              <li className="footer-link"><a href="/security">Security Policy</a></li>
+            </ul>
+          </div>
         </div>
         
         <div className="footer-contact">
-          <h3>Contact Us</h3>
-          <p className="contact-info">
-            <strong>Email:</strong> contact@tacticalhive.com
-          </p>
-          <p className="contact-info">
-            <strong>Phone:</strong> +91 80 4567 8901
-          </p>
+          <h3 className="contact-title">Contact Us</h3>
+          <div className="contact-items">
+            <p className="contact-info">
+              <i className="fas fa-envelope contact-icon"></i>
+              <span>
+                <strong>Email:</strong> contact@tacticalhive.com
+              </span>
+            </p>
+            <p className="contact-info">
+              <i className="fas fa-phone-alt contact-icon"></i>
+              <span>
+                <strong>Phone:</strong> +91 80 4567 8901
+              </span>
+            </p>
+            <p className="contact-info">
+              <i className="fas fa-map-marker-alt contact-icon"></i>
+              <span>
+                <strong>HQ:</strong> Bangalore, India
+              </span>
+            </p>
+            <a href="/#contact" className="contact-cta">
+              <span>Get in Touch</span>
+              <i className="fas fa-arrow-right"></i>
+            </a>
+          </div>
         </div>
       </div>
       
@@ -104,11 +124,11 @@ const Footer = () => {
         <div className="copyright" ref={copyrightRef}>
           &copy; {new Date().getFullYear()} Tactical Hive. All rights reserved.
         </div>
-        
-        <button className="scroll-top" onClick={scrollToTop} aria-label="Scroll to top">
-          <span className="arrow-up">↑</span>
-        </button>
       </div>
+      
+      <button className="scroll-top" onClick={scrollToTop} aria-label="Scroll to top">
+        <span className="arrow-up">↑</span>
+      </button>
       
       {/* Decorative elements */}
       <div className="footer-decoration">
@@ -130,13 +150,19 @@ const Footer = () => {
           border-top: 1px solid rgba(13, 246, 227, 0.2);
         }
         
-        .footer-grid {
+        .footer-content {
           max-width: 1200px;
           margin: 0 auto;
           display: grid;
-          grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+          grid-template-columns: 1.5fr 1.5fr 1fr;
           gap: 3rem;
           padding: 0 2rem;
+        }
+        
+        .footer-links-wrapper {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 2rem;
         }
         
         .footer-logo h2 {
@@ -204,6 +230,7 @@ const Footer = () => {
           transition: all 0.3s ease;
           position: relative;
           display: inline-block;
+          padding: 0.3rem 0;
         }
         
         .footer-link a::after {
@@ -230,11 +257,26 @@ const Footer = () => {
           margin-bottom: 0.8rem;
           font-size: 0.9rem;
           line-height: 1.6;
+          display: flex;
+          align-items: center;
+          gap: 0.8rem;
+        }
+        
+        .contact-icon {
+          color: var(--highlight-color);
+          font-size: 1rem;
+          width: 18px;
+          text-align: center;
         }
         
         .contact-info strong {
           color: var(--text-color);
           font-weight: 600;
+          margin-right: 0.3rem;
+        }
+        
+        .contact-title {
+          margin-bottom: 1.5rem;
         }
         
         .footer-bottom {
@@ -301,10 +343,10 @@ const Footer = () => {
         }
         
         .scroll-top {
-          width: 40px;
-          height: 40px;
+          width: 45px;
+          height: 45px;
           border-radius: 50%;
-          background: rgba(13, 246, 227, 0.1);
+          background: rgba(13, 246, 227, 0.15);
           border: none;
           display: flex;
           align-items: center;
@@ -313,6 +355,11 @@ const Footer = () => {
           font-size: 1.2rem;
           cursor: pointer;
           transition: all 0.3s ease;
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          z-index: 10;
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
         
         .scroll-top:hover {
@@ -381,39 +428,13 @@ const Footer = () => {
         }
         
         @media (max-width: 1024px) {
-          .footer-grid {
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem 3rem;
-          }
-          
-          .footer-description {
-            max-width: 100%;
-          }
-          
-          .footer-bottom {
-            flex-direction: column;
-            gap: 1.5rem;
-            text-align: center;
-          }
-          
-          .social-links {
-            justify-content: center;
-          }
-        }
-        
-        @media (max-width: 992px) {
           .footer-content {
             grid-template-columns: 1fr 1fr;
             gap: 2rem;
           }
           
-          .footer-column:first-child {
-            grid-column: 1 / -1;
-            text-align: center;
-          }
-          
-          .footer-logo img {
-            margin: 0 auto;
+          .footer-logo {
+            grid-column: span 2;
           }
           
           .footer-description {
@@ -424,67 +445,152 @@ const Footer = () => {
         @media (max-width: 768px) {
           .footer-content {
             grid-template-columns: 1fr;
+            gap: 3rem;
+          }
+          
+          .footer-links-wrapper {
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+          }
+          
+          .footer-logo {
             text-align: center;
           }
           
-          .footer-links-container {
-            justify-content: center;
+          .footer-logo h2 {
+            font-size: 2rem;
+          }
+          
+          .footer-links h3::after,
+          .footer-legal h3::after,
+          .footer-contact h3::after {
+            left: 50%;
+            transform: translateX(-50%);
+          }
+          
+          .footer-description {
+            max-width: 500px;
+            margin: 0 auto;
           }
           
           .footer-contact {
             text-align: center;
-          }
-          
-          .footer-contact-item {
-            justify-content: center;
+            margin-top: 1rem;
+            order: 3;
           }
           
           .footer-bottom {
             flex-direction: column;
-            gap: 1rem;
+            gap: 1.5rem;
+            text-align: center;
+            margin-bottom: 5rem;
           }
           
-          .social-icons {
-            margin-top: 1rem;
+          .social-links {
+            justify-content: center;
           }
           
-          .scroll-top {
-            right: 1rem;
-            bottom: 1rem;
+          .copyright {
+            order: 1;
           }
         }
         
         @media (max-width: 576px) {
           .footer {
-            padding: 3rem 0 6rem;
+            padding: 3rem 0 5rem;
           }
           
-          .footer-logo {
-            font-size: 1.5rem;
+          .footer-content {
+            gap: 2.5rem;
           }
           
-          .footer-title {
-            font-size: 1.1rem;
+          .footer-links-wrapper {
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+            text-align: center;
+          }
+          
+          .footer-links h3,
+          .footer-legal h3,
+          .footer-contact h3 {
+            text-align: center;
+            font-size: 1.3rem;
+          }
+          
+          .footer-contact {
+            text-align: center;
+            background: rgba(13, 246, 227, 0.05);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+            border: 1px solid rgba(13, 246, 227, 0.1);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+          }
+          
+          .contact-info {
             margin-bottom: 1rem;
+            font-size: 1rem;
+            justify-content: flex-start;
           }
           
-          .footer-bottom {
-            margin-top: 2rem;
-            padding-top: 1.5rem;
-          }
-          
-          .footer-links-container {
+          .contact-items {
+            display: flex;
             flex-direction: column;
-            gap: 0.5rem;
+            align-items: flex-start;
+            text-align: left;
+            max-width: 280px;
+            margin: 0 auto;
           }
           
-          .social-icons {
-            gap: 1rem;
+          .contact-cta {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background: rgba(13, 246, 227, 0.15);
+            border: 1px solid rgba(13, 246, 227, 0.3);
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            margin-top: 1rem;
+            width: 100%;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            color: var(--highlight-color);
+          }
+          
+          .contact-cta:hover {
+            background: rgba(13, 246, 227, 0.25);
+            transform: translateY(-2px);
+          }
+          
+          .footer-link a {
+            padding: 0.5rem 0;
+            font-size: 1rem;
           }
           
           .social-icon {
-            width: 35px;
-            height: 35px;
+            width: 48px;
+            height: 48px;
+          }
+          
+          .social-icon i {
+            font-size: 1.3rem;
+          }
+          
+          .social-links {
+            gap: 1.5rem;
+          }
+          
+          .scroll-top {
+            width: 50px;
+            height: 50px;
+            bottom: 30px;
+            right: 20px;
+            font-size: 1.5rem;
+          }
+          
+          .footer-glow {
+            opacity: 0.3;
           }
         }
       `}</style>
