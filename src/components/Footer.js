@@ -85,19 +85,7 @@ const Footer = () => {
             <p className="contact-info">
               <i className="fas fa-envelope contact-icon"></i>
               <span>
-                <strong>Email:</strong> contact@tacticalhive.com
-              </span>
-            </p>
-            <p className="contact-info">
-              <i className="fas fa-phone-alt contact-icon"></i>
-              <span>
-                <strong>Phone:</strong> +91 80 4567 8901
-              </span>
-            </p>
-            <p className="contact-info">
-              <i className="fas fa-map-marker-alt contact-icon"></i>
-              <span>
-                <strong>HQ:</strong> Bangalore, India
+                <strong>Email:</strong> deep@tacticalhive.live
               </span>
             </p>
             <a href="/#contact" className="contact-cta">
