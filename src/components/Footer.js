@@ -80,7 +80,7 @@ const Footer = () => {
         </div>
         
         <div className="footer-contact">
-          <h3 className="contact-title">Contact Us</h3>
+          <h3 className="contact-title">Work With Us</h3>
           <div className="contact-items">
             <div className="contact-card">
               <div className="contact-icon-wrapper">
@@ -93,8 +93,24 @@ const Footer = () => {
                 </a>
               </div>
             </div>
+            
+            <div className="work-with-us-info">
+              <div className="work-point">
+                <i className="fas fa-check-circle work-icon"></i>
+                <span>Cutting-edge defense solutions</span>
+              </div>
+              <div className="work-point">
+                <i className="fas fa-check-circle work-icon"></i>
+                <span>Rapid deployment capabilities</span>
+              </div>
+              <div className="work-point">
+                <i className="fas fa-check-circle work-icon"></i>
+                <span>Customized tactical programs</span>
+              </div>
+            </div>
+            
             <a href="/#contact" className="contact-cta">
-              <span>Let's Discuss Your Project</span>
+              <span>Schedule a Consultation</span>
               <i className="fas fa-arrow-right"></i>
             </a>
           </div>
@@ -479,6 +495,33 @@ const Footer = () => {
           opacity: 0.5;
         }
         
+        .work-with-us-info {
+          margin: 1rem 0;
+          background: rgba(28, 42, 74, 0.3);
+          border-radius: 8px;
+          padding: 1rem 1.2rem;
+          border-left: 3px solid var(--highlight-color);
+        }
+        
+        .work-point {
+          display: flex;
+          align-items: center;
+          gap: 0.7rem;
+          margin-bottom: 0.7rem;
+          color: rgba(240, 240, 240, 0.85);
+          font-size: 0.9rem;
+        }
+        
+        .work-point:last-child {
+          margin-bottom: 0;
+        }
+        
+        .work-icon {
+          color: var(--highlight-color);
+          font-size: 0.85rem;
+          flex-shrink: 0;
+        }
+        
         .contact-cta {
           display: flex;
           align-items: center;
@@ -494,6 +537,7 @@ const Footer = () => {
           color: var(--text-color);
           position: relative;
           overflow: hidden;
+          margin-top: 0.5rem;
         }
         
         .contact-cta::before {
@@ -630,6 +674,18 @@ const Footer = () => {
             margin-top: 1.5rem;
             border: 1px solid rgba(13, 246, 227, 0.1);
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+          }
+          
+          .work-with-us-info {
+            width: 100%;
+            text-align: left;
+            border-left: none;
+            border-top: 3px solid var(--highlight-color);
+            padding: 1.2rem;
+          }
+          
+          .work-point {
+            padding-left: 0.5rem;
           }
           
           .contact-card {
