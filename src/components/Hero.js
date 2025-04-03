@@ -194,7 +194,7 @@ const Hero = () => {
   };
   
   return (
-    <section id="hero" className="hero" ref={heroRef}>
+    <section id="hero" className="hero vh100" ref={heroRef}>
       <ParticleNetwork />
       
       <div className="hero-decorations" ref={decorationRef}></div>
@@ -573,6 +573,69 @@ const Hero = () => {
           }
           100% {
             opacity: 0;
+          }
+        }
+        
+        @media (max-width: 992px) {
+          .hero-title {
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+          }
+          
+          .hero-decoration {
+            display: none;
+          }
+        }
+        
+        @media (max-width: 768px) {
+          .hero-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+          }
+          
+          .hero-subtitle {
+            font-size: 1rem;
+            margin-bottom: 2rem;
+          }
+          
+          .hero {
+            padding: 8rem 1rem 4rem;
+          }
+        }
+        
+        @media (max-width: 576px) {
+          .hero-title {
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+          }
+          
+          .hero-subtitle {
+            font-size: 0.9rem;
+          }
+          
+          .hero-buttons {
+            flex-direction: column;
+            gap: 1rem;
+          }
+          
+          .hero-buttons .btn {
+            width: 100%;
+          }
+          
+          .scanner-line {
+            display: none;
+          }
+        }
+        
+        @media (max-height: 600px) {
+          .hero {
+            min-height: auto;
+            padding: 7rem 1rem 3rem;
+          }
+          
+          .hero-title {
+            margin-bottom: 0.8rem;
+          }
+          
+          .hero-subtitle {
+            margin-bottom: 1.5rem;
           }
         }
       `}</style>

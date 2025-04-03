@@ -444,7 +444,7 @@ const DroneVisualization = () => {
   };
 
   return (
-    <div className="drone-viz section">
+    <section id="drone-viz" className="drone-viz section">
       <div className="container">
         <h2 className="section-title">Intelligent <span className="text-accent">Drone</span> Technology</h2>
         <p className="section-subtitle" style={{ marginBottom: '2rem', textAlign: 'center' }}>
@@ -486,7 +486,72 @@ const DroneVisualization = () => {
           <p>Hover over components to learn about their capabilities.</p>
         </div>
       </div>
-    </div>
+      
+      <style jsx>{`
+        @media (max-width: 992px) {
+          .drone-canvas {
+            height: 450px;
+          }
+          
+          .drone-controls {
+            flex-direction: column;
+            align-items: center;
+          }
+          
+          .drone-controls button {
+            margin: 0.5rem;
+          }
+          
+          .drone-info {
+            padding: 1.5rem;
+          }
+        }
+        
+        @media (max-width: 768px) {
+          .drone-canvas {
+            height: 400px;
+          }
+          
+          .drone-info {
+            max-width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+          }
+          
+          .drone-stats {
+            flex-direction: column;
+            gap: 1rem;
+          }
+          
+          .drone-stat {
+            width: 100%;
+          }
+        }
+        
+        @media (max-width: 576px) {
+          .drone-canvas {
+            height: 300px;
+          }
+          
+          .drone-title {
+            font-size: 1.5rem;
+          }
+          
+          .drone-instructions {
+            padding: 1rem;
+            font-size: 0.8rem;
+          }
+          
+          .drone-specs {
+            font-size: 0.9rem;
+          }
+          
+          .drone-features {
+            grid-template-columns: 1fr;
+          }
+        }
+      `}</style>
+    </section>
   );
 };
 

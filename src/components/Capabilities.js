@@ -230,6 +230,53 @@ const Capabilities = () => {
         .capability-card:hover .capability-bg {
           opacity: 1;
         }
+        
+        @media (max-width: 992px) {
+          .capabilities-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+          }
+          
+          .capability-card {
+            padding: 1.5rem;
+          }
+          
+          .capability-icon {
+            width: 60px;
+            height: 60px;
+          }
+        }
+        
+        @media (max-width: 768px) {
+          .capabilities-grid {
+            grid-template-columns: 1fr;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+          }
+          
+          .section-description {
+            padding: 0 1rem;
+          }
+        }
+        
+        @media (max-width: 576px) {
+          .capability-card {
+            padding: 1.2rem;
+          }
+          
+          .capability-title {
+            font-size: 1.3rem;
+          }
+          
+          .section-title {
+            margin-bottom: 1rem;
+          }
+          
+          .section-description {
+            margin-bottom: 1.5rem;
+          }
+        }
       `}</style>
     </section>
   );

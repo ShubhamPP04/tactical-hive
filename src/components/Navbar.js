@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 
@@ -8,6 +8,7 @@ gsap.registerPlugin(ScrollToPlugin);
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuRef = useRef(null);
   
   // Handle scroll event
   useEffect(() => {
@@ -48,6 +49,23 @@ const Navbar = () => {
     };
   }, []);
   
+  // Handle click outside to close menu
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target) && 
+          !event.target.classList.contains('toggle-bar') && 
+          !event.target.classList.contains('navbar-toggle')) {
+        setIsMenuOpen(false);
+      }
+    };
+    
+    document.addEventListener('mousedown', handleClickOutside);
+    
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [menuRef]);
+  
   // Handle scroll to section
   const scrollToSection = (sectionId) => {
     const section = document.getElementById(sectionId);
@@ -70,6 +88,19 @@ const Navbar = () => {
     }
   };
   
+  // Prevent body scroll when menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'visible';
+    }
+    
+    return () => {
+      document.body.style.overflow = 'visible';
+    };
+  }, [isMenuOpen]);
+  
   return (
     <nav className={`navbar ${isScrolled ? 'navbar-scrolled' : ''}`}>
       <div className="navbar-container">
@@ -80,7 +111,7 @@ const Navbar = () => {
           </button>
         </div>
         
-        <div className={`navbar-menu ${isMenuOpen ? 'navbar-menu-active' : ''}`}>
+        <div ref={menuRef} className={`navbar-menu ${isMenuOpen ? 'navbar-menu-active' : ''}`}>
           <ul className="navbar-links">
             <li className="navbar-item">
               <a href="#about" onClick={(e) => { e.preventDefault(); scrollToSection('about'); }}>
@@ -107,6 +138,14 @@ const Navbar = () => {
               </a>
             </li>
           </ul>
+          
+          {/* Mobile-only CTA button */}
+          <div className="mobile-cta">
+            <button className="btn" onClick={() => scrollToSection('contact')}>
+              <span className="btn-text">Work With Us</span>
+              <span className="btn-icon">→</span>
+            </button>
+          </div>
         </div>
         
         <div className="navbar-cta">
@@ -116,9 +155,9 @@ const Navbar = () => {
           </button>
         </div>
         
-        <div className="navbar-toggle" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+        <button className="navbar-toggle" onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label="Toggle navigation menu">
           <div className={`toggle-bar ${isMenuOpen ? 'toggle-active' : ''}`}></div>
-        </div>
+        </button>
       </div>
       
       <style jsx>{`
@@ -249,12 +288,11 @@ const Navbar = () => {
         
         .btn:hover {
           transform: translateY(-2px);
-          box-shadow: 0 5px 15px rgba(13, 246, 227, 0.2);
-          color: #fff;
+          box-shadow: var(--glow-effect);
         }
         
         .btn:hover::before {
-          opacity: 0.8;
+          opacity: 0.1;
         }
         
         .btn-text, .btn-icon {
@@ -263,73 +301,58 @@ const Navbar = () => {
         }
         
         .btn-icon {
-          font-size: 1.1rem;
           transition: transform 0.3s ease;
         }
         
         .btn:hover .btn-icon {
-          transform: translateX(4px);
+          transform: translateX(3px);
         }
         
         .navbar-toggle {
-          display: none;
           cursor: pointer;
-          z-index: 2;
-        }
-        
-        .toggle-bar {
+          width: 30px;
+          height: 24px;
           position: relative;
-          width: 28px;
-          height: 2px;
-          background-color: var(--text-color);
-          transition: all 0.3s ease;
+          background: transparent;
+          border: none;
+          display: none;
+          z-index: 1001;
         }
         
-        .toggle-bar::before,
-        .toggle-bar::after {
-          content: '';
-          position: absolute;
-          width: 28px;
-          height: 2px;
-          background-color: var(--text-color);
-          transition: all 0.3s ease;
+        /* Mobile CTA button styles */
+        .mobile-cta {
+          display: none;
+          margin-top: 2rem;
+          width: 100%;
+          text-align: center;
         }
         
-        .toggle-bar::before {
-          transform: translateY(-8px);
-        }
-        
-        .toggle-bar::after {
-          transform: translateY(8px);
-        }
-        
-        .toggle-active {
-          background-color: transparent;
-        }
-        
-        .toggle-active::before {
-          transform: rotate(45deg);
-        }
-        
-        .toggle-active::after {
-          transform: rotate(-45deg);
+        .mobile-cta .btn {
+          width: 100%;
+          justify-content: center;
         }
         
         @media (max-width: 992px) {
+          .navbar-toggle {
+            display: block;
+          }
+          
           .navbar-menu {
             position: fixed;
             top: 0;
             right: -100%;
             width: 80%;
-            max-width: 400px;
+            max-width: 300px;
             height: 100vh;
             background-color: rgba(5, 10, 20, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: right 0.3s ease;
             display: flex;
             flex-direction: column;
-            align-items: center;
             justify-content: center;
-            transition: right 0.3s ease;
-            box-shadow: -5px 0 20px rgba(0, 0, 0, 0.2);
+            padding: 2rem;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
           }
           
           .navbar-menu-active {
@@ -337,6 +360,7 @@ const Navbar = () => {
           }
           
           .navbar-links {
+            display: flex;
             flex-direction: column;
             align-items: center;
           }
@@ -345,12 +369,26 @@ const Navbar = () => {
             margin: 1rem 0;
           }
           
-          .navbar-toggle {
+          .mobile-cta {
             display: block;
           }
-          
+        }
+        
+        @media (max-width: 576px) {
           .navbar-cta {
             display: none;
+          }
+          
+          .logo-text {
+            font-size: 1.2rem;
+          }
+          
+          .navbar {
+            padding: 1rem 0;
+          }
+          
+          .navbar-scrolled {
+            padding: 0.5rem 0;
           }
         }
       `}</style>

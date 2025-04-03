@@ -557,4 +557,288 @@ h1, h2, h3, h4, h5, h6 {
   .drone-info {
     width: 250px;
   }
+}
+
+/* Enhanced Responsive Styles */
+
+/* Extra large devices (large desktops) */
+@media (max-width: 1200px) {
+  .container {
+    width: 95%;
+  }
+  
+  .section {
+    padding: 4rem 0;
+  }
+}
+
+/* Large devices (desktops) */
+@media (max-width: 992px) {
+  .about-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .about-text {
+    padding-right: 0;
+  }
+  
+  .contact-container {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  
+  .section-title {
+    font-size: 2.2rem;
+  }
+  
+  .hero-title {
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+  }
+  
+  .capability-card {
+    padding: 1.5rem;
+  }
+  
+  .navbar-links {
+    display: none;
+  }
+  
+  .navbar-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 80%;
+    max-width: 300px;
+    height: 100vh;
+    background-color: rgba(5, 10, 20, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    transition: right 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem;
+  }
+  
+  .navbar-menu-active {
+    right: 0;
+  }
+  
+  .navbar-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .navbar-item {
+    margin: 1rem 0;
+  }
+  
+  .navbar-toggle {
+    display: block !important;
+    z-index: 1001;
+  }
+}
+
+/* Medium devices (tablets) */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+  }
+  
+  .hero-subtitle {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .capabilities-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .contact-info {
+    padding: 1.5rem;
+  }
+  
+  .drone-canvas {
+    height: 400px;
+  }
+  
+  .drone-info {
+    padding: 1.5rem;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .btn {
+    padding: 0.8rem 1.5rem;
+  }
+  
+  .hero {
+    padding: 8rem 1rem 4rem;
+  }
+  
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .footer-logo {
+    text-align: center;
+  }
+  
+  .footer-links {
+    justify-content: center;
+  }
+  
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .social-icons {
+    margin-top: 1rem;
+  }
+}
+
+/* Small devices (landscape phones) */
+@media (max-width: 576px) {
+  .container {
+    width: 100%;
+    padding: 0 1.5rem;
+  }
+  
+  .hero-title {
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+  }
+  
+  .hero-subtitle {
+    font-size: 0.9rem;
+  }
+  
+  .section {
+    padding: 3rem 0;
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+  }
+  
+  .capability-card {
+    padding: 1.2rem;
+  }
+  
+  .contact-form {
+    padding: 1.2rem;
+  }
+  
+  .logo-text {
+    font-size: 1.2rem !important;
+  }
+  
+  .navbar {
+    padding: 1rem 0 !important;
+  }
+  
+  .navbar-scrolled {
+    padding: 0.5rem 0 !important;
+  }
+  
+  .navbar-cta {
+    display: none;
+  }
+  
+  .drone-instructions {
+    padding: 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .form-input, .form-textarea {
+    padding: 0.8rem;
+  }
+  
+  .form-group {
+    margin-bottom: 1rem;
+  }
+  
+  .form-label {
+    margin-bottom: 0.3rem;
+  }
+  
+  .about-image {
+    margin-top: 1rem;
+  }
+}
+
+/* Fix for mobile menu toggle */
+.navbar-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 30px;
+  height: 24px;
+  position: relative;
+}
+
+.toggle-bar {
+  width: 100%;
+  height: 2px;
+  background-color: var(--text-color);
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  transition: all 0.3s ease;
+}
+
+.toggle-bar::before,
+.toggle-bar::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background-color: var(--text-color);
+  transition: all 0.3s ease;
+}
+
+.toggle-bar::before {
+  top: -8px;
+}
+
+.toggle-bar::after {
+  bottom: -8px;
+}
+
+.toggle-active {
+  background-color: transparent;
+}
+
+.toggle-active::before {
+  top: 0;
+  transform: rotate(45deg);
+}
+
+.toggle-active::after {
+  bottom: 0;
+  transform: rotate(-45deg);
+}
+
+/* Fix for hero on small mobile devices */
+@media (max-height: 600px) {
+  .hero {
+    min-height: auto;
+    padding: 8rem 1rem 4rem;
+  }
+  
+  .hero-title {
+    margin-bottom: 1rem;
+  }
+  
+  .hero-subtitle {
+    margin-bottom: 1.5rem;
+  }
 } 

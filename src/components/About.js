@@ -284,6 +284,76 @@ const About = () => {
             box-shadow: 0 0 15px var(--highlight-color);
           }
         }
+        
+        @media (max-width: 992px) {
+          .about-content {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+          }
+          
+          .about-text {
+            padding-right: 0;
+          }
+          
+          .about-image {
+            order: -1;
+            max-width: 500px;
+            margin: 0 auto;
+          }
+          
+          .timeline {
+            margin-top: 3rem;
+          }
+        }
+        
+        @media (max-width: 768px) {
+          .timeline {
+            grid-template-columns: 1fr;
+          }
+          
+          .timeline::before {
+            left: 0;
+          }
+          
+          .timeline-item {
+            grid-column: 1;
+            padding-left: 2rem;
+          }
+          
+          .timeline-item::before {
+            left: -9px;
+          }
+          
+          .timeline-item:nth-child(even) {
+            grid-column: 1;
+          }
+          
+          .about-heading {
+            font-size: 1.5rem;
+          }
+        }
+        
+        @media (max-width: 576px) {
+          .about-heading {
+            font-size: 1.4rem;
+          }
+          
+          .about-image::before {
+            opacity: 0.4;
+          }
+          
+          .timeline-item {
+            padding-left: 1.5rem;
+          }
+          
+          .timeline-date {
+            font-size: 0.9rem;
+          }
+          
+          .timeline-title {
+            font-size: 1.1rem;
+          }
+        }
       `}</style>
     </section>
   );

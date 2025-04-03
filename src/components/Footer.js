@@ -401,10 +401,90 @@ const Footer = () => {
           }
         }
         
+        @media (max-width: 992px) {
+          .footer-content {
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+          }
+          
+          .footer-column:first-child {
+            grid-column: 1 / -1;
+            text-align: center;
+          }
+          
+          .footer-logo img {
+            margin: 0 auto;
+          }
+          
+          .footer-description {
+            max-width: 100%;
+          }
+        }
+        
         @media (max-width: 768px) {
-          .footer-grid {
+          .footer-content {
             grid-template-columns: 1fr;
-            gap: 2.5rem;
+            text-align: center;
+          }
+          
+          .footer-links-container {
+            justify-content: center;
+          }
+          
+          .footer-contact {
+            text-align: center;
+          }
+          
+          .footer-contact-item {
+            justify-content: center;
+          }
+          
+          .footer-bottom {
+            flex-direction: column;
+            gap: 1rem;
+          }
+          
+          .social-icons {
+            margin-top: 1rem;
+          }
+          
+          .scroll-top {
+            right: 1rem;
+            bottom: 1rem;
+          }
+        }
+        
+        @media (max-width: 576px) {
+          .footer {
+            padding: 3rem 0 6rem;
+          }
+          
+          .footer-logo {
+            font-size: 1.5rem;
+          }
+          
+          .footer-title {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+          }
+          
+          .footer-bottom {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+          }
+          
+          .footer-links-container {
+            flex-direction: column;
+            gap: 0.5rem;
+          }
+          
+          .social-icons {
+            gap: 1rem;
+          }
+          
+          .social-icon {
+            width: 35px;
+            height: 35px;
           }
         }
       `}</style>

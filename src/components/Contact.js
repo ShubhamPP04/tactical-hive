@@ -92,7 +92,7 @@ const Contact = () => {
           Work <span className="text-accent">With Us</span>
         </h2>
         
-        <div className="contact-content">
+        <div className="contact-container">
           <div className="contact-info">
             <p>
               Ready to revolutionize your defense capabilities with cutting-edge AI and drone technology? 
@@ -195,11 +195,12 @@ const Contact = () => {
       </div>
       
       <style jsx>{`
-        .contact-content {
+        .contact-container {
           display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 4rem;
-          align-items: center;
+          grid-template-columns: 3fr 2fr;
+          gap: 2rem;
+          align-items: start;
+          margin-top: 3rem;
         }
         
         .contact-method {
@@ -287,9 +288,54 @@ const Contact = () => {
         }
         
         @media (max-width: 992px) {
-          .contact-content {
+          .contact-container {
             grid-template-columns: 1fr;
-            gap: 2rem;
+            gap: 3rem;
+          }
+          
+          .contact-info {
+            order: -1;
+          }
+        }
+        
+        @media (max-width: 768px) {
+          .contact-info {
+            padding: 1.5rem;
+          }
+          
+          .contact-form {
+            padding: 1.5rem;
+          }
+          
+          .section-title {
+            font-size: 2rem;
+          }
+        }
+        
+        @media (max-width: 576px) {
+          .contact-form {
+            padding: 1.2rem;
+          }
+          
+          .form-input, .form-textarea {
+            padding: 0.8rem;
+          }
+          
+          .form-group {
+            margin-bottom: 1rem;
+          }
+          
+          .form-label {
+            margin-bottom: 0.3rem;
+            font-size: 0.9rem;
+          }
+          
+          .contact-detail {
+            margin-bottom: 1rem;
+          }
+          
+          .contact-text h4 {
+            font-size: 1rem;
           }
         }
       `}</style>
