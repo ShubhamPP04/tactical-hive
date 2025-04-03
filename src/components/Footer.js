@@ -82,14 +82,19 @@ const Footer = () => {
         <div className="footer-contact">
           <h3 className="contact-title">Contact Us</h3>
           <div className="contact-items">
-            <p className="contact-info">
-              <i className="fas fa-envelope contact-icon"></i>
-              <span>
-                <strong>Email:</strong> deep@tacticalhive.live
-              </span>
-            </p>
+            <div className="contact-card">
+              <div className="contact-icon-wrapper">
+                <i className="fas fa-envelope contact-icon-large"></i>
+              </div>
+              <div className="contact-info-wrapper">
+                <p className="contact-label">Email Us</p>
+                <a href="mailto:deep@tacticalhive.live" className="contact-email">
+                  deep@tacticalhive.live
+                </a>
+              </div>
+            </div>
             <a href="/#contact" className="contact-cta">
-              <span>Get in Touch</span>
+              <span>Let's Discuss Your Project</span>
               <i className="fas fa-arrow-right"></i>
             </a>
           </div>
@@ -248,6 +253,65 @@ const Footer = () => {
           display: flex;
           align-items: center;
           gap: 0.8rem;
+        }
+        
+        .contact-card {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          padding: 1rem;
+          border-radius: 8px;
+          background: rgba(13, 246, 227, 0.05);
+          border: 1px solid rgba(13, 246, 227, 0.1);
+          margin-bottom: 1.2rem;
+          transition: all 0.3s ease;
+        }
+        
+        .contact-card:hover {
+          background: rgba(13, 246, 227, 0.08);
+          transform: translateY(-2px);
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
+        
+        .contact-icon-wrapper {
+          width: 48px;
+          height: 48px;
+          border-radius: 50%;
+          background: rgba(13, 246, 227, 0.1);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+        }
+        
+        .contact-icon-large {
+          color: var(--highlight-color);
+          font-size: 1.3rem;
+        }
+        
+        .contact-info-wrapper {
+          display: flex;
+          flex-direction: column;
+        }
+        
+        .contact-label {
+          font-size: 0.8rem;
+          color: var(--text-color);
+          font-weight: 600;
+          margin-bottom: 0.2rem;
+          opacity: 0.8;
+        }
+        
+        .contact-email {
+          font-size: 1rem;
+          color: var(--highlight-color);
+          transition: all 0.3s ease;
+          font-weight: 500;
+        }
+        
+        .contact-email:hover {
+          text-decoration: underline;
+          color: rgba(13, 246, 227, 0.8);
         }
         
         .contact-icon {
@@ -415,6 +479,59 @@ const Footer = () => {
           opacity: 0.5;
         }
         
+        .contact-cta {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.5rem;
+          background: linear-gradient(135deg, rgba(13, 246, 227, 0.15), rgba(255, 42, 109, 0.1));
+          border: 1px solid rgba(13, 246, 227, 0.3);
+          padding: 1rem 1.5rem;
+          border-radius: 4px;
+          width: 100%;
+          font-weight: 500;
+          transition: all 0.3s ease;
+          color: var(--text-color);
+          position: relative;
+          overflow: hidden;
+        }
+        
+        .contact-cta::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(135deg, var(--highlight-color), var(--highlight-secondary));
+          opacity: 0;
+          transition: opacity 0.3s ease;
+          z-index: 0;
+        }
+        
+        .contact-cta span, .contact-cta i {
+          position: relative;
+          z-index: 1;
+        }
+        
+        .contact-cta:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+          color: #fff;
+        }
+        
+        .contact-cta:hover::before {
+          opacity: 0.2;
+        }
+        
+        .contact-cta:hover i {
+          transform: translateX(4px);
+        }
+        
+        .contact-cta i {
+          transition: transform 0.3s ease;
+        }
+        
         @media (max-width: 1024px) {
           .footer-content {
             grid-template-columns: 1fr 1fr;
@@ -507,52 +624,40 @@ const Footer = () => {
           
           .footer-contact {
             text-align: center;
-            background: rgba(13, 246, 227, 0.05);
+            background: rgba(5, 10, 20, 0.5);
             padding: 1.5rem;
             border-radius: 8px;
             margin-top: 1.5rem;
             border: 1px solid rgba(13, 246, 227, 0.1);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
           }
           
-          .contact-info {
-            margin-bottom: 1rem;
-            font-size: 1rem;
-            justify-content: flex-start;
+          .contact-card {
+            flex-direction: column;
+            padding: 1.5rem;
+            gap: 1rem;
+            background: rgba(13, 246, 227, 0.07);
+          }
+          
+          .contact-info-wrapper {
+            text-align: center;
+          }
+          
+          .contact-email {
+            font-size: 1.1rem;
           }
           
           .contact-items {
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
-            text-align: left;
-            max-width: 280px;
+            align-items: center;
+            text-align: center;
+            width: 100%;
             margin: 0 auto;
           }
           
           .contact-cta {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            background: rgba(13, 246, 227, 0.15);
-            border: 1px solid rgba(13, 246, 227, 0.3);
-            padding: 0.8rem 1.5rem;
-            border-radius: 4px;
-            margin-top: 1rem;
-            width: 100%;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            color: var(--highlight-color);
-          }
-          
-          .contact-cta:hover {
-            background: rgba(13, 246, 227, 0.25);
-            transform: translateY(-2px);
-          }
-          
-          .footer-link a {
-            padding: 0.5rem 0;
+            padding: 1rem 1.5rem;
             font-size: 1rem;
           }
           
