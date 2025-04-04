@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import './styles/styles.css';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -12,9 +12,6 @@ import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
-
-// Lazy load ParticleNetwork to improve initial load performance
-const ParticleNetwork = lazy(() => import('./components/ParticleNetwork'));
 
 function App() {
   useEffect(() => {
@@ -79,9 +76,7 @@ function App() {
   return (
     <div className="app">
       <div className="grid-lines"></div>
-      <Suspense fallback={<div style={{ background: "#000" }}></div>}>
-        <ParticleNetwork />
-      </Suspense>
+      
       <Navbar />
       
       <main>

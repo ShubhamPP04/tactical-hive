@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { ScrollTrigger as ScrollTriggerPlugin } from 'gsap/ScrollTrigger';
-import HeroNetwork from './HeroNetwork';
+import CentralNodeNetwork from './CentralNodeNetwork';
 
 // Register plugins with GSAP
 gsap.registerPlugin(ScrollToPlugin, ScrollTriggerPlugin);
@@ -84,7 +84,7 @@ const Hero = () => {
   
   return (
     <section id="hero" className="hero vh100" ref={heroRef}>
-      <HeroNetwork />
+      <CentralNodeNetwork />
       
       <div className="hero-content">
         <h1 className="hero-title" ref={titleRef}>
@@ -126,28 +126,40 @@ const Hero = () => {
         }
         
         .hero-title {
-          font-size: clamp(2rem, 4vw, 3rem);
-          margin-bottom: 1rem;
-          line-height: 1.1;
-          font-weight: 600;
+          font-size: clamp(2.5rem, 5vw, 4rem);
+          margin-bottom: 1.5rem;
+          line-height: 0.95;
+          font-weight: 900;
           text-transform: uppercase;
-          letter-spacing: 1px;
+          letter-spacing: 3px;
           max-width: 90vw;
           white-space: normal;
           overflow: visible;
           text-overflow: clip;
           color: #FFFFFF;
-          text-shadow: 0 0 10px rgba(0, 100, 255, 0.3);
+          text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+          position: relative;
+          display: inline-block;
+        }
+        
+        .hero-title::after {
+          content: '';
+          position: absolute;
+          bottom: -15px;
+          left: 0;
+          width: 80px;
+          height: 3px;
+          background: #FFFFFF;
         }
         
         .hero-subtitle {
-          font-size: clamp(0.9rem, 1.5vw, 1rem);
-          margin-bottom: 1.5rem;
+          font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+          margin-bottom: 2rem;
           margin-left: 0;
-          color: rgba(255, 255, 255, 0.7);
+          color: rgba(255, 255, 255, 0.8);
           max-width: 550px;
-          line-height: 1.5;
-          letter-spacing: 0.3px;
+          line-height: 1.6;
+          letter-spacing: 0.5px;
           font-weight: 300;
           position: relative;
           padding-left: 0;

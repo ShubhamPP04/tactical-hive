@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import HeroNetwork from './HeroNetwork';
 
 // Register ScrollTrigger with GSAP
 gsap.registerPlugin(ScrollTrigger);
@@ -10,6 +9,8 @@ const OurStory = () => {
   const sectionRef = useRef(null);
   const titleRef = useRef(null);
   const contentRef = useRef(null);
+  const contentLeftRef = useRef(null);
+  const contentRightRef = useRef(null);
   
   useEffect(() => {
     // Initial animations
@@ -39,6 +40,22 @@ const OurStory = () => {
       '-=0.6'
     );
     
+    // Animate left column
+    tl.fromTo(
+      contentLeftRef.current,
+      { y: 20, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.6 },
+      '-=0.4'
+    );
+    
+    // Animate right column
+    tl.fromTo(
+      contentRightRef.current,
+      { y: 20, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.6 },
+      '-=0.4'
+    );
+    
     // Parallax effect on title while scrolling
     gsap.to(titleRef.current, {
       scrollTrigger: {
@@ -59,30 +76,44 @@ const OurStory = () => {
   
   return (
     <section id="about" className="our-story" ref={sectionRef}>
-      <HeroNetwork />
-      
       <div className="our-story-container">
         <div className="our-story-left">
           <div className="title-container">
             <h2 className="our-story-title" ref={titleRef}>
-              <span className="gradient-text">MISSION</span>
+              <span className="gradient-text">Mission</span>
             </h2>
           </div>
         </div>
         
         <div className="our-story-right" ref={contentRef}>
-          <div className="content-box">
-            <p>
-              Tactical Hive is the next generation of defense innovation, bringing 
-              cutting-edge technology to the South Asian region and beyond.
-              Born from a deep understanding of modern combat dynamics, our 
-              mission is to empower armed forces with tools that make 
-              intelligence gathering faster and decision-making smarter.
-            </p>
-            <p>
-              At the heart of Tactical Hive lies an AI-infused consciousness that 
-              integrates seamlessly into existing systems.
-            </p>
+          <div className="content-columns">
+            <div className="content-column" ref={contentLeftRef}>
+              <div className="content-box">
+                <p>
+                  Tactical Hive is the next generation of defense innovation, bringing 
+                  cutting-edge technology to the South Asian region and beyond.
+                  Born from a deep understanding of modern combat dynamics, our 
+                  mission is to empower armed forces with tools that make 
+                  intelligence gathering faster and decision-making smarter.
+                </p>
+              </div>
+            </div>
+            
+            <div className="content-column" ref={contentRightRef}>
+              <div className="content-box">
+                <p>
+                  At the heart of Tactical Hive lies an AI-infused consciousness that 
+                  integrates seamlessly into existing systems.
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          <div className="mission-indicators">
+            <div className="indicator">01</div>
+            <div className="indicator">02</div>
+            <div className="indicator">03</div>
+            <div className="indicator">04</div>
           </div>
         </div>
       </div>
@@ -109,52 +140,70 @@ const OurStory = () => {
         .our-story-left {
           flex: 1;
           display: flex;
-          align-items: center;
-          justify-content: center;
+          align-items: flex-start;
+          justify-content: flex-start;
           padding-right: 2rem;
+          margin-top: 2rem;
         }
         
         .our-story-right {
-          flex: 1;
+          flex: 2;
           display: flex;
-          align-items: center;
+          flex-direction: column;
+          align-items: flex-start;
           justify-content: flex-start;
+          margin-top: 6rem;
         }
         
         .title-container {
           position: sticky;
           top: 10vh;
-          padding-right: 2rem;
+          padding-top: 2rem;
         }
         
         .our-story-title {
-          font-size: clamp(3.5rem, 8vw, 6rem);
+          font-size: clamp(2.5rem, 5vw, 4rem);
           font-weight: 800;
-          text-transform: uppercase;
+          text-transform: none;
           margin: 0;
-          line-height: 1;
+          line-height: 0.9;
           letter-spacing: 2px;
-          text-align: center;
-          transform: translateY(-70px);
+          text-align: left;
         }
         
         .gradient-text {
           display: block;
+          color: white;
+          position: relative;
+        }
+        
+        .gradient-text::after {
+          content: '';
+          position: absolute;
+          bottom: -15px;
+          left: 0;
+          width: 80px;
+          height: 3px;
           background: white;
-          -webkit-background-clip: text;
-          background-clip: text;
-          -webkit-text-fill-color: transparent;
-          text-fill-color: transparent;
-          filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.5));
+          display: none;
+        }
+        
+        .content-columns {
+          display: flex;
+          width: 100%;
+          gap: 3rem;
+          margin-bottom: 6rem;
+        }
+        
+        .content-column {
+          flex: 1;
         }
         
         .content-box {
-          background-color: rgba(0, 0, 0, 0.7);
-          border: 1px solid rgba(50, 50, 50, 0.5);
-          border-radius: 8px;
-          padding: 2.5rem;
-          max-width: 600px;
-          backdrop-filter: blur(10px);
+          background-color: transparent;
+          border: none;
+          padding: 0;
+          max-width: 100%;
         }
         
         .content-box p {
@@ -164,13 +213,48 @@ const OurStory = () => {
           margin-bottom: 1.5rem;
         }
         
-        .content-box p:last-child {
-          margin-bottom: 0;
+        .mission-intro {
+          margin-bottom: 1rem;
+        }
+        
+        .mission-list {
+          list-style-position: outside;
+          padding-left: 1.5rem;
+          margin-top: 0;
+        }
+        
+        .mission-list li {
+          color: rgba(255, 255, 255, 0.9);
+          font-size: clamp(1rem, 1.2vw, 1.1rem);
+          line-height: 1.8;
+          margin-bottom: 0.75rem;
+        }
+        
+        .mission-item-highlight {
+          font-weight: 600;
+        }
+        
+        .mission-indicators {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          padding-top: 1rem;
+          border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .indicator {
+          color: white;
+          font-size: 1rem;
+          opacity: 0.8;
         }
         
         @media (max-width: 992px) {
           .our-story-container {
             padding: 0 3rem;
+          }
+          
+          .content-columns {
+            gap: 2rem;
           }
         }
         
@@ -183,11 +267,20 @@ const OurStory = () => {
           .our-story-left {
             padding-right: 0;
             padding-bottom: 2rem;
-            justify-content: center;
+            justify-content: flex-start;
+          }
+          
+          .title-container {
+            padding-top: 0;
           }
           
           .our-story-right {
-            justify-content: center;
+            width: 100%;
+          }
+          
+          .content-columns {
+            flex-direction: column;
+            gap: 2rem;
           }
           
           .content-box {
@@ -200,8 +293,8 @@ const OurStory = () => {
             padding: 3rem 1.5rem;
           }
           
-          .content-box {
-            padding: 1.5rem;
+          .mission-indicators {
+            display: none;
           }
         }
       `}</style>
