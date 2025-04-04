@@ -21,7 +21,7 @@ const Capabilities = () => {
     ScrollTrigger.create({
       trigger: sectionRef.current,
       start: "top top",
-      end: "bottom top",
+      end: "bottom bottom",
       pin: ".capabilities-title-container",
       pinSpacing: false,
       anticipatePin: 1,
