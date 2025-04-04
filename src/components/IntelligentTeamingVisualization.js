@@ -4,7 +4,7 @@ import { OrbitControls, Environment, Trail } from '@react-three/drei';
 import * as THREE from 'three';
 
 // UAV component
-const UAV = ({ position, scale = 0.2, color = '#4fc3f7', speed = 1, pathFunction }) => {
+const UAV = ({ position, scale = 0.2, color = '#ffffff', speed = 1, pathFunction }) => {
   const ref = useRef();
   const bodyRef = useRef();
   const trailRef = useRef();
@@ -65,15 +65,15 @@ const UAV = ({ position, scale = 0.2, color = '#4fc3f7', speed = 1, pathFunction
         ref={trailRef}
         width={5}
         length={5}
-        color={hovered ? new THREE.Color('#00ffff') : new THREE.Color(color)}
+        color={hovered ? new THREE.Color('#ffffff') : new THREE.Color(color)}
         attenuation={(t) => t * t}
       >
         <mesh ref={bodyRef}>
           {/* Body */}
           <boxGeometry args={[1, 0.2, 1]} />
           <meshStandardMaterial 
-            color={hovered ? '#00ffff' : color}
-            emissive={hovered ? '#00ffff' : color}
+            color={hovered ? '#ffffff' : color}
+            emissive={hovered ? '#ffffff' : color}
             emissiveIntensity={hovered ? 1 : 0.5}
             metalness={0.8}
             roughness={0.2}
@@ -87,15 +87,15 @@ const UAV = ({ position, scale = 0.2, color = '#4fc3f7', speed = 1, pathFunction
           <mesh>
             <cylinderGeometry args={[0.05, 0.05, 0.2, 8]} />
             <meshStandardMaterial 
-              color={hovered ? '#00ffff' : '#057cbb'}
-              emissive={hovered ? '#00ffff' : '#057cbb'}
+              color={hovered ? '#ffffff' : '#cccccc'}
+              emissive={hovered ? '#ffffff' : '#cccccc'}
               emissiveIntensity={hovered ? 0.8 : 0.3}
             />
           </mesh>
           <mesh ref={addPropellerRef} position={[0, 0.2, 0]} rotation={[0, 0, 0]}>
             <cylinderGeometry args={[0.4, 0.4, 0.05, 8]} />
             <meshStandardMaterial 
-              color={hovered ? '#80deea' : '#b3e5fc'}
+              color={hovered ? '#ffffff' : '#e0e0e0'}
               transparent
               opacity={0.7}
             />
@@ -107,7 +107,7 @@ const UAV = ({ position, scale = 0.2, color = '#4fc3f7', speed = 1, pathFunction
 };
 
 // Ground vehicle component
-const GroundVehicle = ({ position, scale = 0.3, color = '#7cb342', speed = 1, pathFunction }) => {
+const GroundVehicle = ({ position, scale = 0.3, color = '#e0e0e0', speed = 1, pathFunction }) => {
   const ref = useRef();
   const wheelRefs = useRef([]);
   const [hovered, setHovered] = useState(false);
@@ -162,8 +162,8 @@ const GroundVehicle = ({ position, scale = 0.3, color = '#7cb342', speed = 1, pa
       <mesh position={[0, 0.35, 0]}>
         <boxGeometry args={[2, 0.7, 1]} />
         <meshStandardMaterial 
-          color={hovered ? '#aed581' : color}
-          emissive={hovered ? '#aed581' : color}
+          color={hovered ? '#ffffff' : color}
+          emissive={hovered ? '#ffffff' : color}
           emissiveIntensity={hovered ? 0.7 : 0.3}
           metalness={0.6}
           roughness={0.3}
@@ -174,8 +174,8 @@ const GroundVehicle = ({ position, scale = 0.3, color = '#7cb342', speed = 1, pa
       <mesh position={[0, 0.8, 0]}>
         <boxGeometry args={[1.2, 0.5, 0.8]} />
         <meshStandardMaterial 
-          color={hovered ? '#8bc34a' : '#558b2f'}
-          emissive={hovered ? '#8bc34a' : '#558b2f'}
+          color={hovered ? '#ffffff' : '#cccccc'}
+          emissive={hovered ? '#ffffff' : '#cccccc'}
           emissiveIntensity={hovered ? 0.7 : 0.3}
         />
       </mesh>
@@ -184,7 +184,7 @@ const GroundVehicle = ({ position, scale = 0.3, color = '#7cb342', speed = 1, pa
       {[[-0.7, 0, -0.5], [0.7, 0, -0.5], [-0.7, 0, 0.5], [0.7, 0, 0.5]].map((pos, i) => (
         <mesh key={i} ref={addWheelRef} position={pos} rotation={[0, 0, Math.PI / 2]}>
           <cylinderGeometry args={[0.3, 0.3, 0.2, 16]} />
-          <meshStandardMaterial color="#263238" roughness={0.8} />
+          <meshStandardMaterial color="#444444" roughness={0.8} />
         </mesh>
       ))}
       
@@ -192,7 +192,7 @@ const GroundVehicle = ({ position, scale = 0.3, color = '#7cb342', speed = 1, pa
       <mesh position={[0, 1.2, 0]}>
         <sphereGeometry args={[0.1, 16, 16]} />
         <meshBasicMaterial 
-          color={hovered ? '#ffeb3b' : '#76ff03'} 
+          color={hovered ? '#ffffff' : '#cccccc'} 
         />
       </mesh>
     </group>
@@ -225,7 +225,7 @@ const ConnectionBeam = ({ start, end }) => {
     <mesh ref={ref} position={[0, 0, 0]} rotation={[0, 0, 0]}>
       <cylinderGeometry args={[0.03, 0.03, 1, 8]} />
       <meshBasicMaterial 
-        color="#80d8ff"
+        color="#ffffff"
         transparent
         opacity={opacity}
         depthWrite={false}
@@ -267,8 +267,8 @@ const CommandCenter = ({ position = [0, 0, 0], scale = 1 }) => {
       <mesh position={[0, 0, 0]}>
         <cylinderGeometry args={[1, 1.2, 0.2, 16]} />
         <meshStandardMaterial 
-          color={hovered ? '#4a148c' : '#311b92'}
-          emissive={hovered ? '#4a148c' : '#311b92'}
+          color={hovered ? '#ffffff' : '#cccccc'}
+          emissive={hovered ? '#ffffff' : '#cccccc'}
           emissiveIntensity={hovered ? 0.8 : 0.5}
           metalness={0.7}
           roughness={0.2}
@@ -279,8 +279,8 @@ const CommandCenter = ({ position = [0, 0, 0], scale = 1 }) => {
       <mesh position={[0, 0.6, 0]}>
         <cylinderGeometry args={[0.3, 0.4, 1, 16]} />
         <meshStandardMaterial 
-          color={hovered ? '#7e57c2' : '#5e35b1'}
-          emissive={hovered ? '#7e57c2' : '#5e35b1'}
+          color={hovered ? '#ffffff' : '#dddddd'}
+          emissive={hovered ? '#ffffff' : '#dddddd'}
           emissiveIntensity={hovered ? 0.8 : 0.5}
           metalness={0.7}
           roughness={0.2}
@@ -291,8 +291,8 @@ const CommandCenter = ({ position = [0, 0, 0], scale = 1 }) => {
       <mesh position={[0, 1.3, 0]}>
         <sphereGeometry args={[0.25, 16, 16]} />
         <meshStandardMaterial 
-          color={hovered ? '#ce93d8' : '#9575cd'}
-          emissive={hovered ? '#ce93d8' : '#9575cd'}
+          color={hovered ? '#ffffff' : '#eeeeee'}
+          emissive={hovered ? '#ffffff' : '#eeeeee'}
           emissiveIntensity={hovered ? 1 : 0.8}
           metalness={0.8}
           roughness={0.1}
@@ -303,7 +303,7 @@ const CommandCenter = ({ position = [0, 0, 0], scale = 1 }) => {
       <mesh position={[0, 0.1, 0]} rotation={[Math.PI / 2, 0, 0]}>
         <torusGeometry args={[1.5, 0.05, 8, 32]} />
         <meshBasicMaterial 
-          color="#b388ff"
+          color="#ffffff"
           transparent
           opacity={ringOpacity1}
         />
@@ -311,7 +311,7 @@ const CommandCenter = ({ position = [0, 0, 0], scale = 1 }) => {
       <mesh position={[0, 0.1, 0]} rotation={[Math.PI / 2, 0, 0]}>
         <torusGeometry args={[2, 0.03, 8, 32]} />
         <meshBasicMaterial 
-          color="#7c4dff"
+          color="#f5f5f5"
           transparent
           opacity={ringOpacity2}
         />
@@ -479,7 +479,7 @@ const IntelligentTeamingScene = () => {
         <UAV 
           key={`uav-${index}`}
           position={position}
-          color={index % 2 === 0 ? '#4fc3f7' : '#29b6f6'}
+          color={index % 2 === 0 ? '#ffffff' : '#dddddd'}
           speed={0.5 + Math.random() * 0.5}
           pathFunction={pathFunctions[index % pathFunctions.length]}
         />
@@ -490,7 +490,7 @@ const IntelligentTeamingScene = () => {
         <GroundVehicle 
           key={`vehicle-${index}`}
           position={position}
-          color={index % 2 === 0 ? '#7cb342' : '#689f38'}
+          color={index % 2 === 0 ? '#e0e0e0' : '#cccccc'}
           speed={0.3 + Math.random() * 0.3}
           pathFunction={pathFunctions[index % pathFunctions.length]}
         />
@@ -517,7 +517,7 @@ const IntelligentTeamingScene = () => {
       </mesh>
       
       {/* Grid lines */}
-      <gridHelper args={[20, 20, '#1a237e', '#1a237e']} position={[0, -0.09, 0]} />
+      <gridHelper args={[20, 20, '#333333', '#333333']} position={[0, -0.09, 0]} />
     </>
   );
 };
@@ -567,8 +567,8 @@ const IntelligentTeamingVisualization = () => {
       )}
       
       <Canvas camera={{ position: [8, 6, 8], fov: 45 }}>
-        <color attach="background" args={['#000814']} />
-        <fog attach="fog" args={['#000814', 15, 25]} />
+        <color attach="background" args={['#000000']} />
+        <fog attach="fog" args={['#000000', 15, 25]} />
         <IntelligentTeamingScene />
         <OrbitControls 
           enablePan={false}

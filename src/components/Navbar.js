@@ -318,6 +318,24 @@ const Navbar = () => {
             height: 2px;
           }
         }
+        
+        .navbar-cta {
+          background: transparent;
+          color: white;
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          padding: 0.6rem 1.4rem;
+          margin-left: 1.5rem;
+          border-radius: 2px;
+          font-size: 0.9rem;
+          font-weight: 500;
+          letter-spacing: 0.05em;
+          transition: all 0.3s ease;
+        }
+        
+        .navbar-cta:hover {
+          background: rgba(255, 255, 255, 0.1);
+          border-color: rgba(255, 255, 255, 0.3);
+        }
       `}</style>
     </nav>
   );

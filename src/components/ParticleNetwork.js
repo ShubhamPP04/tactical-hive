@@ -19,7 +19,7 @@ const ParticleNetwork = () => {
     // Particle settings
     const particleCount = 80;
     const particleRadius = 1;
-    const particleColor = '#444444';
+    const particleColor = '#FFFFFF';
     const lineWidth = 0.5;
     const maxLineDistance = 200;
     

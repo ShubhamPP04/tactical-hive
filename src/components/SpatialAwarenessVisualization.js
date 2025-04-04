@@ -44,9 +44,9 @@ const Terrain = ({ size = 10, resolution = 20 }) => {
     <mesh ref={meshRef} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
       <primitive object={terrainGeometry} attach="geometry" />
       <meshStandardMaterial 
-        color="#094293"
+        color="#ffffff"
         wireframe={true}
-        emissive="#0077ff"
+        emissive="#ffffff"
         emissiveIntensity={0.4}
       />
     </mesh>
@@ -54,7 +54,7 @@ const Terrain = ({ size = 10, resolution = 20 }) => {
 };
 
 // Tracking asset component
-const TrackingAsset = ({ position, size = 0.15, color = '#ffcc00', speed = 1 }) => {
+const TrackingAsset = ({ position, size = 0.15, color = '#ffffff', speed = 1 }) => {
   const ref = useRef();
   const [initialPosition] = useState(position);
   const [pathRadius] = useState(0.5 + Math.random() * 1.5);
@@ -96,8 +96,8 @@ const TrackingAsset = ({ position, size = 0.15, color = '#ffcc00', speed = 1 }) 
       <mesh>
         <boxGeometry args={[size, size * 0.3, size * 1.5]} />
         <meshStandardMaterial 
-          color={hovered ? '#ff9900' : color} 
-          emissive={hovered ? '#ff9900' : color}
+          color={hovered ? '#ffffff' : color} 
+          emissive={hovered ? '#ffffff' : color}
           emissiveIntensity={hovered ? 0.8 : 0.5}
         />
       </mesh>
@@ -106,8 +106,8 @@ const TrackingAsset = ({ position, size = 0.15, color = '#ffcc00', speed = 1 }) 
       <mesh position={[0, size * 0.3, 0]}>
         <boxGeometry args={[size * 0.6, size * 0.2, size * 0.8]} />
         <meshStandardMaterial 
-          color={hovered ? '#ff9900' : color} 
-          emissive={hovered ? '#ff9900' : color}
+          color={hovered ? '#ffffff' : color} 
+          emissive={hovered ? '#ffffff' : color}
           emissiveIntensity={hovered ? 0.8 : 0.5}
         />
       </mesh>
@@ -116,7 +116,7 @@ const TrackingAsset = ({ position, size = 0.15, color = '#ffcc00', speed = 1 }) 
       <mesh position={[0, size * 1, 0]}>
         <sphereGeometry args={[size * 0.3, 16, 16]} />
         <meshBasicMaterial 
-          color={hovered ? '#ff5500' : '#ff9900'} 
+          color={hovered ? '#ffffff' : '#cccccc'} 
           transparent 
           opacity={hovered ? 0.8 : pulseOpacity}
         />
@@ -126,7 +126,7 @@ const TrackingAsset = ({ position, size = 0.15, color = '#ffcc00', speed = 1 }) 
 };
 
 // Field of view indicator
-const FOVIndicator = ({ position = [0, 0.2, 0], rotation = [0, 0, 0], color = '#00ffcc' }) => {
+const FOVIndicator = ({ position = [0, 0.2, 0], rotation = [0, 0, 0], color = '#ffffff' }) => {
   const ref = useRef();
   
   useFrame((state) => {
@@ -171,9 +171,9 @@ const SpatialAwarenessScene = () => {
   
   // FOV indicator positions
   const fovPositions = [
-    { position: [0, 0.2, 0], rotation: [0, 0, 0], color: '#00ffcc' },
-    { position: [-2.5, 0.2, -2.5], rotation: [0, Math.PI / 4, 0], color: '#00ccff' },
-    { position: [2.5, 0.2, 2.5], rotation: [0, -Math.PI / 3, 0], color: '#00ccff' },
+    { position: [0, 0.2, 0], rotation: [0, 0, 0], color: '#ffffff' },
+    { position: [-2.5, 0.2, -2.5], rotation: [0, Math.PI / 4, 0], color: '#ffffff' },
+    { position: [2.5, 0.2, 2.5], rotation: [0, -Math.PI / 3, 0], color: '#ffffff' },
   ];
   
   return (
@@ -190,7 +190,7 @@ const SpatialAwarenessScene = () => {
           key={index} 
           position={position} 
           speed={0.5 + Math.random() * 0.5}
-          color={index % 2 === 0 ? '#ffcc00' : '#ff9900'}
+          color={index % 2 === 0 ? '#ffffff' : '#dddddd'}
         />
       ))}
       
@@ -247,8 +247,8 @@ const SpatialAwarenessVisualization = () => {
       )}
       
       <Canvas camera={{ position: [0, 6, 8], fov: 45 }}>
-        <color attach="background" args={['#000814']} />
-        <fog attach="fog" args={['#000814', 10, 20]} />
+        <color attach="background" args={['#000000']} />
+        <fog attach="fog" args={['#000000', 10, 20]} />
         <SpatialAwarenessScene />
         <OrbitControls 
           enablePan={false}

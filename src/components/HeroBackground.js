@@ -19,18 +19,18 @@ const GridPlane = () => {
   return (
     <group ref={gridRef} rotation={[-Math.PI / 2, 0, 0]} position={[0, -2, 0]}>
       <gridHelper 
-        args={[gridSize, gridDivisions, "#222222", "#111111"]} 
+        args={[gridSize, gridDivisions, "#444444", "#111111"]} 
         position={[0, 0, 0]}
       />
       
       {/* Additional grid lines for depth */}
       <gridHelper 
-        args={[gridSize, gridDivisions / 2, "#222222", "#181818"]} 
+        args={[gridSize, gridDivisions / 2, "#444444", "#181818"]} 
         position={[0, 0, -1]}
       />
       
       <gridHelper 
-        args={[gridSize, gridDivisions / 3, "#222222", "#151515"]} 
+        args={[gridSize, gridDivisions / 3, "#444444", "#151515"]} 
         position={[0, 0, -2]}
       />
       
@@ -107,12 +107,11 @@ const DataCubes = () => {
         >
           <boxGeometry args={[1, 1, 1]} />
           <meshStandardMaterial 
-            color="#FFFFFF"
+            color="#ffffff"
             emissive="#333333"
-            metalness={0.9}
-            roughness={0.1}
-            transparent
-            opacity={0.7}
+            emissiveIntensity={0.5}
+            metalness={0.8}
+            roughness={0.2}
           />
         </mesh>
       ))}
@@ -137,7 +136,11 @@ const ScanBeam = () => {
   return (
     <mesh ref={beamRef} position={[0, 3, 0]} rotation={[Math.PI / 2, 0, 0]}>
       <cylinderGeometry args={[0.1, 5, 20, 16, 1, true]} />
-      <meshBasicMaterial color="#FFFFFF" transparent opacity={0.03} side={THREE.DoubleSide} />
+      <meshBasicMaterial 
+        color="#ffffff"
+        transparent
+        opacity={0.7}
+      />
     </mesh>
   );
 };
@@ -165,10 +168,11 @@ const CoreVisualization = () => {
       <mesh castShadow>
         <sphereGeometry args={[1, 32, 32]} />
         <meshStandardMaterial 
-          color="#FFFFFF" 
-          metalness={0.9} 
-          roughness={0.1} 
-          emissive="#222222"
+          color="#ffffff"
+          emissive="#333333"
+          emissiveIntensity={0.5}
+          metalness={0.8}
+          roughness={0.2}
         />
       </mesh>
       
@@ -176,8 +180,10 @@ const CoreVisualization = () => {
       <mesh rotation={[Math.PI / 2, 0, 0]} castShadow>
         <torusGeometry args={[2, 0.05, 16, 100]} />
         <meshStandardMaterial 
-          color="#AAAAAA" 
-          metalness={0.8} 
+          color="#ffffff"
+          emissive="#333333"
+          emissiveIntensity={0.5}
+          metalness={0.8}
           roughness={0.2}
         />
       </mesh>
@@ -185,8 +191,10 @@ const CoreVisualization = () => {
       <mesh rotation={[Math.PI / 3, Math.PI / 4, 0]} castShadow>
         <torusGeometry args={[1.7, 0.05, 16, 100]} />
         <meshStandardMaterial 
-          color="#AAAAAA" 
-          metalness={0.8} 
+          color="#ffffff"
+          emissive="#333333"
+          emissiveIntensity={0.5}
+          metalness={0.8}
           roughness={0.2}
         />
       </mesh>
@@ -207,9 +215,11 @@ const CoreVisualization = () => {
           >
             <octahedronGeometry args={[0.2, 0]} />
             <meshStandardMaterial 
-              color="#FFFFFF" 
-              metalness={0.9} 
-              roughness={0.1}
+              color="#ffffff"
+              emissive="#333333"
+              emissiveIntensity={0.5}
+              metalness={0.8}
+              roughness={0.2}
             />
           </mesh>
         );
@@ -253,7 +263,7 @@ const HeroScene = () => {
         shadow-mapSize-height={1024} 
       />
       
-      <pointLight position={[0, 5, 0]} intensity={0.2} color="#FFFFFF" />
+      <pointLight position={[0, 5, 0]} intensity={0.2} color="#ffffff" />
       
       <GridPlane />
       <DataCubes />

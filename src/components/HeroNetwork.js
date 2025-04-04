@@ -14,9 +14,9 @@ const HeroNetwork = () => {
     let connections = [];
     
     // Colors
-    const primaryColor = 'rgba(0, 150, 255, 0.8)';
-    const secondaryColor = 'rgba(0, 220, 255, 0.5)';
-    const tertiaryColor = 'rgba(0, 100, 255, 0.3)';
+    const primaryColor = 'rgba(255, 255, 255, 0.8)';
+    const secondaryColor = 'rgba(220, 220, 220, 0.5)';
+    const tertiaryColor = 'rgba(180, 180, 180, 0.3)';
     
     // Data packets for animation
     let dataPackets = [];
@@ -166,7 +166,7 @@ const HeroNetwork = () => {
         lineWidth += 0.3;
       }
       
-      ctx.strokeStyle = `rgba(50, 180, 255, ${lineOpacity})`;
+      ctx.strokeStyle = `rgba(255, 255, 255, ${lineOpacity})`;
       ctx.lineWidth = lineWidth;
       ctx.stroke();
     };
@@ -198,7 +198,7 @@ const HeroNetwork = () => {
       // Draw center dot
       ctx.beginPath();
       ctx.arc(x, y, important ? size * 1.5 : size * 1.2, 0, Math.PI * 2); // Increased from size * 1.2 and size
-      ctx.fillStyle = important ? 'rgba(255, 255, 255, 0.9)' : 'rgba(150, 220, 255, 0.7)';
+      ctx.fillStyle = important ? 'rgba(255, 255, 255, 0.9)' : 'rgba(200, 200, 200, 0.7)';
       ctx.fill();
     };
     
@@ -222,7 +222,7 @@ const HeroNetwork = () => {
       );
       
       gradient.addColorStop(0, packet.important ? primaryColor : secondaryColor);
-      gradient.addColorStop(1, 'rgba(0, 150, 255, 0)');
+      gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
       
       ctx.fillStyle = gradient;
       ctx.fill();

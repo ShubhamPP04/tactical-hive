@@ -38,8 +38,8 @@ const Node = ({ position, size = 0.3, color = '#ffffff', isCenter = false }) => 
     >
       <sphereGeometry args={[hovered ? size * 1.2 : size, 32, 32]} />
       <meshStandardMaterial 
-        color={hovered ? '#00a8ff' : color}
-        emissive={hovered ? '#00a8ff' : color}
+        color={hovered ? '#ffffff' : color}
+        emissive={hovered ? '#ffffff' : color}
         emissiveIntensity={hovered ? 1 : 0.7}
         roughness={0.2}
         metalness={0.8}
@@ -135,7 +135,7 @@ const EnhancedVisionNetwork = () => {
           key={index} 
           position={position} 
           size={0.2 + Math.random() * 0.2}
-          color={index % 2 === 0 ? '#4fc3f7' : '#81d4fa'} 
+          color={index % 2 === 0 ? '#ffffff' : '#cccccc'} 
         />
       ))}
       

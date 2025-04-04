@@ -140,12 +140,12 @@ const OurStory = () => {
         
         .gradient-text {
           display: block;
-          background: linear-gradient(to bottom, rgba(255, 255, 255, 0.95), rgba(180, 220, 255, 0.8));
+          background: white;
           -webkit-background-clip: text;
           background-clip: text;
           -webkit-text-fill-color: transparent;
           text-fill-color: transparent;
-          filter: drop-shadow(0 0 15px rgba(100, 170, 255, 0.5));
+          filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.5));
         }
         
         .content-box {
