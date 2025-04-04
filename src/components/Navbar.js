@@ -72,7 +72,7 @@ const Navbar = () => {
                   scrollToSection('about');
                 }}
               >
-                About
+                Mission
                 <span className="hover-indicator"></span>
               </a>
             </li>

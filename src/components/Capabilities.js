@@ -1,278 +1,30 @@
-import React, { useEffect, useRef, Suspense } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Environment, Center, Float } from '@react-three/drei';
+import EnhancedVisionVisualization from './EnhancedVisionVisualization';
+import SpatialAwarenessVisualization from './SpatialAwarenessVisualization';
+import IntelligentTeamingVisualization from './IntelligentTeamingVisualization';
 
 gsap.registerPlugin(ScrollTrigger);
-
-// 3D Model Components
-const SpatialAwarenessModel = () => {
-  return (
-    <Center>
-      <Float rotationIntensity={0.2} floatIntensity={0.3} speed={1.5}>
-        <group>
-          {/* Main drone/satellite body */}
-          <mesh castShadow position={[0, 0, 0]}>
-            <boxGeometry args={[1.5, 0.2, 1.5]} />
-            <meshStandardMaterial color="#FFFFFF" metalness={0.8} roughness={0.2} />
-          </mesh>
-          
-          {/* Central dome */}
-          <mesh castShadow position={[0, 0.2, 0]}>
-            <sphereGeometry args={[0.5, 32, 32, 0, Math.PI]} />
-            <meshStandardMaterial color="#AAAAAA" metalness={0.9} roughness={0.1} envMapIntensity={1} />
-          </mesh>
-          
-          {/* Solar panels */}
-          <mesh castShadow position={[1.5, 0, 0]} rotation={[0, 0, 0]}>
-            <boxGeometry args={[1.5, 0.05, 0.8]} />
-            <meshStandardMaterial color="#222222" metalness={0.3} roughness={0.1} />
-          </mesh>
-          
-          <mesh castShadow position={[-1.5, 0, 0]} rotation={[0, 0, 0]}>
-            <boxGeometry args={[1.5, 0.05, 0.8]} />
-            <meshStandardMaterial color="#222222" metalness={0.3} roughness={0.1} />
-          </mesh>
-          
-          {/* Scanning beam */}
-          <mesh position={[0, -0.5, 0]} rotation={[Math.PI/2, 0, 0]}>
-            <coneGeometry args={[0.4, 1, 16, 1, true]} />
-            <meshBasicMaterial color="#FFFFFF" transparent opacity={0.1} />
-          </mesh>
-          
-          {/* Target area/grid */}
-          <mesh position={[0, -1.2, 0]} rotation={[0, 0, 0]} receiveShadow>
-            <circleGeometry args={[1.5, 32]} />
-            <meshStandardMaterial color="#111111" metalness={0.2} roughness={0.8} />
-          </mesh>
-          
-          {/* Grid lines */}
-          {Array(5).fill().map((_, i) => (
-            <mesh key={`grid-x-${i}`} position={[0, -1.15, (i-2) * 0.5]} rotation={[0, 0, 0]}>
-              <boxGeometry args={[3, 0.01, 0.01]} />
-              <meshBasicMaterial color="#FFFFFF" transparent opacity={0.3} />
-            </mesh>
-          ))}
-          
-          {Array(5).fill().map((_, i) => (
-            <mesh key={`grid-z-${i}`} position={[(i-2) * 0.5, -1.15, 0]} rotation={[0, 0, 0]}>
-              <boxGeometry args={[0.01, 0.01, 3]} />
-              <meshBasicMaterial color="#FFFFFF" transparent opacity={0.3} />
-            </mesh>
-          ))}
-        </group>
-      </Float>
-    </Center>
-  );
-};
-
-const IntelligentTeamingModel = () => {
-  return (
-    <Center>
-      <Float rotationIntensity={0.2} floatIntensity={0.3} speed={1.2}>
-        <group>
-          {/* Central command node */}
-          <mesh position={[0, 0, 0]} castShadow>
-            <dodecahedronGeometry args={[0.7, 0]} />
-            <meshStandardMaterial color="#FFFFFF" metalness={0.8} roughness={0.2} />
-          </mesh>
-          
-          {/* Connection nodes - UAVs/Drones */}
-          {[-2, -1, 1, 2].map((x, i) => (
-            <group key={`drone-${i}`} position={[x * 0.8, Math.sin(x * 0.5) * 0.5, Math.cos(x * 0.5) * 0.5]}>
-              <mesh castShadow>
-                <boxGeometry args={[0.3, 0.1, 0.3]} />
-                <meshStandardMaterial color="#AAAAAA" metalness={0.7} roughness={0.3} />
-              </mesh>
-              
-              {/* Rotors */}
-              <mesh position={[0.2, 0.05, 0.2]} castShadow>
-                <cylinderGeometry args={[0.1, 0.1, 0.02, 16]} />
-                <meshStandardMaterial color="#333333" metalness={0.5} roughness={0.5} />
-              </mesh>
-              
-              <mesh position={[-0.2, 0.05, 0.2]} castShadow>
-                <cylinderGeometry args={[0.1, 0.1, 0.02, 16]} />
-                <meshStandardMaterial color="#333333" metalness={0.5} roughness={0.5} />
-              </mesh>
-              
-              <mesh position={[0.2, 0.05, -0.2]} castShadow>
-                <cylinderGeometry args={[0.1, 0.1, 0.02, 16]} />
-                <meshStandardMaterial color="#333333" metalness={0.5} roughness={0.5} />
-              </mesh>
-              
-              <mesh position={[-0.2, 0.05, -0.2]} castShadow>
-                <cylinderGeometry args={[0.1, 0.1, 0.02, 16]} />
-                <meshStandardMaterial color="#333333" metalness={0.5} roughness={0.5} />
-              </mesh>
-            </group>
-          ))}
-          
-          {/* Connection lines */}
-          {[-2, -1, 1, 2].map((x, i) => {
-            const start = [0, 0, 0];
-            const end = [x * 0.8, Math.sin(x * 0.5) * 0.5, Math.cos(x * 0.5) * 0.5];
-            const distance = Math.sqrt(
-              Math.pow(end[0] - start[0], 2) + 
-              Math.pow(end[1] - start[1], 2) + 
-              Math.pow(end[2] - start[2], 2)
-            );
-            
-            // Find midpoint for positioning
-            const midpoint = [
-              (start[0] + end[0]) / 2,
-              (start[1] + end[1]) / 2,
-              (start[2] + end[2]) / 2
-            ];
-            
-            // Calculate rotation to point from start to end
-            const rotationY = Math.atan2(end[0] - start[0], end[2] - start[2]);
-            const horizontalDistance = Math.sqrt(
-              Math.pow(end[0] - start[0], 2) + 
-              Math.pow(end[2] - start[2], 2)
-            );
-            const rotationX = Math.atan2(end[1] - start[1], horizontalDistance);
-            
-            return (
-              <mesh 
-                key={`connection-${i}`} 
-                position={midpoint}
-                rotation={[rotationX, rotationY, 0]}
-              >
-                <cylinderGeometry args={[0.02, 0.02, distance, 8]} />
-                <meshBasicMaterial color="#FFFFFF" transparent opacity={0.3} />
-              </mesh>
-            );
-          })}
-        </group>
-      </Float>
-    </Center>
-  );
-};
-
-const EnhancedVisionModel = () => {
-  return (
-    <Center>
-      <Float rotationIntensity={0.2} floatIntensity={0.3} speed={1.5}>
-        <group>
-          {/* Main camera/vision system body */}
-          <mesh position={[0, 0, 0]} castShadow>
-            <cylinderGeometry args={[0.6, 0.6, 0.4, 32]} />
-            <meshStandardMaterial color="#333333" metalness={0.9} roughness={0.1} />
-          </mesh>
-          
-          {/* Lens */}
-          <mesh position={[0, 0, 0.3]} castShadow>
-            <cylinderGeometry args={[0.4, 0.4, 0.2, 32]} />
-            <meshStandardMaterial color="#111111" metalness={0.9} roughness={0} />
-          </mesh>
-          
-          <mesh position={[0, 0, 0.45]} castShadow>
-            <cylinderGeometry args={[0.3, 0.3, 0.1, 32]} />
-            <meshStandardMaterial color="#000000" metalness={1} roughness={0} />
-          </mesh>
-          
-          {/* Camera mount */}
-          <mesh position={[0, -0.4, 0]} castShadow>
-            <boxGeometry args={[0.8, 0.4, 0.8]} />
-            <meshStandardMaterial color="#AAAAAA" metalness={0.8} roughness={0.2} />
-          </mesh>
-          
-          {/* Vision cone */}
-          <mesh position={[0, 0, 1]} rotation={[0, 0, 0]}>
-            <coneGeometry args={[1.5, 3, 32, 1, true]} />
-            <meshBasicMaterial color="#FFFFFF" transparent opacity={0.05} />
-          </mesh>
-          
-          {/* Analysis grid lines in vision cone */}
-          {Array(5).fill().map((_, i) => (
-            <mesh key={`grid-h-${i}`} position={[0, 0, 1 + (i * 0.4)]}>
-              <ringGeometry args={[(i+1) * 0.2, (i+1) * 0.2 + 0.02, 32]} />
-              <meshBasicMaterial color="#FFFFFF" transparent opacity={0.2} />
-            </mesh>
-          ))}
-          
-          {/* Target identification points */}
-          {[
-            [0.5, 0.3, 2], 
-            [-0.7, -0.2, 1.5], 
-            [0.2, -0.5, 2.5],
-            [-0.3, 0.6, 1.8]
-          ].map((pos, i) => (
-            <group key={`target-${i}`} position={pos}>
-              <mesh>
-                <sphereGeometry args={[0.05, 16, 16]} />
-                <meshBasicMaterial color="#FFFFFF" />
-              </mesh>
-              <mesh position={[0, 0, 0]}>
-                <ringGeometry args={[0.08, 0.09, 16]} />
-                <meshBasicMaterial color="#FFFFFF" transparent opacity={0.6} />
-              </mesh>
-            </group>
-          ))}
-        </group>
-      </Float>
-    </Center>
-  );
-};
-
-const ModelScene = ({ children }) => {
-  return (
-    <Canvas shadows camera={{ position: [0, 0, 5], fov: 45 }}>
-      <ambientLight intensity={0.5} />
-      <directionalLight
-        position={[5, 5, 5]} 
-        intensity={0.8} 
-        castShadow 
-        shadow-mapSize-width={1024} 
-        shadow-mapSize-height={1024} 
-      />
-      <Suspense fallback={null}>
-        {children}
-        <Environment preset="city" />
-        <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={1} />
-      </Suspense>
-    </Canvas>
-  );
-};
-
-// Loading fallback component
-const ModelLoader = () => (
-  <div className="model-loader">
-    <div className="spinner"></div>
-    <style jsx>{`
-      .model-loader {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 300px;
-        background: rgba(0, 0, 0, 0.2);
-      }
-      .spinner {
-        width: 40px;
-        height: 40px;
-        border: 3px solid rgba(255, 255, 255, 0.1);
-        border-radius: 50%;
-        border-top-color: rgba(255, 255, 255, 0.8);
-        animation: spin 1s ease-in-out infinite;
-      }
-      @keyframes spin {
-        to { transform: rotate(360deg); }
-      }
-    `}</style>
-  </div>
-);
 
 const Capabilities = () => {
   const sectionRef = useRef(null);
   const titleRef = useRef(null);
   const capabilitiesRef = useRef([]);
-
+  
   useEffect(() => {
     const title = titleRef.current;
     const capabilities = capabilitiesRef.current;
-
+    
+    // Create sticky effect for the title at the top
+    ScrollTrigger.create({
+      trigger: sectionRef.current,
+      start: "top top",
+      end: "bottom bottom",
+      pin: ".capabilities-title-container",
+      pinSpacing: false
+    });
+    
     gsap.fromTo(
       title,
       { opacity: 0, y: 30 },
@@ -320,51 +72,48 @@ const Capabilities = () => {
 
   return (
     <section id="capabilities" className="capabilities section" ref={sectionRef}>
-      <div className="container">
-        <h2 className="section-title" ref={titleRef}>CAPABILITIES</h2>
+      <div className="capabilities-title-container" ref={titleRef}>
+        <h2 className="section-title">
+          CAPABILITIES
+        </h2>
+      </div>
+      
+      <div className="capabilities-layout">
+        <div className="capabilities-content">
+          <div className="capability-item" ref={addToRefs}>
+            <div className="capability-visual">
+              <EnhancedVisionVisualization />
+            </div>
+            <div className="capability-content">
+              <h3>Enhanced Vision Integration</h3>
+              <p>
+                Tactical Hive can be seamlessly integrated with existing systems that feature vision capabilities. By upgrading these systems with AI-driven precision, we transform them into powerful tools for reconnaissance, targeting, and situational awareness.
+              </p>
+            </div>
+          </div>
 
-        <div className="capability-section" ref={addToRefs}>
-          <div className="capability-visual">
-            <ModelScene>
-              <SpatialAwarenessModel />
-            </ModelScene>
+          <div className="capability-item" ref={addToRefs}>
+            <div className="capability-visual">
+              <SpatialAwarenessVisualization />
+            </div>
+            <div className="capability-content">
+              <h3>Spatial Awareness</h3>
+              <p>
+                Tactical Hive provides unparalleled visibility by mapping terrains and tracking assets in real time. Our technology ensures a 360-degree perspective, enabling rapid identification and response to threats across diverse and challenging environments.
+              </p>
+            </div>
           </div>
-          <div className="capability-content">
-            <div className="capability-tag">FIND</div>
-            <h3>Spatial Awareness</h3>
-            <p>
-              Tactical Hive provides unparalleled visibility by mapping terrains and tracking assets in real time. Our technology ensures a 360-degree perspective, enabling rapid identification and response to threats across diverse and challenging environments.
-            </p>
-          </div>
-        </div>
 
-        <div className="capability-section reverse" ref={addToRefs}>
-          <div className="capability-visual">
-            <ModelScene>
-              <IntelligentTeamingModel />
-            </ModelScene>
-          </div>
-          <div className="capability-content">
-            <div className="capability-tag">CONNECT</div>
-            <h3>Intelligent Teaming</h3>
-            <p>
-              Our AI-powered system optimizes coordination between UAVs, ground vehicles, and human operatives. This intelligent collaboration enhances mission efficiency, enabling seamless communication and execution across multi-domain operations.
-            </p>
-          </div>
-        </div>
-
-        <div className="capability-section" ref={addToRefs}>
-          <div className="capability-visual">
-            <ModelScene>
-              <EnhancedVisionModel />
-            </ModelScene>
-          </div>
-          <div className="capability-content">
-            <div className="capability-tag">ANALYZE</div>
-            <h3>Enhanced Vision Integration</h3>
-            <p>
-              Tactical Hive can be seamlessly integrated with existing systems that feature vision capabilities. By upgrading these systems with AI-driven precision, we transform them into powerful tools for reconnaissance, targeting, and situational awareness.
-            </p>
+          <div className="capability-item" ref={addToRefs}>
+            <div className="capability-visual">
+              <IntelligentTeamingVisualization />
+            </div>
+            <div className="capability-content">
+              <h3>Intelligent Teaming</h3>
+              <p>
+                Our AI-powered system optimizes coordination between UAVs, ground vehicles, and human operatives. This intelligent collaboration enhances mission efficiency, enabling seamless communication and execution across multi-domain operations.
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -372,115 +121,126 @@ const Capabilities = () => {
       <style jsx>{`
         .capabilities {
           position: relative;
-          padding: 8rem 0;
-          background-color: #050505;
+          padding: 3rem 0 0;
+          background-color: #000000;
+          min-height: 100vh;
+          overflow: hidden;
+        }
+        
+        .capabilities-title-container {
+          position: sticky;
+          top: 0;
+          left: 0;
+          width: 100%;
+          padding: 2rem 5%;
+          z-index: 99;
+          background-color: transparent;
+          margin-bottom: 4rem;
+        }
+        
+        .capabilities-layout {
+          display: flex;
+          flex-direction: column;
+          width: 100%;
+          max-width: 1600px;
+          margin: 0 auto;
+          padding: 0 5%;
+        }
+        
+        .capabilities-content {
+          width: 100%;
+          position: relative;
+          padding-top: 0;
         }
         
         .section-title {
-          font-size: 3.5rem;
-          margin-bottom: 5rem;
-          text-transform: uppercase;
-          letter-spacing: 1px;
-          font-weight: 600;
+          font-size: clamp(3.5rem, 6vw, 7rem);
+          font-weight: 800;
+          margin: 0;
+          line-height: 1;
+          color: #FFFFFF;
+          text-align: left;
+          letter-spacing: 0.05em;
+          text-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+          display: inline-block;
+          padding: 0.5rem 0;
         }
         
-        .capability-section {
+        .capability-item {
           display: flex;
-          align-items: center;
-          margin-bottom: 8rem;
-          gap: 5rem;
+          margin-bottom: 10rem;
           position: relative;
-        }
-        
-        .capability-section.reverse {
-          flex-direction: row-reverse;
+          min-height: 400px;
+          width: 100%;
         }
         
         .capability-visual {
           flex: 1;
-          position: relative;
           height: 400px;
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 2px;
+          position: relative;
+          margin-right: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 400px;
+          min-width: 300px;
+          background-color: rgba(0, 0, 0, 0.2);
+          border-radius: 4px;
           overflow: hidden;
-          background-color: #0A0A0A;
         }
         
         .capability-content {
           flex: 1;
-          position: relative;
-        }
-        
-        .capability-tag {
-          font-size: 0.9rem;
-          letter-spacing: 2px;
-          color: #AAAAAA;
-          margin-bottom: 0.5rem;
-          text-transform: uppercase;
+          background: rgba(10, 10, 10, 0.9);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 4px;
+          padding: 2.5rem;
+          z-index: 10;
+          align-self: center;
         }
         
         .capability-content h3 {
-          font-size: 2.2rem;
-          margin-bottom: 1.5rem;
-          text-transform: uppercase;
-          letter-spacing: 1px;
+          font-size: 2.5rem;
+          margin: 0 0 1.5rem 0;
+          font-weight: 600;
           line-height: 1.2;
         }
         
         .capability-content p {
-          font-size: 1.1rem;
-          line-height: 1.7;
-          color: var(--text-muted);
+          font-size: 1.125rem;
+          line-height: 1.6;
+          margin: 0;
+          color: rgba(255, 255, 255, 0.7);
         }
         
-        @media (max-width: 1200px) {
-          .capability-section {
-            gap: 3rem;
+        @media (max-width: 768px) {
+          .capabilities-title-container {
+            padding: 1.5rem 5%;
+          }
+          
+          .capability-item {
+            flex-direction: column;
+            margin-bottom: 5rem;
+          }
+          
+          .capability-visual {
+            width: 100%;
+            margin-right: 0;
+            margin-bottom: 2rem;
+            flex: none;
+          }
+          
+          .capability-content {
+            width: 100%;
+            flex: none;
           }
           
           .section-title {
             font-size: 3rem;
           }
-        }
-        
-        @media (max-width: 992px) {
-          .capability-section, 
-          .capability-section.reverse {
-            flex-direction: column;
-            margin-bottom: 6rem;
-          }
-          
-          .capability-visual {
-            width: 100%;
-            margin-bottom: 2rem;
-          }
-          
-          .section-title {
-            font-size: 2.5rem;
-            margin-bottom: 4rem;
-          }
-        }
-        
-        @media (max-width: 768px) {
-          .capabilities {
-            padding: 5rem 0;
-          }
           
           .capability-content h3 {
-            font-size: 1.8rem;
-          }
-          
-          .capability-content p {
-            font-size: 1rem;
-          }
-          
-          .section-title {
             font-size: 2rem;
-            margin-bottom: 3rem;
-          }
-          
-          .capability-visual {
-            height: 300px;
           }
         }
       `}</style>

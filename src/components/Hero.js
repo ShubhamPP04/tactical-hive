@@ -1,10 +1,11 @@
 import React, { useEffect, useRef } from 'react';
-import HeroBackground from './HeroBackground';
 import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
+import { ScrollTrigger as ScrollTriggerPlugin } from 'gsap/ScrollTrigger';
+import HeroNetwork from './HeroNetwork';
 
-// Register ScrollToPlugin with GSAP
-gsap.registerPlugin(ScrollToPlugin);
+// Register plugins with GSAP
+gsap.registerPlugin(ScrollToPlugin, ScrollTriggerPlugin);
 
 const Hero = () => {
   const titleRef = useRef(null);
@@ -13,6 +14,7 @@ const Hero = () => {
   const heroRef = useRef(null);
   
   useEffect(() => {
+    // Initial animations
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
     
     // Animate title
@@ -39,6 +41,24 @@ const Hero = () => {
       { y: 0, opacity: 1, duration: 0.8 },
       '-=0.2'
     );
+    
+    // Parallax effect on scroll
+    gsap.to('.hero-content', {
+      scrollTrigger: {
+        trigger: heroRef.current,
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true
+      },
+      y: 100,
+      opacity: 0,
+      ease: 'none'
+    });
+    
+    // Cleanup
+    return () => {
+      ScrollTriggerPlugin.getAll().forEach(trigger => trigger.kill());
+    };
   }, []);
   
   // Handle scroll to section
@@ -64,11 +84,11 @@ const Hero = () => {
   
   return (
     <section id="hero" className="hero vh100" ref={heroRef}>
-      <HeroBackground />
+      <HeroNetwork />
       
       <div className="hero-content">
         <h1 className="hero-title" ref={titleRef}>
-          DOMINATING INTELLIGENCE<br />WITH HIVE MIND
+          DOMINATING INTELLIGENCE WITH HIVE MIND
         </h1>
         
         <p className="hero-subtitle" ref={subtitleRef}>
@@ -85,54 +105,53 @@ const Hero = () => {
         </div>
       </div>
       
-      <div className="scroll-indicator">
-        <div className="arrows">
-          <span className="arrow"></span>
-          <span className="arrow"></span>
-        </div>
-      </div>
-      
       <style jsx>{`
         .hero {
           position: relative;
           overflow: hidden;
           display: flex;
-          align-items: center;
-          justify-content: center;
+          align-items: flex-end;
+          justify-content: flex-start;
           text-align: left;
           min-height: 100vh;
-          padding: 8rem 4rem 6rem;
+          padding: 0;
           background-color: #000000;
         }
         
         .hero-content {
-          max-width: 900px;
-          z-index: 2;
+          max-width: 750px;
+          z-index: 10;
           position: relative;
-          margin-left: 0;
-          margin-right: auto;
+          margin: 0 0 4rem 4rem;
         }
         
         .hero-title {
-          font-size: clamp(2.5rem, 8vw, 5rem);
-          margin-bottom: 2rem;
+          font-size: clamp(2rem, 4vw, 3rem);
+          margin-bottom: 1rem;
           line-height: 1.1;
           font-weight: 600;
           text-transform: uppercase;
           letter-spacing: 1px;
-          text-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+          max-width: 90vw;
+          white-space: normal;
+          overflow: visible;
+          text-overflow: clip;
+          color: #FFFFFF;
+          text-shadow: 0 0 10px rgba(0, 100, 255, 0.3);
         }
         
         .hero-subtitle {
-          font-size: clamp(1rem, 2vw, 1.2rem);
-          margin-bottom: 3rem;
-          color: var(--text-muted);
-          max-width: 600px;
+          font-size: clamp(0.9rem, 1.5vw, 1rem);
+          margin-bottom: 1.5rem;
           margin-left: 0;
-          margin-right: auto;
-          line-height: 1.6;
-          letter-spacing: 0.5px;
-          text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+          color: rgba(255, 255, 255, 0.7);
+          max-width: 550px;
+          line-height: 1.5;
+          letter-spacing: 0.3px;
+          font-weight: 300;
+          position: relative;
+          padding-left: 0;
+          border-left: none;
         }
         
         .button-container {
@@ -144,72 +163,55 @@ const Hero = () => {
         .btn {
           background: transparent;
           border: 1px solid rgba(255, 255, 255, 0.3);
-          padding: 1rem 2.5rem;
-          font-size: 0.9rem;
+          padding: 0.8rem 2rem;
+          font-size: 0.8rem;
           letter-spacing: 2px;
           transition: all 0.3s ease;
           backdrop-filter: blur(5px);
+          color: #FFFFFF;
+          text-transform: uppercase;
+          cursor: pointer;
         }
         
         .btn:hover {
-          background: rgba(255, 255, 255, 0.1);
+          background: rgba(0, 140, 255, 0.1);
           transform: translateY(-2px);
           box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+          border-color: rgba(0, 200, 255, 0.5);
         }
         
-        .scroll-indicator {
-          position: absolute;
-          bottom: 40px;
-          left: 50%;
-          transform: translateX(-50%);
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          opacity: 0.6;
-          transition: opacity 0.3s ease;
-          z-index: 2;
-        }
-        
-        .scroll-indicator:hover {
-          opacity: 1;
-        }
-        
-        .arrows {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 6px;
-        }
-        
-        .arrow {
-          width: 10px;
-          height: 10px;
-          border-right: 1px solid var(--text-color);
-          border-bottom: 1px solid var(--text-color);
-          transform: rotate(45deg);
+        @media (max-width: 992px) {
+          .hero-content {
+            margin: 0 0 4rem 3rem;
+          }
         }
         
         @media (max-width: 768px) {
           .hero {
-            text-align: center;
-            padding: 6rem 2rem 4rem;
+            text-align: left;
+            align-items: flex-end;
           }
           
           .hero-content {
-            margin-right: auto;
+            margin: 0 0 3rem 2rem;
           }
           
           .hero-subtitle {
-            margin-left: auto;
-            margin-right: auto;
+            margin-left: 0;
+            margin-right: 0;
+            max-width: 100%;
           }
           
           .button-container {
-            justify-content: center;
-            margin: 0 auto;
-            flex-direction: column;
-            width: 100%;
-            max-width: 300px;
+            justify-content: flex-start;
+            margin: 0;
+            flex-direction: row;
+          }
+        }
+        
+        @media (max-width: 480px) {
+          .hero-content {
+            margin: 0 1.5rem 3rem 1.5rem;
           }
         }
       `}</style>

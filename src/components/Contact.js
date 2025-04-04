@@ -9,7 +9,7 @@ const Contact = () => {
   const titleRef = useRef(null);
   const descriptionRef = useRef(null);
   const contactRef = useRef(null);
-
+  
   useEffect(() => {
     const title = titleRef.current;
     const description = descriptionRef.current;
@@ -23,11 +23,11 @@ const Contact = () => {
         opacity: 1,
         y: 0,
         duration: 0.8,
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 80%',
-          toggleActions: 'play none none none'
-        }
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: 'top 80%',
+        toggleActions: 'play none none none'
+      }
       }
     );
 
@@ -69,7 +69,7 @@ const Contact = () => {
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
   }, []);
-
+  
   return (
     <section id="contact" className="contact section" ref={sectionRef}>
       <div className="contact-bg">
@@ -244,7 +244,7 @@ const Contact = () => {
         
         @media (max-width: 1200px) {
           .section-title {
-            font-size: 3rem;
+          font-size: 3rem;
           }
         }
         
