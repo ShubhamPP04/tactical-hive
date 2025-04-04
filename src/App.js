@@ -98,6 +98,10 @@ function App() {
           position: relative;
           overflow-x: hidden;
         }
+
+        .grid-lines {
+          pointer-events: none;
+        }
       `}</style>
     </div>
   );

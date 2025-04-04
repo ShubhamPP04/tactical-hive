@@ -20,7 +20,7 @@ const Capabilities = () => {
     ScrollTrigger.create({
       trigger: sectionRef.current,
       start: "top top",
-      end: "bottom bottom",
+      end: "bottom top",
       pin: ".capabilities-title-container",
       pinSpacing: false
     });
@@ -133,7 +133,7 @@ const Capabilities = () => {
           left: 0;
           width: 100%;
           padding: 2rem 5%;
-          z-index: 99;
+          z-index: 10;
           background-color: transparent;
           margin-bottom: 4rem;
         }

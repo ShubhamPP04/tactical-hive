@@ -106,6 +106,7 @@ const Footer = () => {
           padding: 5rem 0 2rem;
           position: relative;
           border-top: 1px solid rgba(255, 255, 255, 0.05);
+          z-index: 20;
         }
         
         .footer-container {
@@ -167,6 +168,8 @@ const Footer = () => {
           display: flex;
           flex-direction: column;
           gap: 1.5rem;
+          position: relative;
+          z-index: 30;
         }
         
         .form-row {
