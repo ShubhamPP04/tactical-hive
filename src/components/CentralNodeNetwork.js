@@ -20,7 +20,7 @@ const CentralNodeNetwork = () => {
         maxPulseRadius: 20, // Increased from 8
         pulseDirection: 1,
         pulseSpeed: 0.05,
-        color: 'rgba(0, 255, 255, 0.9)' // Cyan for futuristic look
+        color: 'rgba(255, 255, 255, 0.9)' // Changed from cyan to white
     };
 
     const dataPackets = [];
@@ -39,7 +39,7 @@ const CentralNodeNetwork = () => {
     // Draw hexagonal grid background
     function drawGrid() {
         const hexSize = 40;
-        ctx.strokeStyle = 'rgba(0, 255, 255, 0.03)';
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.03)';
         ctx.lineWidth = 0.5;
         
         const sqrt3 = Math.sqrt(3);
@@ -104,22 +104,22 @@ const CentralNodeNetwork = () => {
             });
         }
         
-        // Choose color - similar palette to the energy pulses but with more variation
+        // Choose color - changed all to white variations
         const colorType = Math.random();
         let networkColor;
         
         if (colorType < 0.4) {
-            // Cyan variation
-            networkColor = `rgba(0, ${160 + Math.random() * 70}, ${220 + Math.random() * 35}, 0.8)`;
+            // White variation with high opacity
+            networkColor = `rgba(255, 255, 255, 0.8)`;
         } else if (colorType < 0.7) {
-            // Blue variation
-            networkColor = `rgba(${Math.random() * 30}, ${80 + Math.random() * 60}, ${200 + Math.random() * 55}, 0.8)`;
+            // White variation with medium opacity
+            networkColor = `rgba(255, 255, 255, 0.7)`;
         } else if (colorType < 0.9) {
-            // Green-blue variation
-            networkColor = `rgba(0, ${140 + Math.random() * 60}, ${140 + Math.random() * 40}, 0.8)`;
+            // White variation with lower opacity
+            networkColor = `rgba(255, 255, 255, 0.6)`;
         } else {
-            // White/energy pulse
-            networkColor = `rgba(220, 220, 220, 0.8)`;
+            // Bright white
+            networkColor = `rgba(255, 255, 255, 0.9)`;
         }
         
         return {
@@ -144,14 +144,14 @@ const CentralNodeNetwork = () => {
             // Animate the ring radius with larger amplitude
             ring.currentRadius = ring.radius + 30 * Math.sin(Date.now() * 0.001 * ring.speed);
             
-            // Glow effect
+            // Glow effect - changed from cyan to white
             const gradient = ctx.createRadialGradient(
                 centralNode.x, centralNode.y, ring.currentRadius * 0.8,
                 centralNode.x, centralNode.y, ring.currentRadius
             );
-            gradient.addColorStop(0, `rgba(0, 255, 255, 0)`);
-            gradient.addColorStop(0.5, `rgba(0, 255, 255, ${ring.opacity})`);
-            gradient.addColorStop(1, `rgba(0, 255, 255, 0)`);
+            gradient.addColorStop(0, `rgba(255, 255, 255, 0)`);
+            gradient.addColorStop(0.5, `rgba(255, 255, 255, ${ring.opacity})`);
+            gradient.addColorStop(1, `rgba(255, 255, 255, 0)`);
             
             ctx.beginPath();
             ctx.arc(centralNode.x, centralNode.y, ring.currentRadius, 0, Math.PI * 2);
@@ -172,14 +172,14 @@ const CentralNodeNetwork = () => {
         let packetColor;
         
         if (colorRand < 0.6) {
-            // Cyan for most packets
-            packetColor = `rgba(0, ${180 + Math.random() * 75}, ${200 + Math.random() * 55}, ${0.6 + Math.random() * 0.4})`;
-        } else if (colorRand < 0.9) {
-            // Blue for some packets
-            packetColor = `rgba(0, ${100 + Math.random() * 100}, ${200 + Math.random() * 55}, ${0.6 + Math.random() * 0.4})`;
-        } else {
-            // Occasional white/energy pulse
+            // White with high opacity
             packetColor = `rgba(255, 255, 255, ${0.7 + Math.random() * 0.3})`;
+        } else if (colorRand < 0.9) {
+            // White with medium opacity
+            packetColor = `rgba(255, 255, 255, ${0.5 + Math.random() * 0.4})`;
+        } else {
+            // Bright white
+            packetColor = `rgba(255, 255, 255, ${0.8 + Math.random() * 0.2})`;
         }
         
         return {
@@ -286,8 +286,8 @@ const CentralNodeNetwork = () => {
             centralNode.x, centralNode.y, 0,
             centralNode.x, centralNode.y, centralNode.pulseRadius * 6 // Increased from 4
         );
-        centralGradient.addColorStop(0, 'rgba(0, 255, 255, 0.9)');
-        centralGradient.addColorStop(0.5, 'rgba(0, 255, 255, 0.3)');
+        centralGradient.addColorStop(0, 'rgba(255, 255, 255, 0.9)');
+        centralGradient.addColorStop(0.5, 'rgba(255, 255, 255, 0.3)');
         centralGradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
         
         ctx.beginPath();
@@ -352,7 +352,7 @@ const CentralNodeNetwork = () => {
                 const trailStartY = packet.fromY + (packet.toY - packet.fromY) * trailStartProgress;
                 
                 const trailGradient = ctx.createLinearGradient(trailStartX, trailStartY, x, y);
-                trailGradient.addColorStop(0, `rgba(0, 255, 255, 0)`);
+                trailGradient.addColorStop(0, `rgba(255, 255, 255, 0)`);
                 trailGradient.addColorStop(1, packet.color);
                 
                 ctx.beginPath();
@@ -441,7 +441,7 @@ const CentralNodeNetwork = () => {
           background: linear-gradient(
             to bottom,
             rgba(255, 255, 255, 0) 50%,
-            rgba(0, 255, 255, 0.03) 50%
+            rgba(255, 255, 255, 0.03) 50%
           );
           background-size: 100% 4px;
           z-index: 3;
