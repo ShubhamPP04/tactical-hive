@@ -126,6 +126,10 @@ const OurStory = () => {
           display: flex;
           align-items: center;
           background-color: #000000;
+          margin-top: -4rem; /* Increased negative margin to overlap with hero section */
+          margin-bottom: -1px;
+          padding: 0;
+          z-index: 1;
         }
         
         .our-story-container {
@@ -152,7 +156,7 @@ const OurStory = () => {
           flex-direction: column;
           align-items: flex-start;
           justify-content: flex-start;
-          margin-top: 6rem;
+          margin-top: 3rem; /* Reduced from 6rem to decrease vertical spacing */
         }
         
         .title-container {

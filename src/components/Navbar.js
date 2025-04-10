@@ -4,15 +4,15 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
-  
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
-      
+
       // Determine active section based on scroll position
       const sections = ['hero', 'about', 'capabilities', 'contact'];
       const scrollPosition = window.scrollY + 100;
-      
+
       for (let i = sections.length - 1; i >= 0; i--) {
         const section = document.getElementById(sections[i]);
         if (section && section.offsetTop <= scrollPosition) {
@@ -21,11 +21,11 @@ const Navbar = () => {
         }
       }
     };
-    
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-  
+
   const scrollToSection = (sectionId) => {
     const section = document.getElementById(sectionId);
     if (section) {
@@ -34,11 +34,11 @@ const Navbar = () => {
       setActiveSection(sectionId);
     }
   };
-  
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-  
+
   return (
     <nav className={`navbar ${isScrolled ? 'navbar-scrolled' : ''}`}>
       <div className="navbar-container">
@@ -47,13 +47,13 @@ const Navbar = () => {
             <span className="logo-text">TACTICAL<span className="logo-accent">HIVE</span></span>
           </button>
         </div>
-        
+
         <div className={`navbar-menu ${isMenuOpen ? 'navbar-menu-active' : ''}`}>
           <ul className="navbar-links">
             <li className="navbar-item">
-              <a 
-                href="#hero" 
-                className={activeSection === 'hero' ? 'active' : ''} 
+              <a
+                href="#hero"
+                className={activeSection === 'hero' ? 'active' : ''}
                 onClick={(e) => {
                   e.preventDefault();
                   scrollToSection('hero');
@@ -64,9 +64,9 @@ const Navbar = () => {
               </a>
             </li>
             <li className="navbar-item">
-              <a 
-                href="#about" 
-                className={activeSection === 'about' ? 'active' : ''} 
+              <a
+                href="#about"
+                className={activeSection === 'about' ? 'active' : ''}
                 onClick={(e) => {
                   e.preventDefault();
                   scrollToSection('about');
@@ -77,9 +77,9 @@ const Navbar = () => {
               </a>
             </li>
             <li className="navbar-item">
-              <a 
-                href="#capabilities" 
-                className={activeSection === 'capabilities' ? 'active' : ''} 
+              <a
+                href="#capabilities"
+                className={activeSection === 'capabilities' ? 'active' : ''}
                 onClick={(e) => {
                   e.preventDefault();
                   scrollToSection('capabilities');
@@ -90,9 +90,9 @@ const Navbar = () => {
               </a>
             </li>
             <li className="navbar-item">
-              <a 
-                href="#contact" 
-                className={activeSection === 'contact' ? 'active' : ''} 
+              <a
+                href="#contact"
+                className={activeSection === 'contact' ? 'active' : ''}
                 onClick={(e) => {
                   e.preventDefault();
                   scrollToSection('contact');
@@ -104,12 +104,12 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-        
+
         <button className="navbar-toggle" onClick={toggleMenu}>
           <div className={`toggle-bar ${isMenuOpen ? 'toggle-active' : ''}`}></div>
         </button>
       </div>
-      
+
       <style jsx>{`
         .navbar {
           position: fixed;
@@ -119,21 +119,21 @@ const Navbar = () => {
           padding: 1.5rem 0;
           z-index: 1000;
           transition: all 0.3s ease;
-          background-color: rgba(0, 0, 0, 0.35);
+          background-color: rgba(0, 0, 0, 0.2);
           backdrop-filter: blur(8px);
           -webkit-backdrop-filter: blur(8px);
-          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+          background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0));
         }
-        
+
         .navbar-scrolled {
           background-color: rgba(0, 0, 0, 0.65);
           backdrop-filter: blur(12px);
           -webkit-backdrop-filter: blur(12px);
           padding: 0.8rem 0;
-          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+          background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.55));
         }
-        
+
         .navbar-container {
           display: flex;
           align-items: center;
@@ -142,11 +142,11 @@ const Navbar = () => {
           max-width: 1400px;
           margin: 0 auto;
         }
-        
+
         .navbar-logo {
           z-index: 2;
         }
-        
+
         .logo-button {
           background: none;
           border: none;
@@ -154,7 +154,7 @@ const Navbar = () => {
           cursor: pointer;
           position: relative;
         }
-        
+
         .logo-text {
           font-family: var(--font-alt);
           font-size: 1.5rem;
@@ -163,22 +163,22 @@ const Navbar = () => {
           letter-spacing: 2px;
           text-transform: uppercase;
         }
-        
+
         .logo-accent {
           font-weight: 300;
         }
-        
+
         .navbar-links {
           display: flex;
           list-style: none;
           margin: 0;
           padding: 0;
         }
-        
+
         .navbar-item {
           margin: 0 0 0 2.5rem;
         }
-        
+
         .navbar-item a {
           color: var(--text-color);
           font-weight: 400;
@@ -190,12 +190,12 @@ const Navbar = () => {
           position: relative;
           display: inline-block;
         }
-        
+
         .navbar-item a:hover,
         .navbar-item a.active {
           color: #FFFFFF;
         }
-        
+
         .hover-indicator {
           position: absolute;
           bottom: -2px;
@@ -206,18 +206,18 @@ const Navbar = () => {
           transition: width 0.3s ease;
           opacity: 0;
         }
-        
+
         .navbar-item a:hover .hover-indicator {
           width: 100%;
           opacity: 0.7;
         }
-        
+
         .navbar-item a.active .hover-indicator {
           width: 100%;
           opacity: 1;
           height: 2px;
         }
-        
+
         .navbar-toggle {
           display: none;
           background: none;
@@ -228,7 +228,7 @@ const Navbar = () => {
           cursor: pointer;
           z-index: 3;
         }
-        
+
         .toggle-bar {
           width: 100%;
           height: 1px;
@@ -236,7 +236,7 @@ const Navbar = () => {
           position: relative;
           transition: all 0.3s ease;
         }
-        
+
         .toggle-bar:before,
         .toggle-bar:after {
           content: '';
@@ -246,34 +246,34 @@ const Navbar = () => {
           background-color: var(--text-color);
           transition: all 0.3s ease;
         }
-        
+
         .toggle-bar:before {
           top: -8px;
         }
-        
+
         .toggle-bar:after {
           bottom: -8px;
         }
-        
+
         .toggle-active {
           background-color: transparent;
         }
-        
+
         .toggle-active:before {
           top: 0;
           transform: rotate(45deg);
         }
-        
+
         .toggle-active:after {
           bottom: 0;
           transform: rotate(-45deg);
         }
-        
+
         @media (max-width: 1024px) {
           .navbar-toggle {
             display: block;
           }
-          
+
           .navbar-menu {
             position: fixed;
             top: 0;
@@ -289,36 +289,36 @@ const Navbar = () => {
             transition: right 0.3s ease;
             z-index: 2;
           }
-          
+
           .navbar-menu-active {
             right: 0;
             box-shadow: -5px 0 30px rgba(0, 0, 0, 0.3);
           }
-          
+
           .navbar-links {
             flex-direction: column;
             align-items: center;
           }
-          
+
           .navbar-item {
             margin: 1rem 0;
           }
-          
+
           .navbar-item a {
             font-size: 1.2rem;
             padding: 0.5rem;
           }
-          
+
           .hover-indicator {
             height: 2px;
             bottom: 0;
           }
-          
+
           .navbar-item a.active .hover-indicator {
             height: 2px;
           }
         }
-        
+
         .navbar-cta {
           background: transparent;
           color: white;
@@ -331,7 +331,7 @@ const Navbar = () => {
           letter-spacing: 0.05em;
           transition: all 0.3s ease;
         }
-        
+
         .navbar-cta:hover {
           background: rgba(255, 255, 255, 0.1);
           border-color: rgba(255, 255, 255, 0.3);
@@ -341,4 +341,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar; 
+export default Navbar;

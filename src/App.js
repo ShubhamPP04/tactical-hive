@@ -79,7 +79,7 @@ function App() {
       
       <Navbar />
       
-      <main>
+      <main className="main-content">
         <Hero />
         <OurStory />
         <Capabilities />
@@ -92,6 +92,25 @@ function App() {
         .app {
           position: relative;
           overflow-x: hidden;
+        }
+
+        .main-content {
+          display: flex;
+          flex-direction: column;
+          gap: 0;
+          overflow: hidden;
+          margin: 0;
+          padding: 0;
+          height: auto;
+        }
+
+        .main-content > * {
+          margin: 0;
+          padding: 0;
+        }
+
+        .main-content > *:not(:first-child) {
+          margin-top: -4rem; /* Create overlap between all sections */
         }
 
         .grid-lines {

@@ -57,7 +57,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .section {
-  padding: 8rem 0;
+  padding: 0;
   position: relative;
 }
 
@@ -138,6 +138,7 @@ h1, h2, h3, h4, h5, h6 {
   text-align: center;
   position: relative;
   padding: 4rem 1rem;
+  margin-bottom: 0;
 }
 
 .hero::before {
@@ -519,11 +520,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @keyframes pulse {
-  0%, 100% { 
+  0%, 100% {
     transform: scale(1);
     box-shadow: 0 0 0 rgba(13, 246, 227, 0.4);
   }
-  50% { 
+  50% {
     transform: scale(1.02);
     box-shadow: 0 0 20px rgba(13, 246, 227, 0.6);
   }
@@ -533,9 +534,9 @@ h1, h2, h3, h4, h5, h6 {
   .section-title {
     font-size: 3rem;
   }
-  
+
   .section {
-    padding: 6rem 0;
+    padding: 0;
   }
 }
 
@@ -543,18 +544,22 @@ h1, h2, h3, h4, h5, h6 {
   .section-title {
     font-size: 2.5rem;
   }
+  
+  .section {
+    padding: 0;
+  }
 }
 
 @media (max-width: 768px) {
   .section {
-    padding: 5rem 0;
+    padding: 0;
   }
-  
+
   .section-title {
     font-size: 2rem;
     margin-bottom: 2rem;
   }
-  
+
   .btn {
     padding: 0.8rem 1.8rem;
     font-size: 0.8rem;
@@ -566,6 +571,67 @@ h1, h2, h3, h4, h5, h6 {
     width: 100%;
     padding: 0 1.5rem;
   }
+  
+  .section {
+    padding: 0;
+  }
+
+  .hero-title {
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+  }
+
+  .hero-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+  }
+
+  .capability-card {
+    padding: 1.2rem;
+  }
+
+  .contact-form {
+    padding: 1.2rem;
+  }
+
+  .logo-text {
+    font-size: 1.2rem !important;
+  }
+
+  .navbar {
+    padding: 1rem 0 !important;
+  }
+
+  .navbar-scrolled {
+    padding: 0.5rem 0 !important;
+  }
+
+  .navbar-cta {
+    display: none;
+  }
+
+  .drone-instructions {
+    padding: 1rem;
+    font-size: 0.9rem;
+  }
+
+  .form-input, .form-textarea {
+    padding: 0.8rem;
+  }
+
+  .form-group {
+    margin-bottom: 1rem;
+  }
+
+  .form-label {
+    margin-bottom: 0.3rem;
+  }
+
+  .about-image {
+    margin-top: 1rem;
+  }
 }
 
 /* Enhanced Responsive Styles */
@@ -575,9 +641,9 @@ h1, h2, h3, h4, h5, h6 {
   .container {
     width: 95%;
   }
-  
+
   .section {
-    padding: 4rem 0;
+    padding: 0;
   }
 }
 
@@ -587,32 +653,32 @@ h1, h2, h3, h4, h5, h6 {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
-  
+
   .about-text {
     padding-right: 0;
   }
-  
+
   .contact-container {
     grid-template-columns: 1fr;
     gap: 3rem;
   }
-  
+
   .section-title {
     font-size: 2.2rem;
   }
-  
+
   .hero-title {
     font-size: clamp(2.2rem, 5vw, 3.5rem);
   }
-  
+
   .capability-card {
     padding: 1.5rem;
   }
-  
+
   .navbar-links {
     display: none;
   }
-  
+
   .navbar-menu {
     position: fixed;
     top: 0;
@@ -629,21 +695,21 @@ h1, h2, h3, h4, h5, h6 {
     justify-content: center;
     padding: 2rem;
   }
-  
+
   .navbar-menu-active {
     right: 0;
   }
-  
+
   .navbar-links {
     display: flex;
     flex-direction: column;
     align-items: center;
   }
-  
+
   .navbar-item {
     margin: 1rem 0;
   }
-  
+
   .navbar-toggle {
     display: block !important;
     z-index: 1001;
@@ -655,59 +721,59 @@ h1, h2, h3, h4, h5, h6 {
   .hero-title {
     font-size: clamp(2rem, 5vw, 3rem);
   }
-  
+
   .hero-subtitle {
     font-size: 1rem;
     margin-bottom: 2rem;
   }
-  
+
   .capabilities-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
-  
+
   .contact-info {
     padding: 1.5rem;
   }
-  
+
   .drone-canvas {
     height: 400px;
   }
-  
+
   .drone-info {
     padding: 1.5rem;
   }
-  
+
   .section-title {
     font-size: 2rem;
   }
-  
+
   .btn {
     padding: 0.8rem 1.5rem;
   }
-  
+
   .hero {
     padding: 8rem 1rem 4rem;
   }
-  
+
   .footer-content {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
-  
+
   .footer-logo {
     text-align: center;
   }
-  
+
   .footer-links {
     justify-content: center;
   }
-  
+
   .footer-bottom {
     flex-direction: column;
     text-align: center;
   }
-  
+
   .social-icons {
     margin-top: 1rem;
   }
@@ -719,64 +785,60 @@ h1, h2, h3, h4, h5, h6 {
     width: 100%;
     padding: 0 1.5rem;
   }
-  
+
   .hero-title {
     font-size: clamp(1.8rem, 5vw, 2.5rem);
   }
-  
+
   .hero-subtitle {
     font-size: 0.9rem;
   }
-  
-  .section {
-    padding: 3rem 0;
-  }
-  
+
   .section-title {
     font-size: 1.8rem;
   }
-  
+
   .capability-card {
     padding: 1.2rem;
   }
-  
+
   .contact-form {
     padding: 1.2rem;
   }
-  
+
   .logo-text {
     font-size: 1.2rem !important;
   }
-  
+
   .navbar {
     padding: 1rem 0 !important;
   }
-  
+
   .navbar-scrolled {
     padding: 0.5rem 0 !important;
   }
-  
+
   .navbar-cta {
     display: none;
   }
-  
+
   .drone-instructions {
     padding: 1rem;
     font-size: 0.9rem;
   }
-  
+
   .form-input, .form-textarea {
     padding: 0.8rem;
   }
-  
+
   .form-group {
     margin-bottom: 1rem;
   }
-  
+
   .form-label {
     margin-bottom: 0.3rem;
   }
-  
+
   .about-image {
     margin-top: 1rem;
   }
@@ -842,11 +904,11 @@ h1, h2, h3, h4, h5, h6 {
     min-height: auto;
     padding: 8rem 1rem 4rem;
   }
-  
+
   .hero-title {
     margin-bottom: 1rem;
   }
-  
+
   .hero-subtitle {
     margin-bottom: 1.5rem;
   }
@@ -857,4 +919,25 @@ h3 {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1px;
-} 
+}
+
+/* Global fix to eliminate section gaps */
+section, section + section {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+section::before, section::after {
+  content: none !important;
+}
+
+/* Ensure no padding in responsive */
+@media (max-width: 1200px), 
+       (max-width: 992px), 
+       (max-width: 768px), 
+       (max-width: 576px) {
+  section, section + section {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}
