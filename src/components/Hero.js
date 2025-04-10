@@ -92,7 +92,7 @@ const Hero = () => {
         </h1>
 
         <p className="hero-subtitle" ref={subtitleRef}>
-          Making the worlds best Hive mind to make Intelligence gathering 10 times and prepare defenses with Consciousness of data in the South Asian region.
+          Building the world's most advanced Hive Mind to enhance intelligence gathering and strengthen defenses through data-driven consciousness in the South Asian region.
         </p>
 
         <div className="button-container" ref={ctaRef}>
@@ -139,7 +139,7 @@ const Hero = () => {
           text-transform: uppercase;
           letter-spacing: 0px;
           width: 100%;
-          white-space: nowrap;
+          white-space: normal;
           overflow: visible;
           color: #FFFFFF;
           text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
@@ -170,7 +170,7 @@ const Hero = () => {
           position: relative;
           padding-left: 0;
           border-left: none;
-          white-space: nowrap;
+          white-space: normal;
           overflow: visible;
         }
 
@@ -182,8 +182,9 @@ const Hero = () => {
         }
 
         .btn {
+          position: relative;
           background: transparent;
-          border: 1px solid rgba(255, 255, 255, 0.3);
+          border: 1px solid rgba(255, 255, 255, 0.5);
           padding: 0.8rem 2rem;
           font-size: 0.8rem;
           letter-spacing: 2px;
@@ -192,13 +193,90 @@ const Hero = () => {
           color: #FFFFFF;
           text-transform: uppercase;
           cursor: pointer;
+          overflow: hidden;
+          z-index: 1;
+          text-shadow: 0 0 4px rgba(255, 255, 255, 0.4);
         }
 
         .btn:hover {
-          background: rgba(0, 140, 255, 0.1);
+          background: rgba(255, 255, 255, 0.07);
           transform: translateY(-2px);
-          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-          border-color: rgba(0, 200, 255, 0.5);
+          box-shadow: 
+            0 0 10px rgba(255, 255, 255, 0.5),
+            0 0 20px rgba(255, 255, 255, 0.3),
+            0 0 30px rgba(255, 255, 255, 0.2),
+            0 0 40px rgba(255, 255, 255, 0.1);
+          border-color: rgba(255, 255, 255, 0.9);
+          color: #FFFFFF;
+          text-shadow: 
+            0 0 5px #fff, 
+            0 0 10px #fff, 
+            0 0 15px #fff;
+        }
+        
+        .btn::before {
+          content: '';
+          position: absolute;
+          top: -4px;
+          left: -4px;
+          right: -4px;
+          bottom: -4px;
+          z-index: -1;
+          background: linear-gradient(45deg, #fff, rgba(255, 255, 255, 0.5), #fff);
+          opacity: 0;
+          transition: opacity 0.3s ease;
+          border-radius: 2px;
+          filter: blur(10px);
+        }
+        
+        .btn::after {
+          content: '';
+          position: absolute;
+          top: -2px;
+          left: -2px;
+          right: -2px;
+          bottom: -2px;
+          z-index: -2;
+          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+          opacity: 0;
+          filter: blur(5px);
+          transition: opacity 0.3s ease;
+        }
+        
+        .btn:hover::before {
+          opacity: 0.9;
+          animation: neonPulse 2s infinite;
+        }
+        
+        .btn:hover::after {
+          opacity: 0.7;
+          animation: neonSweep 2s infinite;
+        }
+        
+        @keyframes neonPulse {
+          0% {
+            filter: blur(10px);
+            opacity: 0.6;
+          }
+          50% {
+            filter: blur(15px);
+            opacity: 0.9;
+          }
+          100% {
+            filter: blur(10px);
+            opacity: 0.6;
+          }
+        }
+        
+        @keyframes neonSweep {
+          0% {
+            transform: translateX(-100%);
+            opacity: 0.7;
+          }
+          100% {
+            transform: translateX(100%);
+            opacity: 0;
+          }
         }
 
         @media (max-width: 992px) {
@@ -229,18 +307,22 @@ const Hero = () => {
           }
 
           .hero-title {
-            font-size: clamp(1.3rem, 2.8vw, 2.2rem);
-            letter-spacing: 0px;
+            font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+            letter-spacing: 0;
             width: 100%;
+            white-space: normal;
+            line-height: 1.2;
           }
 
           .hero-subtitle {
             margin-left: 0;
             margin-right: 0;
             max-width: 100%;
-            font-size: clamp(0.7rem, 1.2vw, 0.9rem);
-            letter-spacing: -0.3px;
-            word-spacing: -1px;
+            font-size: clamp(0.8rem, 1.4vw, 1rem);
+            letter-spacing: 0;
+            word-spacing: normal;
+            white-space: normal;
+            line-height: 1.5;
           }
 
           .button-container {
@@ -252,47 +334,54 @@ const Hero = () => {
 
         @media (max-width: 480px) {
           .hero-content {
-            margin: 0 0.5rem 3rem 0.5rem;
+            margin: 0 1rem 2.5rem 1rem;
             width: 100%;
             max-width: 100%;
-            padding: 0;
+            padding: 0.5rem;
           }
 
           .hero-title {
-            font-size: clamp(0.9rem, 2.2vw, 1.6rem);
-            letter-spacing: -0.8px;
+            font-size: clamp(1.3rem, 2.8vw, 2rem);
+            letter-spacing: 0;
             width: 100%;
-            word-spacing: -2px;
+            word-spacing: normal;
+            margin-bottom: 1.2rem;
+            white-space: normal;
+            line-height: 1.2;
           }
 
           .hero-subtitle {
-            font-size: clamp(0.6rem, 1.1vw, 0.8rem);
-            letter-spacing: -0.5px;
-            word-spacing: -1.5px;
-            margin-bottom: 1rem;
+            font-size: clamp(0.8rem, 1.6vw, 1rem);
+            letter-spacing: 0;
+            word-spacing: normal;
+            margin-bottom: 1.5rem;
+            white-space: normal;
+            line-height: 1.5;
           }
 
           .button-container {
-            margin-top: -0.75rem;
+            margin-top: 0;
           }
         }
 
         @media (max-width: 360px) {
           .hero-title {
-            font-size: clamp(0.8rem, 2vw, 1.4rem);
-            letter-spacing: -1px;
-            word-spacing: -3px;
+            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+            letter-spacing: 0;
+            word-spacing: normal;
+            line-height: 1.2;
           }
 
           .hero-subtitle {
-            font-size: clamp(0.5rem, 1vw, 0.7rem);
-            letter-spacing: -0.8px;
-            word-spacing: -2px;
-            margin-bottom: 0.75rem;
+            font-size: clamp(0.75rem, 1.5vw, 0.9rem);
+            letter-spacing: 0;
+            word-spacing: normal;
+            margin-bottom: 1.2rem;
+            line-height: 1.5;
           }
 
           .button-container {
-            margin-top: -0.5rem;
+            margin-top: 0;
           }
         }
       `}</style>

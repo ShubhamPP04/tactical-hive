@@ -1,6 +1,7 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import ExploringDotsBackground from './ExploringDotsBackground';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -9,6 +10,16 @@ const Contact = () => {
   const titleRef = useRef(null);
   const descriptionRef = useRef(null);
   const contactRef = useRef(null);
+  const [isGlowVisible, setIsGlowVisible] = useState(false);
+  
+  // Function to show glow effect when component is in view
+  const handleContactHover = () => {
+    setIsGlowVisible(true);
+  };
+  
+  const handleContactLeave = () => {
+    setIsGlowVisible(false);
+  };
   
   useEffect(() => {
     const title = titleRef.current;
@@ -72,6 +83,8 @@ const Contact = () => {
   
   return (
     <section id="contact" className="contact section" ref={sectionRef}>
+      <ExploringDotsBackground />
+      
       <div className="contact-bg">
         <div className="grid-line vertical"></div>
         <div className="grid-line vertical"></div>
@@ -88,7 +101,17 @@ const Contact = () => {
             Join us in accelerating the next generation of electronic warfare and spectrum research.
           </p>
           
-          <div className="contact-email-container" ref={contactRef}>
+          <div 
+            className="contact-email-container" 
+            ref={contactRef}
+            onMouseEnter={handleContactHover}
+            onMouseLeave={handleContactLeave}
+          >
+            {isGlowVisible && (
+              <div className="neon-border-container">
+                <div className="neon-border"></div>
+              </div>
+            )}
             <a href="mailto:deep@tacticalhive.live" className="contact-email">
               <span>deep@tacticalhive.live</span>
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -114,8 +137,8 @@ const Contact = () => {
           left: 0;
           width: 100%;
           height: 100%;
-          z-index: 0;
-          opacity: 0.05;
+          z-index: 1;
+          opacity: 0.03;
         }
         
         .grid-line {
@@ -160,13 +183,15 @@ const Contact = () => {
           margin: 0 auto;
           padding: 0 2rem;
           position: relative;
-          z-index: 1;
+          z-index: 2;
         }
         
         .contact-content {
           text-align: center;
           max-width: 800px;
           margin: 0 auto;
+          position: relative;
+          backdrop-filter: blur(0px);
         }
         
         .section-title {
@@ -193,7 +218,67 @@ const Contact = () => {
         }
         
         .contact-email-container {
-          margin-top: 1rem;
+          position: relative;
+          padding: 1.5rem;
+          border-radius: 8px;
+          display: inline-block;
+          margin: 0 auto;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .neon-border-container {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          z-index: 0;
+          border-radius: 8px;
+          overflow: hidden;
+        }
+        
+        .neon-border {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          border-radius: 8px;
+          z-index: 1;
+        }
+        
+        .neon-border::before {
+          content: '';
+          position: absolute;
+          top: -2px;
+          left: -2px;
+          right: -2px;
+          bottom: -2px;
+          border-radius: 10px;
+          background: linear-gradient(90deg, #0894FF, #C959DD, #FF2E54, #FF9004);
+          z-index: -1;
+          animation: rotate 3s linear infinite;
+        }
+        
+        .neon-border::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          border-radius: 8px;
+          background: #000;
+          z-index: -1;
+        }
+        
+        @keyframes rotate {
+          0% {
+            filter: hue-rotate(0deg) blur(3px);
+          }
+          100% {
+            filter: hue-rotate(360deg) blur(3px);
+          }
         }
         
         .contact-email {
@@ -206,6 +291,7 @@ const Contact = () => {
           transition: all 0.3s ease;
           padding: 0.5rem 0;
           font-weight: 300;
+          z-index: 10;
         }
         
         .contact-email svg {
