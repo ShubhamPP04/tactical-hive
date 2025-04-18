@@ -80,7 +80,7 @@ const OurStory = () => {
         <div className="our-story-left">
           <div className="title-container">
             <h2 className="our-story-title" ref={titleRef}>
-              <span className="gradient-text">Mission</span>
+              <span className="gradient-text">Our Story</span>
             </h2>
           </div>
         </div>
