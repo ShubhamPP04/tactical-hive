@@ -26,33 +26,12 @@ const LearnMoreBackground = () => {
       const nodes = [];
       
       // Define gridSpacing at this higher scope level so all functions can access it
-      const gridSpacing = Math.min(dimensions.width, dimensions.height) / 15; // Smaller grid for more detail
+      const gridSpacing = Math.min(dimensions.width, dimensions.height) / 12; // Larger grid for less cluttered appearance
       
-      // Create pulse waves that emanate from specific points
-      const pulseWaves = [];
-      const createPulseWaves = () => {
-        // Create 3-5 pulse wave sources
-        const waveCount = Math.floor(Math.random() * 3) + 3;
-        
-        for (let i = 0; i < waveCount; i++) {
-          pulseWaves.push({
-            x: dimensions.width * Math.random(),
-            y: dimensions.height * Math.random(),
-            radius: 0,
-            maxRadius: Math.min(dimensions.width, dimensions.height) * (0.3 + Math.random() * 0.3),
-            speed: 0.5 + Math.random() * 1,
-            opacity: 0.8,
-            color: '#ffffff',
-            active: false,
-            startTime: Math.random() * 10000, // Stagger the start times
-          });
-        }
-      };
-      
-      // Create floating particles in the background
+      // Create floating particles in the background - reduced count for less clutter
       const particles = [];
       const createParticles = () => {
-        const particleCount = 50; // Number of background particles
+        const particleCount = 20; // Reduced number of background particles
         
         for (let i = 0; i < particleCount; i++) {
           particles.push({
@@ -61,14 +40,14 @@ const LearnMoreBackground = () => {
             size: Math.random() * 1.5 + 0.5,
             speed: Math.random() * 0.2 + 0.1,
             direction: Math.random() * Math.PI * 2,
-            opacity: Math.random() * 0.5 + 0.2,
+            opacity: Math.random() * 0.3 + 0.1, // Lower opacity for subtler effect
             rotation: Math.random() * Math.PI * 2,
             rotationSpeed: (Math.random() - 0.5) * 0.01,
           });
         }
       };
       
-      // Create a set of predefined larger triangular structures
+      // Create a set of predefined larger triangular structures - reduced count for less clutter
       // These will be the prominent triangles visible in the reference image
       const createPredefinedTriangles = () => {
         // Top left triangle structure
@@ -78,7 +57,7 @@ const LearnMoreBackground = () => {
             { x: dimensions.width * 0.25, y: dimensions.height * 0.05 },
             { x: dimensions.width * 0.2, y: dimensions.height * 0.25 }
           ],
-          opacity: 0.8,
+          opacity: 0.6,
           variation: Math.random() * Math.PI,
           speed: 0.0002,
           rotationSpeed: 0.0001 * (Math.random() > 0.5 ? 1 : -1),
@@ -94,45 +73,13 @@ const LearnMoreBackground = () => {
             { x: dimensions.width * 0.85, y: dimensions.height * 0.1 },
             { x: dimensions.width * 0.8, y: dimensions.height * 0.25 }
           ],
-          opacity: 0.95,
+          opacity: 0.8,
           variation: Math.random() * Math.PI,
           speed: 0.0001,
           rotationSpeed: 0.00015 * (Math.random() > 0.5 ? 1 : -1),
           rotationAngle: 0,
           pulsating: true,
           pulsateSpeed: 0.0015 + Math.random() * 0.001
-        });
-        
-        // Connected to top right triangle
-        triangles.push({
-          points: [
-            { x: dimensions.width * 0.8, y: dimensions.height * 0.25 },
-            { x: dimensions.width * 0.9, y: dimensions.height * 0.2 },
-            { x: dimensions.width * 0.85, y: dimensions.height * 0.3 }
-          ],
-          opacity: 0.9,
-          variation: Math.random() * Math.PI,
-          speed: 0.0001,
-          rotationSpeed: 0.00012 * (Math.random() > 0.5 ? 1 : -1),
-          rotationAngle: 0,
-          pulsating: true,
-          pulsateSpeed: 0.001 + Math.random() * 0.002
-        });
-        
-        // Mid-left triangle
-        triangles.push({
-          points: [
-            { x: dimensions.width * 0.2, y: dimensions.height * 0.45 },
-            { x: dimensions.width * 0.3, y: dimensions.height * 0.35 },
-            { x: dimensions.width * 0.25, y: dimensions.height * 0.55 }
-          ],
-          opacity: 0.85,
-          variation: Math.random() * Math.PI,
-          speed: 0.00015,
-          rotationSpeed: 0.00018 * (Math.random() > 0.5 ? 1 : -1),
-          rotationAngle: 0,
-          pulsating: true,
-          pulsateSpeed: 0.002 + Math.random() * 0.001
         });
         
         // Mid-center triangle
@@ -142,7 +89,7 @@ const LearnMoreBackground = () => {
             { x: dimensions.width * 0.6, y: dimensions.height * 0.48 },
             { x: dimensions.width * 0.5, y: dimensions.height * 0.65 }
           ],
-          opacity: 0.8,
+          opacity: 0.7,
           variation: Math.random() * Math.PI,
           speed: 0.0002,
           rotationSpeed: 0.00015 * (Math.random() > 0.5 ? 1 : -1),
@@ -158,28 +105,12 @@ const LearnMoreBackground = () => {
             { x: dimensions.width * 0.9, y: dimensions.height * 0.7 },
             { x: dimensions.width * 0.85, y: dimensions.height * 0.9 }
           ],
-          opacity: 0.9,
+          opacity: 0.7,
           variation: Math.random() * Math.PI,
           speed: 0.00015,
           rotationSpeed: 0.0002 * (Math.random() > 0.5 ? 1 : -1),
           rotationAngle: 0,
           pulsating: true,
-          pulsateSpeed: 0.001 + Math.random() * 0.002
-        });
-        
-        // Far right vertical line/triangle
-        triangles.push({
-          points: [
-            { x: dimensions.width * 0.95, y: dimensions.height * 0.2 },
-            { x: dimensions.width * 0.98, y: dimensions.height * 0.4 },
-            { x: dimensions.width * 0.92, y: dimensions.height * 0.5 }
-          ],
-          opacity: 0.75,
-          variation: Math.random() * Math.PI,
-          speed: 0.0001,
-          rotationSpeed: 0.00012 * (Math.random() > 0.5 ? 1 : -1),
-          rotationAngle: 0,
-          pulsating: false,
           pulsateSpeed: 0.001 + Math.random() * 0.002
         });
         
@@ -191,27 +122,28 @@ const LearnMoreBackground = () => {
               y: point.y,
               baseX: point.x,
               baseY: point.y,
-              size: 1.5 + Math.random() * 1.5,
+              size: 2 + Math.random() * 1.5, // Larger nodes for better visibility
               variation: Math.random() * Math.PI * 2,
               speed: 0.001 + Math.random() * 0.001,
               amplitude: 2 + Math.random() * 3, // Very subtle movement
               connections: [],
-              glowing: Math.random() > 0.7, // Some nodes glow periodically
+              glowing: true, // All main nodes glow for better visibility
               glowIntensity: 0,
               glowSpeed: 0.005 + Math.random() * 0.01,
-              glowPhase: Math.random() * Math.PI * 2
+              glowPhase: Math.random() * Math.PI * 2,
+              isMainNode: true // Mark as main node
             });
           });
         });
       };
       
-      // Create grid-based nodes that will form the background hive structure
+      // Create grid-based nodes that will form the background hive structure - less dense
       const createGridNodes = () => {
         const cols = Math.ceil(dimensions.width / gridSpacing) + 1;
         const rows = Math.ceil(dimensions.height / gridSpacing) + 1;
         
-        for (let y = 0; y < rows; y++) {
-          for (let x = 0; x < cols; x++) {
+        for (let y = 0; y < rows; y += 2) { // Skip every other row for less density
+          for (let x = 0; x < cols; x += 2) { // Skip every other column for less density
             // Offset every other row for triangular pattern
             const xOffset = y % 2 === 0 ? 0 : gridSpacing / 2;
             
@@ -219,8 +151,8 @@ const LearnMoreBackground = () => {
             const randomOffsetX = (Math.random() - 0.5) * (gridSpacing * 0.1);
             const randomOffsetY = (Math.random() - 0.5) * (gridSpacing * 0.1);
             
-            // Skip some nodes for more varied pattern
-            if (Math.random() > 0.7) continue;
+            // Skip even more nodes for more varied pattern
+            if (Math.random() > 0.4) continue;
             
             nodes.push({
               x: x * gridSpacing + xOffset + randomOffsetX,
@@ -234,117 +166,148 @@ const LearnMoreBackground = () => {
               gridX: x,
               gridY: y,
               connections: [],
-              glowing: Math.random() > 0.9, // Some nodes glow periodically
+              glowing: Math.random() > 0.7, // Some nodes glow periodically
               glowIntensity: 0,
               glowSpeed: 0.005 + Math.random() * 0.01,
-              glowPhase: Math.random() * Math.PI * 2
+              glowPhase: Math.random() * Math.PI * 2,
+              isMainNode: false
             });
           }
         }
       };
       
-      // Create connections between nodes
+      // Create connections between nodes - more selective to reduce clutter
       const createConnections = () => {
-        // Connect nodes to form triangular grid
+        // First ensure all main nodes (triangle points) are interconnected
+        const mainNodes = nodes.filter(node => node.isMainNode);
+        
+        // For each main node, connect to 1-2 nearest main nodes
+        for (let i = 0; i < mainNodes.length; i++) {
+          const mainNode = mainNodes[i];
+          const mainNodeIndex = nodes.indexOf(mainNode);
+          const nearest = [];
+          
+          // Find nearest main nodes
+          for (let j = 0; j < mainNodes.length; j++) {
+            if (i === j) continue;
+            
+            const target = mainNodes[j];
+            const targetIndex = nodes.indexOf(target);
+            const dx = mainNode.baseX - target.baseX;
+            const dy = mainNode.baseY - target.baseY;
+            const distance = Math.sqrt(dx*dx + dy*dy);
+            
+            // Store distance to this node
+            nearest.push({ index: targetIndex, distance });
+          }
+          
+          // Sort by distance and keep only closest 1-2
+          nearest.sort((a, b) => a.distance - b.distance);
+          const connectionCount = Math.min(2, nearest.length);
+          
+          // Connect to closest nodes
+          for (let k = 0; k < connectionCount; k++) {
+            const targetIndex = nearest[k].index;
+            if (!mainNode.connections.includes(targetIndex)) {
+              mainNode.connections.push(targetIndex);
+            }
+          }
+        }
+        
+        // Connect grid nodes to form triangular grid but be selective
         for (let i = 0; i < nodes.length; i++) {
           const node = nodes[i];
           
           // Only process grid nodes
           if (!('gridX' in node)) continue;
           
+          // Connect to at most 3 nearest nodes - this reduces clutter
+          const nearest = [];
+          
           for (let j = 0; j < nodes.length; j++) {
             if (i === j) continue;
             
             const target = nodes[j];
             
-            // Skip connecting to non-grid nodes
-            if (!('gridX' in target)) continue;
+            const dx = node.baseX - target.baseX;
+            const dy = node.baseY - target.baseY;
+            const distance = Math.sqrt(dx*dx + dy*dy);
             
-            const dx = Math.abs(node.gridX - target.gridX);
-            const dy = Math.abs(node.gridY - target.gridY);
-            
-            // Connect to adjacent grid cells to form triangular pattern
-            if ((dx <= 1 && dy <= 1) && !(dx === 0 && dy === 0)) {
-              // Calculate actual distance
-              const distance = Math.sqrt(
-                Math.pow(node.baseX - target.baseX, 2) + 
-                Math.pow(node.baseY - target.baseY, 2)
-              );
-              
-              // Only connect if within reasonable distance and not too many connections already
-              if (distance < gridSpacing * 1.8 && node.connections.length < 4) {
-                // Avoid too many connections by random chance
-                if (Math.random() > 0.7) continue;
-                
-                if (!node.connections.includes(j)) {
-                  node.connections.push(j);
-                }
-              }
+            // Only consider nodes within a certain range
+            if (distance < gridSpacing * 2.5) {
+              nearest.push({ index: j, distance });
+            }
+          }
+          
+          // Sort by distance and keep only closest 1-3
+          nearest.sort((a, b) => a.distance - b.distance);
+          const maxConnections = Math.min(2, nearest.length); // Limit connections to reduce clutter
+          
+          // Connect to closest nodes
+          for (let k = 0; k < maxConnections; k++) {
+            const targetIndex = nearest[k].index;
+            // Avoid creating too many connections
+            if (node.connections.length < 3 && !node.connections.includes(targetIndex)) {
+              node.connections.push(targetIndex);
             }
           }
         }
         
-        // Connect triangle nodes to nearest other triangle nodes
-        const connectTriangleNodes = () => {
-          // Find nodes that were created from triangle points
-          const triangleNodes = nodes.filter(node => !('gridX' in node));
-          
-          // Connect triangle nodes to their closest neighbors
-          for (let i = 0; i < triangleNodes.length; i++) {
-            const node = triangleNodes[i];
-            const nearest = [];
-            
-            // Find 2-3 nearest nodes
-            for (let j = 0; j < triangleNodes.length; j++) {
-              if (i === j) continue;
+        // Remove nodes with no connections to reduce clutter
+        for (let i = nodes.length - 1; i >= 0; i--) {
+          const node = nodes[i];
+          if (node.connections.length === 0 && !node.isMainNode) {
+            // Remove references to this node from others' connections
+            for (let j = 0; j < nodes.length; j++) {
+              const otherNode = nodes[j];
+              const connectionIndex = otherNode.connections.indexOf(i);
+              if (connectionIndex !== -1) {
+                otherNode.connections.splice(connectionIndex, 1);
+              }
               
-              const target = triangleNodes[j];
-              const dx = node.baseX - target.baseX;
-              const dy = node.baseY - target.baseY;
-              const distance = Math.sqrt(dx*dx + dy*dy);
-              
-              // Store distance to this node
-              nearest.push({ index: nodes.indexOf(target), distance });
-            }
-            
-            // Sort by distance and keep only closest 2-3
-            nearest.sort((a, b) => a.distance - b.distance);
-            const connectCount = Math.floor(Math.random() * 2) + 1; // 1-2 connections
-            
-            // Connect to closest nodes
-            for (let k = 0; k < Math.min(connectCount, nearest.length); k++) {
-              // Find the index of this target node in the main nodes array
-              const targetIndex = nearest[k].index;
-              if (!node.connections.includes(targetIndex)) {
-                node.connections.push(targetIndex);
+              // Adjust indices for connections to nodes after this one
+              for (let k = 0; k < otherNode.connections.length; k++) {
+                if (otherNode.connections[k] > i) {
+                  otherNode.connections[k]--;
+                }
               }
             }
+            
+            // Remove the node
+            nodes.splice(i, 1);
           }
-        };
-        
-        connectTriangleNodes();
+        }
       };
       
-      // Create animated data packets that travel along connections
+      // Create animated data packets that travel along connections - fewer packets
       const dataPackets = [];
       const createDataPackets = () => {
         // Choose random connections to animate with data packets
-        const packetCount = 15; // Number of data packets to create
+        const packetCount = 8; // Reduced number of data packets
         
         for (let i = 0; i < packetCount; i++) {
           // Select a random node with connections
           let sourceNode = null;
           let targetNodeIndex = -1;
           
-          // Find a node that has connections
-          while (targetNodeIndex === -1 && nodes.length > 0) {
-            const randomNodeIndex = Math.floor(Math.random() * nodes.length);
-            const node = nodes[randomNodeIndex];
-            
-            if (node.connections.length > 0) {
-              sourceNode = node;
-              targetNodeIndex = node.connections[Math.floor(Math.random() * node.connections.length)];
-              break;
+          // Find a node that has connections, preferring main nodes
+          const mainNodesWithConnections = nodes.filter(n => n.isMainNode && n.connections.length > 0);
+          
+          if (mainNodesWithConnections.length > 0 && Math.random() > 0.3) {
+            // 70% chance to start from a main node
+            sourceNode = mainNodesWithConnections[Math.floor(Math.random() * mainNodesWithConnections.length)];
+            targetNodeIndex = sourceNode.connections[Math.floor(Math.random() * sourceNode.connections.length)];
+          } else {
+            // Otherwise find any node with connections
+            while (targetNodeIndex === -1 && nodes.length > 0) {
+              const randomNodeIndex = Math.floor(Math.random() * nodes.length);
+              const node = nodes[randomNodeIndex];
+              
+              if (node.connections.length > 0) {
+                sourceNode = node;
+                targetNodeIndex = node.connections[Math.floor(Math.random() * node.connections.length)];
+                break;
+              }
             }
           }
           
@@ -353,11 +316,11 @@ const LearnMoreBackground = () => {
               sourceNodeIndex: nodes.indexOf(sourceNode),
               targetNodeIndex: targetNodeIndex,
               progress: 0,
-              speed: 0.002 + Math.random() * 0.003,
+              speed: 0.002 + Math.random() * 0.002,
               size: 1.5 + Math.random() * 1,
               color: 'rgba(255, 255, 255, 0.8)',
               active: false,
-              delay: Math.random() * 10000 // Stagger start times
+              delay: Math.random() * 5000 // Stagger start times
             });
           }
         }
@@ -367,14 +330,13 @@ const LearnMoreBackground = () => {
       createPredefinedTriangles();
       createGridNodes();
       createConnections();
-      createPulseWaves();
       createParticles();
       createDataPackets();
       
-      return { nodes, triangles, pulseWaves, particles, dataPackets };
+      return { nodes, triangles, particles, dataPackets };
     };
     
-    const { nodes, triangles, pulseWaves, particles, dataPackets } = createHiveStructure();
+    const { nodes, triangles, particles, dataPackets } = createHiveStructure();
     
     // Animation function
     const animate = () => {
@@ -420,35 +382,6 @@ const LearnMoreBackground = () => {
         }
         
         ctx.restore();
-      });
-      
-      // Draw pulse waves
-      pulseWaves.forEach(wave => {
-        const elapsed = time * 1000 - wave.startTime;
-        
-        // Only start wave after its delay
-        if (elapsed > 0) {
-          wave.active = true;
-          
-          // Calculate radius based on time
-          wave.radius = (elapsed * wave.speed) % wave.maxRadius;
-          
-          // Calculate opacity based on radius
-          const opacity = (1 - wave.radius / wave.maxRadius) * wave.opacity;
-          
-          // Draw wave circle
-          ctx.beginPath();
-          ctx.arc(wave.x, wave.y, wave.radius, 0, Math.PI * 2);
-          ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})`;
-          ctx.lineWidth = 0.5;
-          ctx.stroke();
-          
-          // Reset wave when it reaches max size
-          if (wave.radius >= wave.maxRadius) {
-            wave.radius = 0;
-            wave.startTime = time * 1000; // Reset start time
-          }
-        }
       });
       
       // First draw triangle structures
@@ -540,7 +473,7 @@ const LearnMoreBackground = () => {
         }
       });
       
-      // Draw connections between nodes
+      // Draw connections between nodes - enhanced visibility
       for (let i = 0; i < nodes.length; i++) {
         const node = nodes[i];
         
@@ -553,7 +486,7 @@ const LearnMoreBackground = () => {
           node.glowIntensity = 0.5 + Math.sin(time * node.glowSpeed + node.glowPhase) * 0.5;
         }
         
-        // Draw connections
+        // Draw connections with enhanced visibility
         for (let j = 0; j < node.connections.length; j++) {
           const targetNode = nodes[node.connections[j]];
           
@@ -561,57 +494,39 @@ const LearnMoreBackground = () => {
           const dy = targetNode.y - node.y;
           const distance = Math.sqrt(dx * dx + dy * dy);
           
-          // Only draw connections within a certain range
-          if (distance < dimensions.width / 2.5) {
-            // Opacity based on distance and add subtle time-based variation
-            const baseOpacity = Math.max(0.05, 0.3 - (distance / (dimensions.width / 2)));
-            const timeVariation = Math.sin(time * 0.3 + i * 0.1) * 0.05;
-            const opacity = baseOpacity + timeVariation;
-            
-            // Draw line with slight wave effect
-            const segments = 5; // Number of segments for the wavy line
-            
-            ctx.beginPath();
-            ctx.moveTo(node.x, node.y);
-            
-            if (Math.random() > 0.7) {
-              // Draw straight line most of the time
-              ctx.lineTo(targetNode.x, targetNode.y);
-            } else {
-              // Occasionally draw wavy line
-              for (let s = 1; s <= segments; s++) {
-                const progress = s / segments;
-                const pathX = node.x + dx * progress;
-                const pathY = node.y + dy * progress;
-                
-                // Add sine wave displacement perpendicular to line direction
-                const perpAngle = Math.atan2(dy, dx) + Math.PI / 2;
-                const waveAmplitude = 2;
-                const waveX = Math.sin(time * 2 + progress * Math.PI * 4) * waveAmplitude;
-                const waveY = Math.cos(time * 2 + progress * Math.PI * 4) * waveAmplitude;
-                
-                const offsetX = Math.cos(perpAngle) * waveX;
-                const offsetY = Math.sin(perpAngle) * waveY;
-                
-                if (s < segments) {
-                  ctx.lineTo(pathX + offsetX, pathY + offsetY);
-                } else {
-                  // Make sure the last point connects exactly to the target
-                  ctx.lineTo(targetNode.x, targetNode.y);
-                }
-              }
-            }
-            
-            // Line style with occasional color tinting
-            if (Math.random() > 0.9) {
-              // Occasionally add a blue tint
-              ctx.strokeStyle = `rgba(200, 220, 255, ${opacity})`;
-            } else {
-              ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})`;
-            }
-            ctx.lineWidth = 0.5;
-            ctx.stroke();
+          // Draw the connection with improved visibility
+          // Base opacity on importance of nodes
+          let baseOpacity = 0.3;
+          if (node.isMainNode && targetNode.isMainNode) {
+            baseOpacity = 0.6; // Important connections are more visible
+          } else if (node.isMainNode || targetNode.isMainNode) {
+            baseOpacity = 0.4; // Connections to important nodes are somewhat visible
           }
+          
+          // Add time variation to create subtle pulsing
+          const timeVariation = Math.sin(time * 0.3 + i * 0.1) * 0.1;
+          const opacity = baseOpacity + timeVariation;
+          
+          ctx.beginPath();
+          ctx.moveTo(node.x, node.y);
+          ctx.lineTo(targetNode.x, targetNode.y);
+          
+          // Line style with occasional blue tint for key connections
+          if ((node.isMainNode && targetNode.isMainNode) && Math.random() > 0.7) {
+            // Important connections have blue tint occasionally
+            ctx.strokeStyle = `rgba(200, 220, 255, ${opacity})`;
+          } else {
+            ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})`;
+          }
+          
+          // Connection line width based on importance
+          if (node.isMainNode && targetNode.isMainNode) {
+            ctx.lineWidth = 1.0; // Thicker lines for main connections
+          } else {
+            ctx.lineWidth = 0.6;
+          }
+          
+          ctx.stroke();
         }
       }
       
@@ -644,16 +559,27 @@ const LearnMoreBackground = () => {
                 packet.progress = 0;
               } else {
                 // If no connections available, reset to a random new packet
-                const randomNodeIndex = Math.floor(Math.random() * nodes.length);
-                const randomNode = nodes[randomNodeIndex];
-                
-                if (randomNode.connections.length > 0) {
-                  packet.sourceNodeIndex = randomNodeIndex;
-                  packet.targetNodeIndex = randomNode.connections[
-                    Math.floor(Math.random() * randomNode.connections.length)
+                const mainNodes = nodes.filter(n => n.isMainNode && n.connections.length > 0);
+                if (mainNodes.length > 0 && Math.random() > 0.3) {
+                  // Prefer main nodes
+                  const sourceNode = mainNodes[Math.floor(Math.random() * mainNodes.length)];
+                  packet.sourceNodeIndex = nodes.indexOf(sourceNode);
+                  packet.targetNodeIndex = sourceNode.connections[
+                    Math.floor(Math.random() * sourceNode.connections.length)
                   ];
-                  packet.progress = 0;
+                } else {
+                  // Any node with connections
+                  const randomNodeIndex = Math.floor(Math.random() * nodes.length);
+                  const randomNode = nodes[randomNodeIndex];
+                  
+                  if (randomNode.connections.length > 0) {
+                    packet.sourceNodeIndex = randomNodeIndex;
+                    packet.targetNodeIndex = randomNode.connections[
+                      Math.floor(Math.random() * randomNode.connections.length)
+                    ];
+                  }
                 }
+                packet.progress = 0;
               }
             }
             
@@ -666,41 +592,52 @@ const LearnMoreBackground = () => {
               const x = sourceNode.x + (targetNode.x - sourceNode.x) * packet.progress;
               const y = sourceNode.y + (targetNode.y - sourceNode.y) * packet.progress;
               
+              // Enhanced packet visibility
+              const packetSize = packet.size * (sourceNode.isMainNode || targetNode.isMainNode ? 1.5 : 1);
+              
               // Draw glowing packet
               ctx.beginPath();
-              ctx.arc(x, y, packet.size, 0, Math.PI * 2);
-              ctx.fillStyle = packet.color;
+              ctx.arc(x, y, packetSize, 0, Math.PI * 2);
+              
+              // Color based on node importance
+              if (sourceNode.isMainNode && targetNode.isMainNode) {
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+              } else {
+                ctx.fillStyle = packet.color;
+              }
               ctx.fill();
               
               // Add glow effect
               const gradient = ctx.createRadialGradient(
-                x, y, packet.size / 2,
-                x, y, packet.size * 3
+                x, y, packetSize / 2,
+                x, y, packetSize * 3
               );
               gradient.addColorStop(0, 'rgba(255, 255, 255, 0.4)');
               gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
               
               ctx.beginPath();
-              ctx.arc(x, y, packet.size * 3, 0, Math.PI * 2);
+              ctx.arc(x, y, packetSize * 3, 0, Math.PI * 2);
               ctx.fillStyle = gradient;
               ctx.fill();
               
-              // Draw trail
-              ctx.beginPath();
-              ctx.moveTo(x, y);
-              ctx.lineTo(
-                sourceNode.x + (targetNode.x - sourceNode.x) * Math.max(0, packet.progress - 0.1),
-                sourceNode.y + (targetNode.y - sourceNode.y) * Math.max(0, packet.progress - 0.1)
-              );
-              ctx.strokeStyle = `rgba(255, 255, 255, 0.5)`;
-              ctx.lineWidth = packet.size * 0.8;
-              ctx.stroke();
+              // Draw trail for packets between main nodes
+              if (sourceNode.isMainNode || targetNode.isMainNode) {
+                ctx.beginPath();
+                ctx.moveTo(x, y);
+                ctx.lineTo(
+                  sourceNode.x + (targetNode.x - sourceNode.x) * Math.max(0, packet.progress - 0.15),
+                  sourceNode.y + (targetNode.y - sourceNode.y) * Math.max(0, packet.progress - 0.15)
+                );
+                ctx.strokeStyle = `rgba(255, 255, 255, 0.5)`;
+                ctx.lineWidth = packetSize * 0.8;
+                ctx.stroke();
+              }
             }
           }
         }
       });
       
-      // Draw nodes on top
+      // Draw nodes on top with enhanced visibility for main nodes
       for (let i = 0; i < nodes.length; i++) {
         const node = nodes[i];
         
@@ -709,7 +646,8 @@ const LearnMoreBackground = () => {
             node.y > -10 && node.y < dimensions.height + 10) {
           
           // Draw node with minimal pulse
-          const pulse = 1 + Math.sin(time + node.variation) * 0.1;
+          const pulseAmount = node.isMainNode ? 0.15 : 0.1; // More noticeable pulse for main nodes
+          const pulse = 1 + Math.sin(time + node.variation) * pulseAmount;
           const nodeSize = node.size * pulse;
           
           // Add glow effect for glowing nodes
@@ -722,7 +660,10 @@ const LearnMoreBackground = () => {
               node.x, node.y, nodeSize / 2,
               node.x, node.y, glowSize
             );
-            glowGradient.addColorStop(0, `rgba(255, 255, 255, ${0.3 * node.glowIntensity})`);
+            
+            // Enhanced glow for main nodes
+            const glowOpacity = node.isMainNode ? 0.4 * node.glowIntensity : 0.3 * node.glowIntensity;
+            glowGradient.addColorStop(0, `rgba(255, 255, 255, ${glowOpacity})`);
             glowGradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
             
             ctx.beginPath();
@@ -736,7 +677,10 @@ const LearnMoreBackground = () => {
           
           ctx.beginPath();
           ctx.arc(node.x, node.y, nodeSize, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(255, 255, 255, ${0.9 * flicker})`;
+          
+          // Main nodes are brighter
+          const nodeOpacity = node.isMainNode ? 0.95 * flicker : 0.8 * flicker;
+          ctx.fillStyle = `rgba(255, 255, 255, ${nodeOpacity})`;
           ctx.fill();
           
           // Draw subtle glow for larger nodes only

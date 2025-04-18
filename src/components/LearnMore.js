@@ -221,11 +221,11 @@ const LearnMore = () => {
           padding: 3rem;
           max-width: 800px;
           width: 90%;
-          text-align: center;
+          text-align: left;
           box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
           display: flex;
           flex-direction: column;
-          align-items: center;
+          align-items: flex-start;
           margin-bottom: 3rem;
         }
         
@@ -237,14 +237,16 @@ const LearnMore = () => {
           letter-spacing: 2px;
           position: relative;
           text-transform: uppercase;
+          text-align: left;
+          align-self: flex-start;
         }
         
         .main-title::after {
           content: '';
           position: absolute;
           bottom: -0.5rem;
-          left: 50%;
-          transform: translateX(-50%);
+          left: 0;
+          transform: none;
           width: 50px;
           height: 2px;
           background: #ffffff;
@@ -257,6 +259,9 @@ const LearnMore = () => {
           flex-direction: column;
           justify-content: center;
           position: relative;
+          align-items: flex-start;
+          width: 100%;
+          text-align: left;
         }
         
         .content-transition {
@@ -279,6 +284,8 @@ const LearnMore = () => {
           color: #ffffff;
           margin-bottom: 1rem;
           letter-spacing: 1px;
+          text-align: left;
+          align-self: flex-start;
         }
         
         .section-text {
@@ -286,12 +293,15 @@ const LearnMore = () => {
           line-height: 1.6;
           color: rgba(255, 255, 255, 0.8);
           max-width: 600px;
+          text-align: left;
+          align-self: flex-start;
         }
         
         .section-indicators {
           display: flex;
           gap: 0.5rem;
           margin-top: 1rem;
+          align-self: flex-start;
         }
         
         .indicator {
