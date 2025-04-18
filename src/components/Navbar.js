@@ -72,7 +72,7 @@ const Navbar = () => {
                   scrollToSection('about');
                 }}
               >
-                Mission
+                Our Story
                 <span className="hover-indicator"></span>
               </a>
             </li>
