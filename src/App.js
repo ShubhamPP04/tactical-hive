@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './styles/styles.css';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -6,6 +7,7 @@ import Hero from './components/Hero';
 import OurStory from './components/OurStory';
 import Capabilities from './components/Capabilities';
 import Contact from './components/Contact';
+import LearnMore from './components/LearnMore';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
@@ -74,50 +76,57 @@ function App() {
   }, []);
   
   return (
-    <div className="app">
-      <div className="grid-lines"></div>
-      
-      <Navbar />
-      
-      <main className="main-content">
-        <Hero />
-        <OurStory />
-        <Capabilities />
-        <Contact />
-      </main>
-      
-      <Footer />
-      
-      <style jsx>{`
-        .app {
-          position: relative;
-          overflow-x: hidden;
-        }
+    <Router>
+      <div className="app">
+        <div className="grid-lines"></div>
+        
+        <Routes>
+          <Route path="/learn-more" element={<LearnMore />} />
+          <Route path="/" element={
+            <>
+              <Navbar />
+              <main className="main-content">
+                <Hero />
+                <OurStory />
+                <Capabilities />
+                <Contact />
+              </main>
+              <Footer />
+            </>
+          } />
+        </Routes>
+        
+        <style jsx>{`
+          .app {
+            position: relative;
+            overflow-x: hidden;
+          }
 
-        .main-content {
-          display: flex;
-          flex-direction: column;
-          gap: 0;
-          overflow: hidden;
-          margin: 0;
-          padding: 0;
-          height: auto;
-        }
+          .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            height: auto;
+          }
 
-        .main-content > * {
-          margin: 0;
-          padding: 0;
-        }
+          .main-content > * {
+            margin: 0;
+            padding: 0;
+          }
 
-        .main-content > *:not(:first-child) {
-          margin-top: -4rem; /* Create overlap between all sections */
-        }
+          .main-content > *:not(:first-child) {
+            margin-top: -4rem; /* Create overlap between all sections */
+          }
 
-        .grid-lines {
-          pointer-events: none;
-        }
-      `}</style>
-    </div>
+          .grid-lines {
+            pointer-events: none;
+          }
+        `}</style>
+      </div>
+    </Router>
   );
 }
 

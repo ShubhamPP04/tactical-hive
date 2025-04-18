@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { ScrollTrigger as ScrollTriggerPlugin } from 'gsap/ScrollTrigger';
+import { Link } from 'react-router-dom';
 import CentralNodeNetwork from './CentralNodeNetwork';
 
 // Register plugins with GSAP
@@ -96,12 +97,9 @@ const Hero = () => {
         </p>
 
         <div className="button-container" ref={ctaRef}>
-          <button
-            className="btn"
-            onClick={() => scrollToSection('about')}
-          >
+          <Link to="/learn-more" className="btn">
             LEARN MORE
-          </button>
+          </Link>
         </div>
       </div>
 
