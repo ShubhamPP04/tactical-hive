@@ -45,6 +45,7 @@ const Navbar = () => {
         <div className="navbar-logo">
           <button className="logo-button" onClick={() => scrollToSection('hero')}>
             <span className="logo-text">TACTICAL<span className="logo-accent">HIVE</span></span>
+            <span className="logo-subtitle">POWERED BY HIVE DYNAMICS</span>
           </button>
         </div>
 
@@ -153,6 +154,9 @@ const Navbar = () => {
           padding: 0;
           cursor: pointer;
           position: relative;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
         }
 
         .logo-text {
@@ -162,10 +166,22 @@ const Navbar = () => {
           color: var(--text-color);
           letter-spacing: 2px;
           text-transform: uppercase;
+          display: block;
         }
 
         .logo-accent {
           font-weight: 300;
+        }
+
+        .logo-subtitle {
+          font-family: var(--font-alt);
+          font-size: 0.6rem;
+          font-weight: 400;
+          color: rgba(255, 255, 255, 0.7);
+          letter-spacing: 1px;
+          text-transform: uppercase;
+          margin-top: 0rem;
+          display: block;
         }
 
         .navbar-links {
@@ -335,6 +351,17 @@ const Navbar = () => {
         .navbar-cta:hover {
           background: rgba(255, 255, 255, 0.1);
           border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        @media (max-width: 768px) {
+          .logo-text {
+            font-size: 1.2rem;
+          }
+
+          .logo-subtitle {
+            font-size: 0.5rem;
+            letter-spacing: 0.5px;
+          }
         }
       `}</style>
     </nav>

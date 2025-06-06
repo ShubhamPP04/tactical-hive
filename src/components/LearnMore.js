@@ -110,6 +110,7 @@ const LearnMore = () => {
       <div className="content-container">
         <div className="content-wrapper">
           <h1 className="main-title">Tactical Hive</h1>
+          <p className="main-subtitle">POWERED BY HIVE DYNAMICS</p>
           <div className="section-content">
             <div className={`content-transition ${animating ? 'fade-out' : 'fade-in'}`}>
               <h2 className="section-title">{contentSections[activeSection].title}</h2>
@@ -250,6 +251,19 @@ const LearnMore = () => {
           width: 50px;
           height: 2px;
           background: #ffffff;
+        }
+
+        .main-subtitle {
+          font-size: 1rem;
+          font-weight: 400;
+          color: rgba(255, 255, 255, 0.7);
+          margin-bottom: 2rem;
+          margin-top: -1.5rem;
+          letter-spacing: 3px;
+          text-transform: uppercase;
+          text-align: left;
+          align-self: flex-start;
+          font-family: var(--font-alt);
         }
         
         .section-content {
@@ -520,6 +534,12 @@ const LearnMore = () => {
           
           .main-title {
             font-size: 2rem;
+          }
+
+          .main-subtitle {
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            margin-top: -1rem;
           }
           
           .section-title {
